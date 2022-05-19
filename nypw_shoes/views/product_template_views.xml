@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.ui.view" id="product_template_only_form_view_inherit_shoes">
+            <field name="name">product.template.product.form.inherit.shoes</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_policy']" position="after">
+                    <field name="pair_p_case" />
+                    <field name="price_p_pair" />
+                </xpath>
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('pair_p_case','>','0'),('price_p_pair','>','0')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
