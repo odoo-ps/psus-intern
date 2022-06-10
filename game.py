@@ -31,9 +31,6 @@ blockX = 250
 blockY = 250
 winner = 3
 
-def gameOver():
-    py.quit()
-
 running = True
 while running:
     py.time.delay(50)
@@ -156,9 +153,9 @@ while running:
 
 text = "tie"
 if winner == 2:
-    text = "player 2"
+    text = "blue"
 elif winner == 1:
-    text == "player 1"
+    text = "red"
 font = py.font.SysFont('times new roman', 50)
 display = font.render(text, True, py.Color(255,255,255))
 rect = display.get_rect()
