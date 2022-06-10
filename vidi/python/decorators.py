@@ -53,8 +53,8 @@ def bar(who='Stranger'):
 class NoneClassButStillInScope:
     pass
 
-class greet(Generic[T]):
-    def __init__(self, value: T | None = None):
+class greet:
+    def __init__(self, value=None):
         self.value = value
     def __call__(self, fun: Callable):      
         @wraps(fun)
@@ -76,6 +76,7 @@ def cfg_attr(cond, *decos: Callable):
         def _identity(i: T) -> T: return i
         return _identity
 
+@greet('Unconditionally')
 @cfg_attr(
     True,
     hello,
