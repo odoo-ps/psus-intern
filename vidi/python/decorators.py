@@ -6,12 +6,12 @@
 # Learn about the different kinds of decorators and how to declare them.
 
 from typing import Callable, Generic, TypeVar
-from functools import lru_cache, wraps
+from functools import wraps
 
 T = TypeVar('T')
 
 # In Python, decorators are callables that wrap an object.
-# Other languages call this pattern higher-order functions (HOCs).
+# Other languages call this pattern higher-order functions (HOFs).
 # Classes can also be implemented as decorators.
 
 # Mark the parameter to clarify that this annotation can only receive callables
