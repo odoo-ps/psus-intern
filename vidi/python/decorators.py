@@ -79,13 +79,13 @@ class greet:
 def cfg_attr(cond, *decos: Callable):
     """ If "cond" is true, apply "decos" onto the target."""
     if cond:
-        def _collapse(fun: T) -> T:
+        def _collapse(fun):
             for deco in reversed(decos):  # in order of declaration
                 fun = deco(fun)
             return fun
         return _collapse
     else:
-        def _identity(i: T) -> T: return i
+        def _identity(fun): return fun
         return _identity
 
 
