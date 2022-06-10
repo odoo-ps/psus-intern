@@ -66,15 +66,15 @@ def show(height, j=-1):
                              (x + 47 * i, y, width, height[i]*2))
 
 
-def bubble_sort(height):
-    for i in range(len(height) - 1):
-        for j in range(len(height) - i - 1):
-            if height[j] > height[j + 1]:
-                t = height[j]
-                height[j] = height[j + 1]
-                height[j + 1] = t
+def bubble_sort(array):
+    for i in range(len(array) - 1):
+        for j in range(len(array) - i - 1):
+            if array[j] > array[j + 1]:
+                t = array[j]
+                array[j] = array[j + 1]
+                array[j + 1] = t
                 win.fill((0, 0, 0))
-                show(height, j+1)
+                show(array, j+1)
                 pygame.time.delay(50)
                 pygame.display.update()
 
