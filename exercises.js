@@ -67,4 +67,39 @@ function gteFunc(num1, num2) {
 // && (and) both conditions must be true to return true, else false
 // || (or) if all conditions false then return false, else true
 
-// currently : https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/selecting-from-many-options-with-switch-statements
+function ranged(val) {
+   let answer = "";
+
+   switch(val) { // switch-case format
+     case 1: // switch case will check all cases after initial
+     case 2: // until break is found, running cases
+       answer = "Low";
+       break;
+     case 3:
+     case 4:
+       answer = "Mid";
+       break;
+     case 5:
+     case 6:
+       answer = "High";
+       break;
+   }
+ 
+   return answer;
+ }
+
+// init object structure
+const testObj = { // need '=' assignment
+  "hat": "ballcap",
+  "shirt": "jersey", // use ',' instead of ';'
+  "shoes": "cleats"
+}; // requires ';' at end
+// since property values are mutable, can change it:
+// testObj.hat = "bonnet";
+// properties can be added or removed:
+// testObj.pants = "denim";
+// delete testObj.hat;
+
+console.log(testObj.hat); // exObj["prop1"] quotes required for brackets
+
+// https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/testing-objects-for-properties
