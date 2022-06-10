@@ -9,13 +9,11 @@ y = 40
 # width of each bar
 width = 40
 
-# height of each bar (data to be sorted)
-height = [200, 50, 130, 90, 250, 61, 110,
-          88, 33, 80, 70, 159, 180, 20,
-          100, 89, 69, 4, 220, 16, 15]
-
 
 def run(method):
+    height = [200, 50, 130, 90, 250, 61, 110,
+              88, 33, 80, 70, 159, 180, 20,
+              100, 89, 69, 4, 220, 16, 15]
     run = True
     pygame.init()
     if method == 'bubble':
@@ -41,13 +39,13 @@ def run(method):
             pygame.display.update()
         else:
             if method == 'bubble':
-                bubble_sort()
+                bubble_sort(height)
             elif method == 'insertion':
                 insertion_sort(height)
             else:
                 selection_sort(height, len(height))
             run = False
-    pygame.quit()
+            pygame.time.delay(300)
 
 # method to show the list of height
 
@@ -68,7 +66,7 @@ def show(height, j=-1):
                              (x + 47 * i, y, width, height[i]*2))
 
 
-def bubble_sort():
+def bubble_sort(height):
     for i in range(len(height) - 1):
         for j in range(len(height) - i - 1):
             if height[j] > height[j + 1]:
