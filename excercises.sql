@@ -10,7 +10,7 @@ CREATE TABLE "user"(
   age INT
 );
 
--- Create table with foreign key
+-- Create table with foreign key and setted to delete on cascade 
 
 CREATE TABLE post (
   id SERIAL PRIMARY KEY,
@@ -18,6 +18,7 @@ CREATE TABLE post (
   body VARCHAR(255)
   user_id INT,
   CONSTRAINT fk_user  FOREIGN KEY(user_id) REFERENCES "user"(id)
+  ON DELETE CASCADE
 );
 
 -- Insert into table statement
