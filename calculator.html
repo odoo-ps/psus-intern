@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+
+        <style>
+            .grid-container {
+                display: grid;
+                grid-template-columns: 100px 100px 100px 100px;
+                grid-template-rows: 50px 50px 50px 50px 50px;
+                padding: 10px;
+                justify-content: center;
+            }
+
+            .grid-item {
+                font-size: large;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="text-align: center;" id="textbox"></div>
+
+        <div class="grid-container">
+            <button class="grid-item" onclick="addText(7)">7</button>
+            <button class="grid-item" onclick="addText(8)">8</button>
+            <button class="grid-item" onclick="addText(9)">9</button>
+            <button class="grid-item" onclick="addText('+')">+</button>
+            <button class="grid-item" onclick="addText(4)">4</button>
+            <button class="grid-item" onclick="addText(5)">5</button>
+            <button class="grid-item" onclick="addText(6)">6</button>
+            <button class="grid-item" onclick="addText('-')">-</button>
+            <button class="grid-item" onclick="addText(1)">1</button>
+            <button class="grid-item" onclick="addText(2)">2</button>
+            <button class="grid-item" onclick="addText(3)">3</button>
+            <button class="grid-item" onclick="addText('*')">*</button>
+            <button class="grid-item" onclick="addText(0)">0</button>
+            <button class="grid-item" onclick="addText('.')">.</button>
+            <button class="grid-item" onclick="submit()">Submit</button>
+            <button class="grid-item" onclick="addText('/')">/</button>
+            <button class="grid-item" style="width: 400px" onclick="clearTextBox()">Clear</button>
+        </div> 
+
+        <p>
+            Low quality calculator which doesn't understand order of operations.
+        </p>
+
+        <script src="calculator.js" type="text/javascript"></script>
+    </body>
+</html>
+
