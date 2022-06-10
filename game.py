@@ -1,6 +1,7 @@
 from distutils.spawn import spawn
 import pygame as py
 import random
+import time
 
 py.init()
 
@@ -10,49 +11,28 @@ speed = 5
 
 p1X = 400
 p1Y = 400
-p1width = 25
-p1height = 25
+p1width = 10
+p1height = 10
 p1direction = 'UP'
 p1change = 'UP'
 p1body = [[400,400]]
 
 p2X = 100
 p2Y = 400
-p2width = 25
-p2height = 25
+p2width = 10
+p2height = 10
 p2direction = 'UP'
 p2change = 'UP'
 p2body = [[100,400]]
 
-speed = 5
-spawn = False
-blockX = 0
-blockY = 0
+speed = 10
+spawn = True
+blockX = 250
+blockY = 250
+winner = 3
 
 def gameOver():
     py.quit()
-
-def spawnBlock():
-    while True:
-        x = random.randint(0,500)
-        y = random.randint(0,500)
-        if (x > p1X + p1width  and y > p1Y + p1height) or (x < p1X and y < p1Y):
-            if(x > p2X + p2width and y > p2Y + p2height) or (x < p2X and y < p2Y):
-                py.draw.rect(screen, (255,255,0), (x,y,25,25))
-                blockX = x
-                blockY = y
-                return
-
-def checkCollision():
-    if p1X < 0 or p1X > 500: 
-        gameOver()
-    if p1Y < 0 or p1Y > 500:
-        gameOver()
-    if p2X < 0 or p2X > 500:
-        gameOver()
-    if p2Y < 0 or p2Y > 500:
-        gameOver
-
 
 running = True
 while running:
@@ -117,15 +97,73 @@ while running:
     if p2direction == 'RIGHT':
         p2X += speed
 
-    checkCollision()
+    if p1X < 0 or p1X > 500: 
+        winner = 2
+        running = False
+    if p1Y < 0 or p1Y > 500:
+        winner = 2
+        running = False
+    if p2X < 0 or p2X > 500:
+        winner = 1
+        running = False
+    if p2Y < 0 or p2Y > 500:
+        winner = 1
+        running = False
+    
+    p1body.insert(0, list([p1X, p1Y]))
+    p2body.insert(0, list([p2X, p2Y]))
+
+    if (p1X == blockX and p1Y == blockY):
+        spawn = False
+    else:
+        p1body.pop()
+
+    if (p2X == blockX and p2Y == blockY):
+        spawn = False
+    else:
+        p2body.pop()
+
+    if(p1X == p2X and p1Y == p2Y):
+        py.quit()
+
+    for pos in p1body:
+        if p2X == pos[0] and p2Y == pos[1]:
+            winner = 1
+            running = False
+    for pos in p2body:
+        if p1X == pos[0] and p1Y == pos[1]:
+            winner = 2
+            running = False
 
     if not spawn:
-        spawnBlock()
+        cont = True
+        while cont:
+            x = random.randrange(0,490,10)
+            y = random.randrange(0,490,10)
+            if (x != p1X and y != p1Y) and (x != p2X and y != p2Y):
+                blockX = x
+                blockY = y
+                cont = False
         spawn = True
 
     screen.fill((0,0,0))
-    py.draw.rect(screen, (255, 255, 255), (p1X, p1Y, p1width, p1height))
-    py.draw.rect(screen, (194, 197, 204), (p2X, p2Y, p2width, p2height))
+    py.draw.rect(screen, (255,255,0), (blockX,blockY,10,10))
+    for pos in p1body:
+        py.draw.rect(screen, (255,0,0), (pos[0], pos[1], p1width, p1height))
+    for pos in p2body:    
+        py.draw.rect(screen, (0, 0, 255), (pos[0], pos[1], p2width, p2height))
     py.display.update()
 
+text = "tie"
+if winner == 2:
+    text = "player 2"
+elif winner == 1:
+    text == "player 1"
+font = py.font.SysFont('times new roman', 50)
+display = font.render(text, True, py.Color(255,255,255))
+rect = display.get_rect()
+rect.midtop = (200,200)
+screen.blit(display, rect)
+print(text)
+time.sleep(5)
 py.quit()
