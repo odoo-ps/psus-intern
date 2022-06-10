@@ -1,22 +1,35 @@
 const numbers = document.querySelectorAll(".number")
 const currentOperand = document.querySelector(".current-operand")
 const previousOperand = document.querySelector(".previous-operand")
-const spanTwo = document.querySelector(".equal")
+const equal = document.querySelector(".equal")
 const operators = document.querySelectorAll(".operator")
+const del = document.querySelector(".del")
+const ac = document.querySelector("#ac")
 let result = null
 let operation = ""
-console.log(spanTwo);
 for (const number of numbers) {
     number.addEventListener("click", e =>{
         e.preventDefault()
+       
         currentOperand.innerText = currentOperand.innerText+number.innerText
-        console.log(number.innerText);
+        if (currentOperand.innerText == '.') {
+            currentOperand.innerText = '0.'
+        }
+  
+
     })
     
 }
 for (const operator of operators) {
     operator.addEventListener("click", e =>{
-        previousOperand.innerText = currentOperand.innerText + operator.innerText
+        if (currentOperand.innerText == '0.') {
+            console.log("si");
+            currentOperand.innerText = '0.0'
+            previousOperand.innerText = currentOperand.innerText + operator.innerText
+        }else{
+            previousOperand.innerText = currentOperand.innerText + operator.innerText
+        }
+       
         result = parseFloat(currentOperand.innerText)
         currentOperand.innerText = ""
         operation = operator.innerText
@@ -24,35 +37,61 @@ for (const operator of operators) {
     })
     
 }
-spanTwo.addEventListener("click", e =>{
+equal.addEventListener("click", e =>{
     e.preventDefault()
 
     switch (operation) {
         case '+':
-                previousOperand.innerText += currentOperand.innerText 
+                if (currentOperand.innerText != '') {
+                    previousOperand.innerText += currentOperand.innerText 
                 result += parseInt(currentOperand.innerText)
                 currentOperand.innerText = result
+                }
+                
             break;
         case '-':
-            previousOperand.innerText += currentOperand.innerText 
-            result -= parseInt(currentOperand.innerText)
-            currentOperand.innerText = result
+                if (currentOperand.innerText != '') {
+                    previousOperand.innerText += currentOperand.innerText 
+                result -= parseFloat(currentOperand.innerText)
+                currentOperand.innerText = result
+                }
+                
             break
-        case '/':
-            previousOperand.innerText += currentOperand.innerText 
-            result /= parseInt(currentOperand.innerText)
-            currentOperand.innerText = result
+        case '÷':
+            if (currentOperand.innerText != '') {
+                previousOperand.innerText += currentOperand.innerText 
+                result /= parseFloat(currentOperand.innerText)
+                if (result == Infinity || result == NaN) {
+                    currentOperand.innerText = "ERROR"
+                }
+                else{
+                    currentOperand.innerText = result
+                }
+            }
+               
             break
         case '*':
-            previousOperand.innerText += currentOperand.innerText 
-            result *= parseInt(currentOperand.innerText)
-            currentOperand.innerText = result
+                if (currentOperand.innerText != '') {
+                    previousOperand.innerText += currentOperand.innerText 
+                    result *= parseFloat(currentOperand.innerText)
+                    currentOperand.innerText = result
+                }
+                
             break
-        
-        
-    
+
         default:
             break;
     }
+})
+
+del.addEventListener('click', e => {
+    e.preventDefault()
+    currentOperand.innerText = ''
+})
+
+ac.addEventListener('click', e => {
+    e.preventDefault()
+    currentOperand.innerText = ''
+    previousOperand.innerText = ''
 })
 
