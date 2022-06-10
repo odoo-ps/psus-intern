@@ -58,7 +58,6 @@ def print_list(partners):
 
 active_users = {
     1:["Amanda Nuñez",  "15032020", False],
-    2:["Bárbara Molina",  "11032022", True],
     3:["Lautaro Campos", "15062022", True]
 }
 print("1 Add user")
