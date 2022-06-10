@@ -17,17 +17,21 @@ T = TypeVar('T')
 # Mark the parameter to clarify that this annotation can only receive callables
 # (functions, methods, etc.)
 # Without a return type, annotations are expected to return a transparent wrapper over "fun".
+
+
 def hello(fun):
-    @wraps(fun) # Copies the runtime attributes of "fun" over to "_fun"
+    @wraps(fun)  # Copies the runtime attributes of "fun" over to "_fun"
     def _fun(*args, **kw):
         # Delegate all arguments to "fun"
         print(f'Hello from {fun.__name__}!')
         return fun(*args, **kw)
     return _fun
 
+
 @hello
 def foo():
     print("It's foo.")
+
 
 @hello
 def complex(named_arg=True):
@@ -36,6 +40,8 @@ def complex(named_arg=True):
 # Replicate Rust's conditional attribute.
 # One difference of this approach is that even if cond is falsy,
 # the item will still be in scope.
+
+
 def cfg(cond):
     if cond:
         # Type parameters are required to maintain the original type.
@@ -45,18 +51,22 @@ def cfg(cond):
         def _void(_): return None
         return _void
 
+
 @cfg(True)
 def bar(who='Stranger'):
     print(f'Hello from bar, {who}')
+
 
 @cfg(False)
 class NoneClassButStillInScope:
     pass
 
+
 class greet:
     def __init__(self, value=None):
         self.value = value
-    def __call__(self, fun: Callable):      
+
+    def __call__(self, fun: Callable):
         @wraps(fun)
         def _fun(*args, **kw):
             print(f'Hi there, my value is {self.value}')
@@ -64,17 +74,20 @@ class greet:
         return _fun
 
 # In a similar vein, we can conditionally attach decorators.
+
+
 def cfg_attr(cond, *decos: Callable):
     """ If "cond" is true, apply "decos" onto the target."""
     if cond:
         def _collapse(fun: T) -> T:
-            for deco in reversed(decos): # in order of declaration
+            for deco in reversed(decos):  # in order of declaration
                 fun = deco(fun)
             return fun
         return _collapse
     else:
         def _identity(i: T) -> T: return i
         return _identity
+
 
 @greet('Unconditionally')
 @cfg_attr(
@@ -88,10 +101,12 @@ def baz():
     print('baz is away...')
     return 123
 
+
 if __name__ == '__main__':
     foo()
     complex()
-    if bar: bar()
+    if bar:
+        bar()
     if NoneClassButStillInScope:
         print('this line is never printed')
     ret = baz()

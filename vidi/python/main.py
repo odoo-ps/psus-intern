@@ -21,7 +21,7 @@ class Converter:
             line = self.input.readline()
             while line:
                 self.process(line)
-                self.output.flush() # immediately flush, otherwise stdout can't receive anything
+                self.output.flush()  # immediately flush, otherwise stdout can't receive anything
                 line = self.input.readline()
         else:
             for line in self.input.readlines():
