@@ -1,3 +1,4 @@
+#there are some bugs
 from distutils.spawn import spawn
 import pygame as py
 import random
@@ -121,7 +122,7 @@ while running:
         p2body.pop()
 
     if(p1X == p2X and p1Y == p2Y):
-        py.quit()
+        running = False
 
     for pos in p1body:
         if p2X == pos[0] and p2Y == pos[1]:
