@@ -1,7 +1,6 @@
 import pygame
 import sort_vis
 
-
 pygame.init()
 width, height = (1030, 530)
 screen = pygame.display.set_mode((width, height))
