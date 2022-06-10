@@ -28,3 +28,13 @@ SELECT age FROM "user" WHERE id = 1;
 
 -- remove information
 DELETE FROM "user" WHERE id = 2;
+
+CREATE TABLE post (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    content TEXT,
+    user_id INT,
+    CONSTRAINT fk_user -- specifies a constraint on user_id
+        FOREIGN KEY(user_id) -- a foreign key (nonlocal id)
+            REFERENCES "user"(id) -- that points to id from table user
+);
