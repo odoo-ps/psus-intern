@@ -49,3 +49,10 @@ print("Double the number of 15 =", result(15))
 #[('Social sciences', 82), ('English', 88), ('Science', 90), ('Maths', 97)]
 
 sort_tuple_list = lambda mylist: mylist[1]
+
+#Using .sort() method, create a lambda function that sorts
+#the list in descending order.
+
+lst=[100, 10, 10000, 1, 9, 999, 99]
+lst.sort(key=lambda x: 100/x)
+print(lst)
