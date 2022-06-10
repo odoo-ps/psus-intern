@@ -1,6 +1,0 @@
-style formatting:
-    all keywords are uppercase
-    all information relevant to table is lowercase, snake_case
-
-datatypes:
-    VARCHAR()
