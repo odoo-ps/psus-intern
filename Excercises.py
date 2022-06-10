@@ -1,3 +1,4 @@
+#***************************************
 #List, a list store sequences of items
 
 """a = [1,2,3] #Create a new list with three items
@@ -23,6 +24,7 @@ print(a)
 print(4 in a) #Check for existence in list a
 print(len(a)) #Length of list a """
 
+#***************************************
 #Tuple, like list but inmutable (just one type of data each time)
 """a = (1,2,3) #Create a new tuple
 print(a[0]) #Print the first item
@@ -42,6 +44,7 @@ d, e, f = 4, 5, 6  # tuple 4, 5, 6 is unpacked into variables d, e and f
 # respectively such that d = 4, e = 5 and f = 6
 e, d = d, e  # Swap two values"""
 
+#***************************************
 #Dictionaries, store mappings from keys to values
 # Note keys for dictionaries have to be immutable types. This is to ensure that
 # the key can be converted to a constant hash value for quick look-ups.
@@ -57,6 +60,7 @@ a["four"] = 4
 del a["one"]  # Removes the key "one" from dict
 print(a)"""
 
+#***************************************
 #Sets
 """a = set()
 a = {1, 1, 2, 2, 3, 4}  #New set 
@@ -71,6 +75,7 @@ print({1, 2} <= {1, 2, 3}) #Check if set on the left is a subset of set on the r
 print(2 in a) #Check existence of values in sets
 c = b.copy()  #Make a copy of b to c"""
 
+#***************************************
 #Lambda, or annonymous functions
 """print((lambda x: x > 2)(3))
 a = []
@@ -78,6 +83,7 @@ print(list(map(lambda x: x + 2, [1, 2, 3])))
 print(list(map(max, [1, 2, 3], [4, 2, 1]))) 
 print(list(filter(lambda x: x > 5, [3, 4, 5, 6, 7])))"""
 
+#***************************************
 #Built in functions (datetime)
 """import datetime 
 x = datetime.datetime.now()
@@ -86,6 +92,7 @@ print(x.year)
 print(x.strftime("%B")) 
 print(x.strftime("%d"))"""
 
+#***************************************
 #Decorators, change the behaviour of a function 
 
 #1
