@@ -15,7 +15,7 @@ def permAlone(string) -> int:
     # Create a list of all permutations of the string.
     permutations = list(itertools.permutations(list(string)))
     permutations = [''.join(permutation) for permutation in permutations]
-    copy_list_permutations = permutations
+    copy_list_permutations = permutations.copy()
     #loop through all permutations
     for permutation in permutations:
         last_letter = ""
