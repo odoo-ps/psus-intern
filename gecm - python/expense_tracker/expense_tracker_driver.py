@@ -8,9 +8,11 @@ Usage:
 '''
 
 from pydoc import doc
+
 from docopt import docopt
-from expense_tracker import *
 from tabulate import tabulate
+
+from expense_tracker import *
 
 args = docopt(usage)
 
