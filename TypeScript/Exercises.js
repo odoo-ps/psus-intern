@@ -24,9 +24,9 @@ let list: number[] = [1, 2, 3];
 // For enumerations:
 enum Color { Red, Green, Blue };
 let c: Color = Color.Green;
-console.log(Color[c]); // "Green"*/
+console.log(Color[c]); // "Green"
 //***************************************
 // void functions:
 function bigHorribleAlert() {
     alert("I'm a little annoying box!");
-}
+}*/
