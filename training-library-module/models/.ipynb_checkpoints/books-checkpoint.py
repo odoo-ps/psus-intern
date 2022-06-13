@@ -17,6 +17,6 @@ class Books(models.Model):
         ('detective', 'Detective'),
         ('fantasy', 'Fantasy'),
         ('historical_fiction', 'Historical Fiction'),
-        ('non_fiction', 'Non Fiction')
+        ('non_fiction', 'Non Fiction'),
         ('other', 'Other')
     ])
