@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 
-class Libary(models.Model){
+class Books(models.Model){
     _name = 'library.books'
     _description = 'inventory system for books'
 }
