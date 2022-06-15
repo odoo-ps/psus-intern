@@ -6,6 +6,12 @@
     'author': 'Justin Deng (jden)',
     'category': 'Training',
     'depends': ['base'],
-    'data':[],
-    'demo':[]
+    'data':[
+        'security/library_security.xml',
+        'security/ir.model.access.csv',
+        'views/library_menuitems.xml',
+        'views/book_views.xml'
+    ],
+    'demo':['demo/library_demo.xml']
 }
+

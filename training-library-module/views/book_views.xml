@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="books_view_form">
+            <field name="name">library.books.form</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <form string="Book Form">
+                    <sheet>
+                        <h1><field name="title"/></h1>
+                        <group>
+                            <group>
+                                <field name="active" />
+                            </group>
+                            <group>
+                                <field name="authors" />
+                                <field name="editors" />
+                                <field name="publisher" />
+                                <field name="ISBN" format="None"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="description">
+                                <field name="editors"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="book_view_list">   
+            <field name="name">library.books.list</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="title"/>
+                    <field name="authors"/>
+                    <field name="editors"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="book_view_search">
+            <field name="name">library.books.search</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <search string="title">
+                    <field name="title"/>
+                    <field name="authors"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>
