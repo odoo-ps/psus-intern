@@ -7,10 +7,11 @@ from datetime import date
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    def action_cron_auto_cancel(self):
-        for sale_order in self:
-            if sale_order.state == 'Quotation' and sale_order.validity_date:
-                if sale_order.validity_date < date.today() or sale_order.is_expired:
-                    sale_order.action_cancel()
-                    sale_order.state = 'Cancelled'
-                    sale_order.is_expired = True
+    @api.autovacuum
+    def _cancel_exp_quotations(self):
+        quotations = self.env['sale.order'].search(
+            [('validity_date', '!=', None), ('validity_date', '<', date.today()), ('is_expired', '=', True)])
+        for quotation in quotations:
+            quotation.write(
+                {'state': 'cancel'}
+            )

@@ -12,16 +12,6 @@
                 </xpath>
             </field>
         </record>
-        <record id="remove_exp_quotations_cron" model="ir.cron">
-            <field name="name">Remove Expired Quotations Automatically</field>
-            <field name="interval_number">1</field>
-            <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="doall">1</field>
-            <field name="model_id" ref="remove_exp_quotations.model_sale_order"/>
-            <field name="state">code</field>
-            <field name="code">model.action_cron_auto_cancel()</field>
-        </record>
     </data>
 </odoo>
 
