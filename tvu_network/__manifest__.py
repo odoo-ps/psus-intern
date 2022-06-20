@@ -5,16 +5,15 @@
     'description': """
         Auto cancel app to cancel expired quotations:
     """,
-    'author': 'hmpb',
+    'author': 'Odoo PS',
     'category': 'Sales',
-    'version': '0.1',
+    'version': '15.0.1.0.0',
     'depends': [
         'sale',
-        ],
-    'license' : 'OPL-1',
+    ],
+    'license': 'OPL-1',
     'data': [
     ],
-   'demo': [
-   ],
-    
+    'demo': [
+    ],
 }
