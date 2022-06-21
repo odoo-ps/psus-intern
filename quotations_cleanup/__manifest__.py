@@ -16,10 +16,10 @@
         https://www.odoo.com/web#id=2874269&menu_id=5200&cids=3&action=4665&active_id=2874261&model=project.task&view_type=form
     """,
 
-    'author': "Odoo",
+    'author': "Odoo Inc",
     'website': "https://odoo.com",
 
-    'category': 'Sales',
+    'category': 'Custom Development',
     'version': '15.0',
 
     'application': False,
