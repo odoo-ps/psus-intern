@@ -4,32 +4,21 @@
 
     'license': 'LGPL-3',
 
-    'summary': "Validate that the warehouse won",
+    'summary': "Validate that warehouse receipts don't receive more than demanded.",
 
     'description': """
-        Long description of module's purpose
+        Validate that warehouse receipts don't receive more than demanded.
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Odoo",
+    'website': "https://odoo.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Inventory',
+    'version': '14.0.1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
-
-    # always loaded
-    'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'depends': ['stock'],
 }
