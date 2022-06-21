@@ -6,9 +6,7 @@
   'author': 'Odoo',
   'website': 'https://www.odoo.com',
   'category': 'Inventory',
-  'version': '0.1.0',
+  'version': '14.0.1.0.0',
   'depends': ['stock'],
-  'data': [],
-  'demo': [],
   'license': 'OPL-1'
 }
