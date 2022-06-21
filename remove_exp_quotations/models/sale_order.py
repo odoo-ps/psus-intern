@@ -9,9 +9,7 @@ class SaleOrder(models.Model):
 
     @api.autovacuum
     def _cancel_exp_quotations(self):
+        self.ensure_one()
         quotations = self.env['sale.order'].search(
-            [('validity_date', '!=', None), ('validity_date', '<', date.today()), ('is_expired', '=', True)])
-        for quotation in quotations:
-            quotation.write(
-                {'state': 'cancel'}
-            )
+            [('is_expired', '=', True)])
+        quotations.auto_cancel()

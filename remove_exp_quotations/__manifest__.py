@@ -14,8 +14,5 @@
     'data': [
         'views/sale_order_views_inherit.xml'
     ],
-    'demo': [
-
-    ],
     'license': 'OPL-1',
 }
