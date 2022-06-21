@@ -9,14 +9,9 @@ class SaleSubscription(models.Model):
     property_partner = fields.Many2one(comodel_name='res.partner',
                                        string='Property Partner')
 
-    @api.onchange('property_partner')
-    def change_shipping_id(self):
+    def _prepare_invoice_data(self):
         self.ensure_one()
-        if self.property_partner:
-            delivery_address = self.property_partner.address_get(
-                ['delivery', 'invoice'])['delivery']
-            self.write({'partner_shipping_id': delivery_address})
-        else:
-            delivery_address = self.partner_id.address_get(
-                ['delivery', 'invoice'])['delivery']
-            self.write({'partner_shipping_id': delivery_address})
+        vals = super()._prepare_invoice_data()
+        vals['partner_shipping_id'] = self.property_partner or vals.get(
+            'partner_shipping_id')
+        return vals
