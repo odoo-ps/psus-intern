@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_form_view_inherit_odoo_subs">
+            <field name="name">account.move.view.form.inherit.subs</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <!-- add the form for the property_partner_id-->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_shipping_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

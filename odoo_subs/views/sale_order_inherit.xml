@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_order_form_view_inherit_odoo_subs">
+            <field name="name">sale.order.view.form.inherit.subs</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <!-- add the form for the property_partner_id-->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_shipping_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
