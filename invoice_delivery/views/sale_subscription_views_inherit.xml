@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.ui.view" id="sale_subscription_view_form_inherit_invoice_delivery">
+            <field name="name">sale.subscription.form.inherit.invoice.delivery</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref='sale_subscription.sale_subscription_view_form'/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="property_partner"/>
+                    <field name="partner_shipping_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+ 
