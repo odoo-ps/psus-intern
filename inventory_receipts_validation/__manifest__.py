@@ -20,6 +20,9 @@
 
     'category': 'Custom Development',
     'version': '1.0',
+    'application': False,
+    'installable': True,
+    'auto_install': True,
 
     # any module necessary for this one to work correctly
     'depends': ['stock'],
