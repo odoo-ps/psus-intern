@@ -1,2 +1,0 @@
-add field values for records
-fix error with record rule domain
