@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "inventory_receipts_validation",
+    'name': "Validate Warehouse Receipts",
 
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
 
     'summary': "Validate that warehouse receipts don't receive more than demanded.",
 
     'description': """
         Validate that warehouse receipts don't receive more than demanded.
+
+        The check is performed only when editing receipts.
+
+        Task link:
+        https://www.odoo.com/web#id=2874272&menu_id=5200&cids=3&action=4665&active_id=2874261&model=project.task&view_type=form
     """,
 
-    'author': "Odoo",
+    'author': "Odoo Inc",
     'website': "https://odoo.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Inventory',
-    'version': '14.0.1.0',
+    'category': 'Custom Development',
+    'version': '1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['stock'],
