@@ -8,7 +8,7 @@
   'author': 'Odoo',
   'website': 'https://www.odoo.com',
   'category': 'Sales',
-  'version': '15.0.0',
+  'version': '15.0.1.0.0',
   'depends': [
     'sale_subscription',
     'sale'
