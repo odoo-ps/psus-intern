@@ -3,23 +3,24 @@
 {
     'name': 'NY P&W Shoes',
 
-    'summary': """Add new fields to product.template model""",
+    'summary': """Make `Sales Price` a calculated field based on `Pair per Case` and `Price per Pair` fields""",
 
     'description': """
+        task_id: 2874431
         Add Three fields:
         - Pair per Case
         - Price per Pair
-        - Sales Price
+        - Sales Price = Pair per Case * Price per Pair
         To product.template model
     """,
 
-    'author': 'yazh',
+    'author': 'Odoo Inc',
 
     'website': 'https://www.odoo.com',
 
-    'category': 'Sales',
+    'category': 'Custom development',
 
-    'version': '0.1',
+    'version': '15.0.1.0',
 
     'depends': ['product'],
 
@@ -30,4 +31,10 @@
     'demo': [
 
     ],
+
+    'auto_install': False,
+
+    'installable': True,
+
+    'application': False,
 }
