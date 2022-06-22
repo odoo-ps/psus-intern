@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': "Sales Order",
-    'version': '1.0',
-    'depends': ['sale'],
-    'data': [],
-    'author': "Alexa Acosta",
-    'category': 'Sales',
-    'license': 'OPL-1',
+    'name': "Auto-Cancel Expired Quotations",
+    'summary': "Automatically cancel past due sales orders",
     'description': """
-        Information about a sales order.
+        Sales orders whose expiration date is before the current date
+        will be automatically cancelled as they are no longer relevant.
+        All expiration dates are compared at midnight (12:00 AM) of the
+        designated date.
+
+        Task ID: 2873662
     """,
-    'application': True,
-    'installable': True,
-    'auto_install': False
+    'author': "Odoo Inc.",
+    'website': "https://www.odoo.com/",
+    'category': 'Sales',
+    'version': '1.0',
+    'license': 'OPL-1',
+    # any module necessary for this one to work correctly
+    'depends': ['sale'],
+    'application': False,
 }
