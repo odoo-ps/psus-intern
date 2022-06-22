@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_template_only_form_view">
+            <field name="name">product.template.product.form.inherit..inherit.auto.calculate.price</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref='product.product_template_only_form_view'/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="before">
+                    <field name="pair_per_case" />
+                    <field name="price_per_pair" /> 
+                </field>
+                <field name='list_price' position='attributes'>
+                    <attribute name="attrs">
+                        { 
+                        'readonly': [
+                            ('pair_per_case', '!=', 0),
+                            ('price_per_pair', '!=', 0)
+                        ]
+                        }
+                    </attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
