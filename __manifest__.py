@@ -20,6 +20,10 @@
     # any module necessary for this one to work correctly
     'depends': ['sale_subscription'],
 
+    'data': [
+        'views/sale_subscription_views_inherit.xml',
+    ],
+
 
     'license': 'OEEL-1'
 }
