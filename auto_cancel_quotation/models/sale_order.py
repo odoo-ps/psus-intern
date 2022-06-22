@@ -11,5 +11,5 @@ class SaleOrder(models.Model):
         for record in self.env['sale.order'].search(
             [('state', 'in', ['draft', 'sent']), ('validity_date', '<', date.today())]
         ):
-            record.update({'state': 'cancel'})
+            super()._action_cancel(record)
             
