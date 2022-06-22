@@ -12,20 +12,13 @@ class ProductTemplate(models.Model):
 
     list_price = fields.Float(compute='_compute_list_price',
                               inverse='_inverse_list_price',
-                              store=True,
-                              states={'editable': [('readonly', False)], 'read_only': [('readonly', True)]})
-
-    state = fields.Selection([('editable', 'Editable'), ('read_only',
-                             'Read Only')], 'Status', copy=True, default='editable', readonly=True)
+                              store=True)
 
     @api.depends('pair_per_case', 'price_per_pair')
     def _compute_list_price(self):
         for product in self:
             if product.pair_per_case or product.price_per_pair:
                 product.list_price = product.pair_per_case * product.price_per_pair
-                product.state = 'read_only'
-            else:
-                product.state = 'editable'
 
     def _inverse_list_price(self):
         for product in self:

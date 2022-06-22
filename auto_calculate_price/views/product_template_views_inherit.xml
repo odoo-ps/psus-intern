@@ -9,7 +9,16 @@
                 <field name="categ_id" position="before">
                     <field name="pair_per_case" />
                     <field name="price_per_pair" /> 
-                    <field name="state" invisible="1"/> 
+                </field>
+                <field name='list_price' position='attributes'>
+                    <attribute name="attrs">
+                        { 
+                        'readonly': [
+                            ('pair_per_case', '!=', 0),
+                            ('price_per_pair', '!=', 0)
+                        ]
+                        }
+                    </attribute>
                 </field>
             </field>
         </record>
