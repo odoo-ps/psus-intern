@@ -10,6 +10,8 @@ class AccountMovePartner(models.Model):
     def _get_invoice_delivery_partner_id(self):
         if self.prop_partner:
             self.ensure_one()
+            print(self.prop_partner.address_get(['delivery'])['delivery'])
+            print("hook in invoice")
             return self.prop_partner.address_get(['delivery'])['delivery']
         else:
             return super()._get_invoice_delivery_partner_id()

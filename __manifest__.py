@@ -22,6 +22,7 @@
 
     'data': [
         'views/sale_subscription_views_inherit.xml',
+        'views/account_move_views_inherit.xml'
     ],
 
 
