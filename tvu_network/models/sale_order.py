@@ -2,7 +2,7 @@
 from odoo import models, fields, api
 
 
-class Sale(models.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     # cancelled the quotations that are expired every day
