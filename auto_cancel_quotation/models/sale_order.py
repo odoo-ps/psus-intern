@@ -12,3 +12,4 @@ class SaleOrder(models.Model):
             [('state', 'in', ['draft', 'sent']), ('validity_date', '<', date.today())]
         ):
             record.update({'state': 'cancel'})
+            

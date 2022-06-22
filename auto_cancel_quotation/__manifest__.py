@@ -13,9 +13,7 @@
     "category": "Custom Development",
     "version": "1.0",
     "license": "OPL-1",
-    # any module necessary for this one to work correctly
     "depends": ["account", "product", "sale"],
-    # always loaded
     "data": [
         "data/auto_cancel.xml"
     ],
