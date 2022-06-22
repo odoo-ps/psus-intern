@@ -12,10 +12,7 @@ class SubscriptionSalePartner(models.Model):
         
         for invoice in invoices:
             if self.property_partner:
-                # invoice delivery address managed by partner_id
-                # or add aditional delivery_address field to invoice and hook _get_invoice_delivery_partner_id
-                # ticket not specific enough
-                invoice.update({'partner_id': self.property_partner})
+                invoice.update({'prop_partner': self.property_partner})
 
         return invoices
 
