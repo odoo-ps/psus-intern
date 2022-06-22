@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quote_auto_update_cron" model="ir.cron">
+        <field name="name">Auto Cancel Quotes</field>
+        <field name="active" eval="True"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">0</field>
+        <field name="nextcall">2022-06-22 23:59:59/field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="code">model._check_quote()</field>
+        <field name="priority" eval="3"/>
+    </record>
+</odoo>
