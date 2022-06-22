@@ -23,3 +23,4 @@ class ProductTemplate(models.Model):
             else:
                 continue
     
+    
