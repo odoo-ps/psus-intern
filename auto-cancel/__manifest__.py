@@ -17,6 +17,7 @@
     'version': '1.0',
     'license': 'OPL-1',
     # any module necessary for this one to work correctly
-    'depends': ['sale'],
+    'depends': ['sale',
+                'account_taxcloud'],
     'application': False,
 }
