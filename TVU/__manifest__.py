@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "tvu_networks",
+    'name': "Cancelling quotation for past expiry",
 
     'summary': """
         keeping the sales orders updated by cancelling already expired quotations""",
@@ -19,8 +19,5 @@
 
     'data': [
         'data/cron_job.xml',
-    ],
-    
-    'demo': [
     ],
 }
