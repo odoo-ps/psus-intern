@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--
+    <record id="fibermountain_family" model="product.attribute">
+      <field name="name">Family</field>
+      <field name="display_type">radio</field>
+      <field name="create_variant">dynamic</field>
+      <field name="value_ids">
+        <record id="fibermountain_family_fiber" model="product.attribute.value">
+          <field name="name">Fiber Cable</field>
+          <field name="code">F</field>
+        </record>
+        <record id="fibermountain_family_gsa" model="product.attribute.value">
+          <field name="name">GSA Listed Fiber Cable</field>
+          <field name="code">G</field>
+        </record>
+      </field>
+    </record>
+    record[id][model=product.attribute]>field[name=name]+field[name=display_type]+field[name=create_variant]+field[name=value_ids]
+    record*5[id][model=product.attribute.value]>field[name=name]+field[name=code]
+    <record id="fibermountain_capability" model="product.attribute">
+      <field name="name">Connector Capability</field>
+      <field name="display_type">radio</field>
+      <field name="create_variant">dynamic</field>
+      <field name="value_ids">
+        <record id="fibermountain_capability_non_icid" model="product.attribute.value">
+          <field name="name">Non ICID</field>
+          <field name="code">N</field>
+        </record>
+        <record id="fibermountain_capability_gen1_icid" model="product.attribute.value">
+          <field name="name">Gen1 ICID</field>
+          <field name="code">S</field>
+        </record>
+        <record id="fibermountain_capability_sensus_icid" model="product.attribute.value">
+          <field name="name">Sensus ICID</field>
+          <field name="code">C</field>
+        </record>
+        <record id="fibermountain_capability_sensus_icid_nfc" model="product.attribute.value">
+          <field name="name">Sensus ICID End B NFC Only</field>
+          <field name="code">D</field>
+        </record>
+      </field>
+    </record>
+
+    <record id="fibermountain_type" model="product.attribute">
+      <field name="name">Fiber Type</field>
+      <field name="display_type">radio</field>
+      <field name="create_variant">dynamic</field>
+      <field name="value_ids">
+        <record id="fibermountain_type_os2" model="product.attribute.value">
+          <field name="name">OS2</field>
+          <field name="code">S</field>
+        </record>
+        <record id="fibermountain_type_om4" model="product.attribute.value">
+          <field name="name">OM4</field>
+          <field name="code">M</field>
+        </record>
+        <record id="fibermountain_type_om5" model="product.attribute.value">
+          <field name="name">OM5</field>
+          <field name="code">5</field>
+        </record>
+      </field>
+    </record>
+
+    <record id="fibermountain_conna" model="product.attribute">
+      <field name="name">Connector A</field>
+      <field name="display_type">radio</field>
+      <field name="create_variant">dynamic</field>
+      <field name="value_ids">
+
+    record*8[id][model=product.attribute.value]>field[name=name]+field[name=code]
+        
+      </field>
+    </record>
+
+  -->
+  </data>
+</odoo>
