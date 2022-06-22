@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_subcription'],
+    'depends': ['sale_subscription'],
 
 
     'license': 'OEEL-1'
