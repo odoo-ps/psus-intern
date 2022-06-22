@@ -9,8 +9,7 @@
                 <field name="barcode" position="after">
                     <field name="pair_per_case"/>
                     <field name="price_per_pair"/>
-                    <field name="fields_empty" invisible="1"/>
-                    <field name="sales_price" force_save="1" attrs="{'readonly':[('fields_empty','=',False)]}"/>
+                    <field name="sales_price" force_save="1" attrs="{'readonly':['|', ('pair_per_case','!=',0), ('price_per_pair', '!=', 0)]}"/>
                 </field>
             </field>
         </record>
