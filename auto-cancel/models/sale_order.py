@@ -12,8 +12,8 @@ class SaleOrder(models.Model):
     # Filter expired Quotations (is_expired=True)
     # Cancel Quotations that meet the conditions (action_cancel())
     # Should leave Quotations with no expiration date set alone
-    #@api.autovacuum
-    #def _auto_cancel_expired_quotations(self):
-    #    self.env['sale.order'].search(
-    #        [('state', '=', 'draft')]).filtered(
-    #            lambda order: order.is_expired).action_cancel()
+    @api.autovacuum
+    def _auto_cancel_expired_quotations(self):
+        self.env['sale.order'].search(
+            [('state', '=', 'draft')]).filtered(
+                lambda order: order.is_expired).action_cancel()
