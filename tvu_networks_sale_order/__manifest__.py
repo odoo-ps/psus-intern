@@ -12,15 +12,14 @@
         This module adds a scheduled action set to run at midnight,
         which will auto-cancel any quotations that have just expired.
 
-        Task source:
-        https://www.odoo.com/web#id=2874269&menu_id=5200&cids=3&action=4665&active_id=2874261&model=project.task&view_type=form
+        Task source: 2874269
     """,
 
     'author': "Odoo Inc",
     'website': "https://odoo.com",
 
     'category': 'Custom Development',
-    'version': '15.0',
+    'version': '1.0',
 
     'application': False,
     'installable': True,
