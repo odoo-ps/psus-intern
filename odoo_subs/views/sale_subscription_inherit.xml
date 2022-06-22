@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_subscription_sale_subscription_view_form_inherit_odoo_subs">
+            <field name="name">sale_subscription.sale.subscription.view.form.inherit.subs</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form" />
+            <field name="arch" type="xml">
+                <!-- add the form for the property_partner_id-->
+                <field name="partner_id" position="after">
+                    <field name="property_partner_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
