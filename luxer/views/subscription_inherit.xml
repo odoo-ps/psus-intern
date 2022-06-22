@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_form_inherit_subscription" model="ir.ui.view">
-            <field name="name">sale.subscription.inherit</field>
+        <record id="sale_subscription_view_form" model="ir.ui.view">
+            <field name="name">sale.subscription.inherit.sale_order</field>
             <field name="model">sale.subscription</field>
             <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
             <field name="arch" type="xml">
