@@ -3,7 +3,7 @@
 {
     'name': "Sales Order",
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['sale'],
     'data': [],
     'author': "Alexa Acosta",
     'category': 'Sales',
