@@ -21,7 +21,7 @@ class ProductTemplate(models.Model):
     
     
     @api.onchange('pair_per_case',"price_per_pair")
-    def _onchange_(self):
+    def _onchange_pair_per_case_price_per_pair(self):
         self.ensure_one()
         if self.pair_per_case != 0 and self.price_per_pair != 0:
             self.list_price = self.pair_per_case*self.price_per_pair
