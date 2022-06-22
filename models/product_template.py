@@ -22,5 +22,4 @@ class ProductTemplate(models.Model):
                 record.sales_price = record.pair_per_case * record.price_per_pair
             else:
                 continue
-    
-    
+            
