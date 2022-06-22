@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record forcecreate="True" id="ir_cron_digest_scheduler_action" model="ir.cron">
+        <field name="name">TVU Networks: Auto-Cancel Expired Quotations</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model._remove_expired_quotations()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <!--        <field name="nextcall"-->
+        <!--               eval="(DateTime.now().replace(hour=0, minute=0, second=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>-->
+    </record>
+</odoo>
