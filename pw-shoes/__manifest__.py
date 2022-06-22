@@ -8,10 +8,10 @@
   'author': 'Odoo',
   'website': 'https://www.odoo.com',
   'category': 'Administrative',
-  'version': '0.1',
+  'version': '15.0.1.0.0',
   'depends': ['sale'],
   'data': [
     'views/product_form_view_inherit.xml'
   ],
-  'license': 'OPL-3'
+  'license': 'OPL-1'
 }

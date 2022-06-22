@@ -6,11 +6,20 @@
       <field name='model'>product.template</field>
       <field name='inherit_id' ref='product.product_template_form_view'/>
       <field name='arch' type='xml'>
-        <xpath expr='//field[@name="uom_po_id"]' position='after'>
+        <field name='uom_po_id' position='after'>
           <field name='pair_per_case'/>
-          <field name='price_per_pair'/> 
-          <field name='state' invisible='1'/>
-        </xpath>
+          <field name='price_per_pair'/>
+        </field>
+        <field name='list_price' position='attributes'>
+          <attribute name="attrs">
+            { 
+              'readonly': [
+                ('pair_per_case', '!=', 0), 
+                ('price_per_pair', '!=', 0)
+              ]
+            }
+          </attribute>
+        </field>
       </field>
     </record>
   </data>
