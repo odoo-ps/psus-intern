@@ -8,5 +8,5 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     @api.depends('quantity_done', 'product_uom_qty')
-    def _compute_product_demand(self):
-        return True
+    def compute_product_demand(self):
+        self.env['stock.move'].search([('state', '=', 'draft')])
