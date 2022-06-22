@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_view_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.product.form.inherit.nypw</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_forms_view"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//notebook//page[@name='general information']" position="inside">-->
+                <!--<xpath expr="//field[@name='payment_term_id']" position="after">-->
+                
+                    <group>
+                    <field name="pair_per_case"/>
+                    <field name="price_per_pair"/>
+                    <field name="sales_price" attrs="{'readonly': ['|', ('pair_per_case','!=',0), ('price_per_pair', '!=', 0)]}"/>
+                    </group>
+                <!--</xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>
