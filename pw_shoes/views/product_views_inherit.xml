@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--modify the page displaying products so that we can see our new fields, price per pair and pairs per case.-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_product_template_view_tree_inherit_pw_shoes">
+            <field name="name">account.product.template.view.tree.pw.shoes</field>
+            <field name="model">product.template</field>
+
+            <field name="inherit_id" ref="account.product_template_view_tree"/>
+
+            <field name="arch" type="xml">
+                <field name="list_price" position="before">
+                    <field name="pair_per_case"/>
+                    <field name="price_per_pair"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="product_product_template_only_form_view_inherit_pw_shoes">
+            <field name="name">product.product.template.only.form.view.inherit.pw.shoes</field>
+            <field name="model">product.template</field>
+
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+
+            <field name="arch" type="xml">
+                <field name="list_price" position="after">
+                    <field name="pair_per_case"/>
+                    <field name="price_per_pair"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
