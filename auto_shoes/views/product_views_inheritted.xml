@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_inherit_shoes">
+            <field name="name">product.template.product.form.inherit.shoes</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <!-- <field name="list_price" position="after">
+                    <field name='pair_per_case' />
+                    <field name='price_per_pair'/>
+                </field> -->
+                <xpath expr="//page[@name='general_information']" position="inside">
+                    <group>
+                    <field name='pair_per_case' />
+                    <field name='price_per_pair'/>
+                    <field name='sales_price' attrs="{'readonly': ['|', ('pair_per_case','!=',0), ('price_per_pair', '!=', 0)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
