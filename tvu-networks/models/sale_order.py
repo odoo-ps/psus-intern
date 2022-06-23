@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo import models,fields,api
+<<<<<<< HEAD
 
+=======
+# from datetime import datetime
+# from logger import logging 
+>>>>>>> parent of cf12d15 (Auto Cancel The Expired Quotations)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
