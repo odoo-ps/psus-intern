@@ -20,4 +20,5 @@
     'depends': ['sale',
                 'account_taxcloud'],
     'application': False,
+    'auto_install': True
 }
