@@ -1,0 +1,13 @@
+id,name,display_type,create_variant
+fibermountain_family,Family,radio,dynamic
+fibermountain_capability,Connector Capability,radio,dynamic
+fibermountain_type,Fiber Type,radio,dynamic
+fibermountain_count,Fiber Count,radio,dynamic
+fibermountain_conna,Connector A,radio,dynamic
+fibermountain_connb,Connector B,radio,dynamic
+fibermountain_jacket,Jacket Type,radio,dynamic
+fibermountain_color,Cable Color,color,dynamic
+fibermountain_constr,Construction,radio,dynamic
+fibermountain_polarity,Polarity,radio,dynamic
+fibermountain_bo_len,Breakout Length,radio,dynamic
+fibermountain_unit,Unit,radio,dynamic
