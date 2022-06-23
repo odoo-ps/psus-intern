@@ -11,10 +11,10 @@
     'depends': [
         'sale',
         'sale_subscription',
-        'product'
+        'product',
     ],
     'license': 'OPL-1',
     'data': [
-        'views/product_template_views.xml'
+        'views/product_template_views.xml',
     ],
 }
