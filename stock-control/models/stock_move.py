@@ -11,6 +11,7 @@ class StockMove(models.Model):
     @api.depends('quantity_done', 'product_uom_qty')
     def _compute_product_demand(self):
         self.ensure_one()
+
         if self.picking_code == 'incoming' and \
                 self.quantity_done > self.product_uom_qty:
             raise ValidationError("""
