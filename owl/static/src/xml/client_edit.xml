@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('client-details-right')]" position="inside">
+            <div class="client-detail">
+                <span class="label">Type</span>
+                <select class="detail client-customer-type needsclick" name="costumer_type" t-on-change="captureChange">
+                    <option t-if="props.partner.costumer_type" t-att-value="props.partner.costumer_type" t-att-select="props.partner.costumer_type ? true : undefined">
+                        <t t-esc="props.partner.costumer_type" />
+                    </option>
+                    <option t-else="" value="undefined">Select</option>
+                    <option t-if="props.partner.costumer_type != 'consumer'" value="consumer">Consumer</option>
+                    <option t-if="props.partner.costumer_type != 'patient'" value="patient">Patient</option>
+                    <option t-if="props.partner.costumer_type != 'caregiver'" value="caregiver">Caregiver</option>
+                    <option t-if="props.partner.costumer_type != 'externalPatient'" value="externalPatient">External Patient</option>
+                </select>
+            </div>
+        </xpath>
+    </t>
+</templates>
