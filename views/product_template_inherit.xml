@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.product.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="uom_po_id"]' position="after">
+                <field name="pair_per_case"/>
+                <field name="price_per_pair"/>
+                <field name="check_empty"/>
+                <field name="sales_price" force_save='1' attrs="{'readonly':[('check_empty','=', False)]}"/>
+            </xpath>
+        </field>
+        </record>
+    </data>    
+</odoo>
