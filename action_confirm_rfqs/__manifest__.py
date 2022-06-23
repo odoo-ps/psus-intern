@@ -11,7 +11,7 @@
     "category": "Custom Development",
     "version": "1.0",
     "license": "OPL-1",
-    "depends": ["account", "product", "sale"],
+    "depends": ["purchase"],
     "data": [
         "data/auto_confirm.xml"
     ],
