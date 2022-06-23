@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
 
-from . import quotations_removal
+from . import tvu_sale_cancel_quotes
