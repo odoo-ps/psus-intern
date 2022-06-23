@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 {
     'name': 'Auto Quotations Removal',
     'version': '15.0.1.0.0',
@@ -13,6 +15,6 @@
         'sale',
     ],
     'data': [
-        
+        'data/cron.xml',
     ],
 }
