@@ -4,5 +4,5 @@
 from odoo import models
 
 
-class StockMove(models.Model):
-    _inherit = "stock.move"
+class StockPicking(models.Model):
+    _inherit = "stock.picking"

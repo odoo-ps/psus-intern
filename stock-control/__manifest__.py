@@ -14,7 +14,7 @@
     """,
     'author': "Odoo Inc.",
     'website': "https://www.odoo.com/",
-    'category': 'Stock',
+    'category': 'Inventory',
     'version': '1.0',
     'license': 'OPL-1',
     # any module necessary for this one to work correctly
