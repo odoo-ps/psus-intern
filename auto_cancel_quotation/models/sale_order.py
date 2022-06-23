@@ -4,6 +4,7 @@
 from odoo import api, fields, models
 from datetime import date
 
+
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
