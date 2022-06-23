@@ -22,7 +22,7 @@
     'depends': ['sale'],
 
     'data': [
-        'views/product_case.xml',
+        'views/product_template_form.xml',
     ],
 
     'license': 'OPL-1'
