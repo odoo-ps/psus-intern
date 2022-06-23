@@ -9,10 +9,8 @@
     'category': 'Sales',
     'version': '15.0.1.0.0',
     'depends': [
-        'sale',
-        'sale_subscription',
-        'product',
         'purchase',
+        'point_of_sale',
 
     ],
     'data': [

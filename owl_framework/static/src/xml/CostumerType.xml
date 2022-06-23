@@ -6,10 +6,10 @@
                 <span classs="label">Costumer Type</span>
                 <select class="ClientType-detail needsclick" name="costumer_type" t-on-change="captureChange" t-att-value="props.partner.costumer_type || ''">
 
-                        <option t-att-value="patient">patient</option>
-                        <option t-att-value="consumer">consumer</option>
-                        <option t-att-value="caregiver">caregiver</option>
-                        <option t-att-value="externalpatient">externalpatient</option>
+                        <option value="patient">Patient</option>
+                        <option value="consumer">Consumer</option>
+                        <option value="caregiver">Care Giver</option>
+                        <option value="externalpatient">External Patient</option>
                     
                 </select>
             </div>
