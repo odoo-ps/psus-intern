@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Mindesa Schedule',
-    'sumary': 'Mindesa : Scheduled Action to Confirm RFQs',
+    'name': 'OWl Framework',
+    'sumary': 'OWL : to add costumere type',
     'description': """
-        moduel to schedule the action to confirm RFQs
+        moduel to add costumer type to the POS and contacts module
     """,
     'author': 'Odoo PS',
-    'category': 'Purchase',
-    'version': '14.0.1.0.0',
+    'category': 'Contact',
+    'version': '15.0.1.0.0',
     'depends': [
         'point_of_sale',
     ],
