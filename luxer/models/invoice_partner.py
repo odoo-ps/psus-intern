@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 
 
-class SubscriptionAddress(models.Model):
+class InvoiceAddress(models.Model):
     _inherit = 'account.move'
 
     new_partner = fields.Many2one('res.partner', compute='add_new_partner_address', string='Partner Address', store=True)

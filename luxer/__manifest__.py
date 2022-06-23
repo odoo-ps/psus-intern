@@ -8,7 +8,7 @@
     Created a new field in subscription and copied it in the invoice to show as a partner
     """,
 
-    'author': "Mihir",
+    'author': "Odoo Inc.",
     'website': "http://www.odoo.com",
 
     'category': 'Subscription',
