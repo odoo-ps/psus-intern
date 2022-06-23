@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="scheduled_rfqs_cron" model="ir.cron">
+            <field name="name">Scheduled RFQs</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="interval_number">1</field>
+            <field name="state">code</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field name="nextcall" eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 23:59:59')"/>
+            <field name="code">model._confirm_rfq()</field> 
+        </record>
+</odoo>
