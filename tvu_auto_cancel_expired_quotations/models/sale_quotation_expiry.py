@@ -3,9 +3,6 @@
 from odoo import models, fields, api
 from datetime import date
 
-import logging
-logger = logging.getLogger(__name__)
-
 
 class SaleQuotationExpiry(models.Model):
     _inherit='sale.order'
