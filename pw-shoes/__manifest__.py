@@ -2,12 +2,14 @@
 
 {
     'name':'P&W_Shoes',
+    'version': '1.0',
+    'author': 'Justin Deng (jden)',
+    'description': 'Module to modify prodcuts to fit needs for P&W shoes',
+    'license': 'OPL-1',
     'depends':['base','product'],
     'category':'Training',
     'data':[
-        'security/pwshoes_security.xml',
-        # 'security/ir.model.access.csv',
-        'views/pwshoes_menuitems.xml',
+        'views/product_template_views.xml',
     ],
     'demo':[]
 }

@@ -6,7 +6,6 @@ from odoo.exceptions import ValidationError
 class shoeCase(models.Model):
     _inherit = 'product.template'
 
-
     pair_per_case = fields.Integer(string='Shoes per case')
     price_per_pair = fields.Monetary(string='Price per shoe')
     sales_price = fields.Monetary(string='Total sales price',compute='_compute_case_price',store=True)
@@ -18,7 +17,6 @@ class shoeCase(models.Model):
             if record.pair_per_case or record.price_per_pair:
                 record.sales_price = record.pair_per_case * record.price_per_pair
 
-
     @api.depends('pair_per_case','price_per_pair')
     def _check_fields_empty(self):
         for record in self:
@@ -26,15 +24,3 @@ class shoeCase(models.Model):
                 record.fields_empty = False
             else:
                 record.fields_empty = True
-
-
-
-    
-
-
-
-
-
-
-
-

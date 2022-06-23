@@ -1,3 +1,3 @@
 # -*- encoding: utf-8 -*-
 
-from . import shoeCase
+from . import product_template
