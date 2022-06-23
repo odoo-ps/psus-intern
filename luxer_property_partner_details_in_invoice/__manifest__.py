@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Copy Property Partner Info From Subscription to Invoice",
+    'name': "Update Address in Invoice",
 
     'summary': """
         This module copies the property partner information from the subscription to the invoice """,
@@ -20,11 +20,12 @@
     'version': '1.0',
     
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale_subscription'],
+    'depends': ['sale_subscription'],
 
     # always loaded
     'data': [
-        'views/subscription_view_inherit.xml','views/invoice_view_inherit.xml'],
+        'views/subscription_view_inherit.xml'
+    ],
 
     'license': 'OEEL-1'
 }

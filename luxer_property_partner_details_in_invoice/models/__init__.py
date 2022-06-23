@@ -1,2 +1,1 @@
-from . import copy_property_partner_to_invoice
-from . import update_customer_address_on_invoice
+from . import sale_subscription
