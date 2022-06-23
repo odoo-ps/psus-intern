@@ -7,9 +7,6 @@
             <field name="state">code</field>
             <field name="code">model.delete_invoice_after_exp_date()</field>
             <field name="user_id" ref="base.user_root"/>
-            <!-- <field name="nextcall" eval="(DateTime.now()+timedelta(days=1)).strftime('%Y-%m-%d 12:0:0')"/> -->
-            <!-- <field name=''></field> -->
-            <!-- <field name="interval_number">1</field> -->
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
         </record>
