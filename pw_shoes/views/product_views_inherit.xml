@@ -25,10 +25,11 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
 
             <field name="arch" type="xml">
-            
-                <xpath expr="//field[@name='list_price']" position="attributes">
-                    {'readonly' : "['|', ('pair_per_case','!=','0'),('price_per_pair','!=',0)]"}
-                </xpath>
+
+                
+                <field name="list_price" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|',('pair_per_case', '!=', 0), ('price_per_pair', '!=', 0)]}</attribute>
+                </field>
             
 
 
