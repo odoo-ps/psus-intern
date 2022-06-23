@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
 
-from . import auto_calculate_price
+from . import nypw_product_prices
