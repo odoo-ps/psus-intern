@@ -2,7 +2,7 @@
 
 
 {
-    "name" : "P&W Shoes",
+    "name" : "P&W Shoes - Auto-calculated price",
 
     "depends" : ["product","account"],
 
