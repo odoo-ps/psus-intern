@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
+
 {
-    'name': "TVU networks",
-    'summary': """automatically cancel quotations which are no longer relevant, as defined by the quotation passing 
-    its expiration date.""",
+    'name': "TVU Networks: Auto-cancel expired quotations",
+    'summary': """
+        auto-cancel expired quotations
+    """,
     'description': """
+        task_id: 2874339
+        Added a scheduled action and '_remove_expired_quotations' method to sale.order to auto-cancel expired quotations
     """,
     'author': 'Odoo Inc',
     'website': 'https://www.odoo.com/',
@@ -14,7 +18,5 @@
     'depends': ['sale'],
     'data': [
         'data/ir_cron_data.xml'
-    ],
-    'demo': [
     ]
 }
