@@ -1,0 +1,19 @@
+{
+    // "python.autoComplete.extraPaths": [
+    //     "~/src/odoo/"
+    // ],
+    "python.envFile": "${workspaceFolder}/.env",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "ping-pong.local",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Week3",
+            "group": "Ping-Pong ",
+            "database": "week3",
+            "username": "parallels",
+            "password": "postgres"
+        }
+    ]
+}

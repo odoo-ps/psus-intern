@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "v15",
+            "type": "python",
+            "request": "launch",
+            "cwd": "/home/parallels/src/odoo",
+            "python": "/usr/bin/python3",
+            "program": "./odoo-bin",
+            "args": [
+                "--addons-path=addons,../enterprise,/home/parallels/src/psus-intern",
+                "--log-handler",
+                "odoo.addons.base.models.ir_attachment:WARNING",
+                "-u","auto-cancel-expired-notifications",
+                "-d",
+                "week3",
+                "--limit-time-real", "0",
+                "--limit-time-cpu", "0"
+            ],
+            "console": "integratedTerminal"
+        }, 
+        {
+            "name": "v15 shell",
+            "type": "python",
+            "request": "launch",
+            "cwd": "/home/parallels/src/odoo",
+            "python": "/usr/bin/python3",
+            "program": "./odoo-bin",
+            "args": [
+                "shell",
+                "--addons-path=addons,../enterprise,/home/parallels/src/psus-intern",
+                "--log-handler",
+                "odoo.addons.base.models.ir_attachment:WARNING",
+                "-u","auto-cancel-expired-notifications",
+                //"",
+                "-d",
+                "week3",
+                "--limit-time-real", "0",
+                "--limit-time-cpu", "0"
+            ],
+            "console": "externalTerminal"
+        }
+    ]
+}
