@@ -8,11 +8,12 @@
                         name="customer_type" 
                         t-on-change="captureChange" 
                         t-att-value="props.partner.customer_type"
-                        t-att-selected="props.partner.customer_type ? ((customer.type === props.partner.customer_type[0]) ? true : undefined) : undefined">
-                        <option t-att-value="patient">patient</option>
-                        <option t-att-value="customer">customer</option>
-                        <option t-att-value="caregiver">caregiver</option>
-                        <option t-att-value="external_patient">external_patient</option>
+                        t-att-selected="props.partner.customer_type">
+
+                        <option value="patient">Patient</option>
+                        <option value="customer">Customer</option>
+                        <option value="caregiver">Caregiver</option>
+                        <option value="external_patient">External Patient</option>
                 </select>
             </div>
         </xpath>

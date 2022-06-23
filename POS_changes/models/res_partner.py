@@ -8,8 +8,8 @@ class ResPartner(models.Model):
 
     customer_type = fields.Selection(
         string='Customer Type',
-        selection=[('patient', 'patient'),
-                   ('caregiver', 'caregiver'),
-                   ('external_patient', 'external_patient'),
-                   ('customer', 'customer')]
+        selection=[('patient', 'Patient'),
+                   ('caregiver', 'Caregiver'),
+                   ('external_patient', 'External Patient'),
+                   ('customer', 'Customer')]
     )
