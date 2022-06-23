@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ClientDetailsEdit_Inherit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('client-details-left')]" position="inside">
+            <div class="client-detail">
+                <span class="label">Type</span>
+
+                <select class="detail needsclick" name="customer_type_id" t-on-change="captureChange">
+                    <option value="patient" t-att-selected="props.partner.customer_type_id === 'patient' ? true : false">Patient</option>
+                    <option value="consumer"  t-att-selected="props.partner.customer_type_id === 'consumer' ? true : false">Consumer</option>
+                    <option value="caregiver"  t-att-selected="props.partner.customer_type_id === 'caregiver' ? true : false">Caregiver</option>
+                    <option value="externalpatient" t-att-selected="props.partner.customer_type_id === 'externalpatient' ? true : false">ExternalPatient</option>
+                </select>
+                
+            </div>
+        </xpath>
+    </t>
+</templates>
