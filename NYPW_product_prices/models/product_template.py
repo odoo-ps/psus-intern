@@ -16,6 +16,6 @@ class ProductTemplate(models.Model):
         store=True
     )
 
-    @api.onchange('pair_per_case', 'price_per_pair')
+    @api.depends('pair_per_case', 'price_per_pair')
     def _compute_final_price(self):
         self.list_price = self.pair_per_case*self.price_per_pair
