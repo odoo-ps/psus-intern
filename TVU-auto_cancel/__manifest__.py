@@ -12,15 +12,14 @@
     'author':'Odoo Inc',
     'website': 'https://www.odoo.com',
     'category':'Custom Development',
-    'version':'15.0.1.0',
+    'version':'15.0.2.0',
     'license':'OPL-1',
     'depends':['sale'],
     
     'data':[
-        'views/inventory_menuitems.xml',
-        'security/management_security.xml',
-        'security/ir.model.access.csv',
-        'views/products_views.xml',
-        'views/product_template_view_inherit.xml'  
-    ] 
+        
+    ],
+    'auto_install': False,
+    'installable': True,
+    'application': False
 }
