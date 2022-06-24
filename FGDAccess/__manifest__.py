@@ -12,10 +12,11 @@
     'category': 'sales',
     'version': '14.0.0.1',
     'depends': [
+        'base',
         'purchase',
     ],
     'data': [
-        'views/res_partner_create_form_inherit.xml'
+        'views/res_partner_create_form_inherit.xml',
     ],
     'license': 'OPL-1',
 }
