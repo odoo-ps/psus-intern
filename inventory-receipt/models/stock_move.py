@@ -3,7 +3,7 @@ from odoo import fields, models,api
 from odoo.exceptions import UserError
 
 
-class StockReceipt(models.Model):
+class StockMove(models.Model):
     #inherited from object stock.move
     _inherit='stock.move'
     
