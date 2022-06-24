@@ -7,10 +7,10 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"></field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='detailed_type']" position="before">
-                    <field name="price_per_pair"/>
+                    <field name="price_per_pair" />
                 </xpath>
                 <xpath expr="//field[@name='price_per_pair']" position="before">
-                    <field name="pair_per_case"/>
+                    <field name="pair_per_case" />
                 </xpath>
                 <xpath expr="//field[@name='list_price']" position="attributes">
                     <attribute name="force_save">1</attribute>
