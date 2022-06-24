@@ -1,2 +1,2 @@
 # -*- encoding: utf-8 -*-
-from . import sale_name
+from . import sale_order
