@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_subscription_inherits_luxer">
+            <field name="name">sale.subscription.form.inherits.luxer</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+            <field name="arch" type="xml">
+                <field name="template_id" position="after">
+                    <field name="subscription_content"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
