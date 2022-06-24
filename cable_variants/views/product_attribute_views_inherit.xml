@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_attribute_view_form">
+            <field name="name">product_attribute_view_form.inherit.cable.variants.product.attribute.value</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref='product.product_attribute_view_form'/>
+            <field name="arch" type="xml">
+                <field name="is_custom" position="before">
+                    <field name="code" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
