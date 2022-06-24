@@ -10,7 +10,7 @@
     "author": "Odoo Inc.",
     "website": "https://www.odoo.com",
     "category": "Custom Development",
-    "version": "0.1.0",
+    "version": "15.0.1.0",
     "license": "OPL-1",
     "depends": ["base", "sale_subscription"],
     "data": [
