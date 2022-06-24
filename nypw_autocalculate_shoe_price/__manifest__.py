@@ -2,10 +2,10 @@
 
 {
     'name' : 'NY P&W Shoes : Auto-calculated price',
-    'summary' : """Automatically computes sales price given pair per price and price per pair.""",
+    'summary' : """Automatically computes sales price given pair per case and price per pair.""",
     'description' : """
         NY P&W Shoes module:
-        Automatically computes the sales price of a shoe product when the pair per price and
+        Automatically computes the sales price of a shoe product when the pair per case and
         price per pair are provided. If they aren't provided, then the sales price is directly editable.
         Developer: Orrin
         Ticket ID: 2879253
