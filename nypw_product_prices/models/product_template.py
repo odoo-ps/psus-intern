@@ -17,6 +17,6 @@ class ProductTemplate(models.Model):
     )
     @api.depends('pairs_per_case','price_per_pair')
     def _compute_sales_price(self):
-            
-        self.list_price = self.pairs_per_case*self.price_per_pair
+        for rec in self:
+            rec.list_price = rec.pairs_per_case*rec.price_per_pair
         
