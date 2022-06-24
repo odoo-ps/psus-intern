@@ -6,7 +6,7 @@
     'description' : """
         TVU Networks module:
         Automatically cancels expired quotations, which are quotations where the 
-        validity_date is older than the current date. The scheduled job runs
+        validity_date is older than the current date. The scheduled job runs daily
         at midnight UTC time.
         Developer: Orrin
         Ticket ID: 2879234
