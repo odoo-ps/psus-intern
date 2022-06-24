@@ -20,4 +20,5 @@
     # any module necessary for this one to work correctly
     'depends': ['stock'],
     'application': False,
+    'auto_install': True
 }
