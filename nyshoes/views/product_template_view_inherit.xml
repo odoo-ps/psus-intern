@@ -8,13 +8,14 @@
             <field name="arch" type="xml">
                 <!--<xpath expr="//notebook//page[@name='general information']" position="inside">-->
                 <!--<xpath expr="//field[@name='payment_term_id']" position="after">-->
-                
+                <field name="barcode" position="after">
                     <group>
                     <field name="pair_per_case"/>
                     <field name="price_per_pair"/>
                     <field name="sales_price" attrs="{'readonly': ['|', ('pair_per_case','!=',0), ('price_per_pair', '!=', 0)]}"/>
                     </group>
                 <!--</xpath>-->
+                </field>
             </field>
         </record>
     </data>
