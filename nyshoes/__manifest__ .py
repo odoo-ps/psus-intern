@@ -17,12 +17,14 @@
     'website': 'https://www.odoo.com',
     
     'category':'Custom Development',
-    'version':'15.0.1.1',
+    'version':'15.0.2.1',
     'license': 'OPL-1', 
     'depends':['product'],
 
     'data':[
        'views/product_template_view.xml'
-    ]       
+    ],
+    'auto_install': False,
+    'installable': True,
+    'application': False  
 }
-
