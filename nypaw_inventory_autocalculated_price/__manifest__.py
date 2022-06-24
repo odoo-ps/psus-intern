@@ -2,7 +2,7 @@
 
 {
     "name": "NY P&W Shoes - Autocalculate Sale Price",
-    "version": "0.1.0",
+    "version": "15.0.1.0",
     "description": """
     #2874466 - 
     Autocalculate Sale Price from newly created price per pair and Pair per case fields.
