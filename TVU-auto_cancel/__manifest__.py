@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 {
     'name':"TVU Networks: Auto-Cancel Expired Quotations",
     'summary':"""an App to auto-cancel the expired quotations at midnight""",
