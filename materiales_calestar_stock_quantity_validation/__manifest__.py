@@ -2,7 +2,7 @@
 
 {
     "name": "Materiales Calestar - Validate Quantity for Warehouse",
-    "version": "0.1.0",
+    "version": "14.0.1.0",
     "description": """
     #2874450 - 
     Validates Done Quantity to be less than or equal to Demand (in reciepts).
