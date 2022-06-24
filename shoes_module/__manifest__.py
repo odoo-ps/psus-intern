@@ -1,31 +1,23 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name' : 'Shoes Module',
-    
-    'summary' : """Handles Auto-Calculation of Shoes Fields""",
-
+    'name' : 'NY P&W Shoes : Auto-calculated price',
+    'summary' : """Automatically computes sales price given pair per price and price per pair.""",
     'description' : """
-    Automatically computes the sales price of a shoe product when the pair per price and
-    price per pair are provided. If they aren't provided, then the sales price is directly editable.
+        NY P&W Shoes module:
+        Automatically computes the sales price of a shoe product when the pair per price and
+        price per pair are provided. If they aren't provided, then the sales price is directly editable.
+        Developer: Orrin
+        Ticket ID: 2879253
     """,
-
-    'author' : 'Orrin',
-
+    'author' : 'Odoo Inc.',
     'website' : 'https://www.odoo.com',
-
-    'category' : 'Training',
-
-    'version' : '0.1',
-
+    'category' : 'Custom Development',
+    'version' : '1.0.1',
     'depends' : ['sale'],
-
     'data' : [
         'views/shoe_view.xml',
     ],
-
-    'demo' : [
-    ],
-
-    'license' : 'LGPL-3',
+    'license' : 'OPL-1',
+    'application': False,
 }
