@@ -19,5 +19,6 @@
     'data' : [
         'data/autocancel.xml',
     ],
+    'license' : 'OPL-1',
     'application': False,
 }
