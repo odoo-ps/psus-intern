@@ -1,30 +1,27 @@
 #-*- coding: utf-8 -*-
-
 {
-    'name':'shoes',
+    'name':'NY P&W Shoes : Auto-calculated price',
     
-    'summary':"""manage shoes sales""",
+    'summary':"""A module to auto-calculate the price for NY P&W Shoes""",
     
     'description':"""
-        manage shoes sales:
-       -Distributor
+        NY P&W Shoes : Auto-calculated price
+        -Create a new action to auto calculate the sales price, if pair per
+         case and price per pair two fields have nothing, the sales price field
+         is editable
+        -Task ID:2874395
     """,
     
-    'author': 'Odoo',
+    'author': 'Odoo Inc',
     
     'website': 'https://www.odoo.com',
     
-    'category':'Sales',
-    'version':'0.1',
+    'category':'Custom Development',
+    'version':'15.0.1.1',
     'license': 'OPL-1', 
-    'depends':['base','sale'],
-    
+    'depends':['product'],
+
     'data':[
        'views/product_template_view.xml'
-    ],
-    
-    'demo':[
-       
-    ]
-        
+    ]       
 }
