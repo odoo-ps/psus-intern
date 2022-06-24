@@ -3,26 +3,25 @@
 {
     'name': 'NY P&W Shoes',
 
-    'application': True,
+    'application': False,
 
     'summary': """App to calculate price of shoes""",
 
-    'desciption' : """description""",
+    'desciption' : """Task ID: 2874296
+        Expected to calculate price of shoes based on price per pair and pair per case.
+    """,
 
-    'author': 'wiwu',
+    'author': 'Odoo Inc',
 
     'category': 'Inventory',
 
-    'version': '0.1',
+    'version': '1.0',
 
     'depends': ['sale'],
 
-    'license': 'GPL-3',
+    'license': 'OPL-1',
 
     'data': [
         'views/product_views.xml',
     ],
-   'demo': [
-   
-   ],
 }
