@@ -13,7 +13,7 @@
     'author': 'Odoo Inc',
     'website': 'https://www.odoo.com',
     'category':'Custom Development',
-    'version':'15.0.1.0',
+    'version':'15.0.2.0',
     'license': 'OPL-1', 
     'depends':['stock','sale'],
     
@@ -22,5 +22,8 @@
     ],
     'demo':[
         
-    ] 
+    ],
+    'auto_install': False,
+    'installable': True,
+    'application': False
 }
