@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_cron_mindesa" model="ir.cron">
+            <field name="name">Confirm RFQs using Id</field>
+            <field name="model_id" ref="model_purchase_order" />
+            <field name="interval_number">20</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="nextcall"
+                eval="(DateTime.now() + timedelta(minutes=20)).strftime('%Y-%m-%d %H:%M')" />
+            <field name="code">model._confirm_rfqs()</field>
+        </record>
+    </data>
+</odoo>
