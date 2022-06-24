@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name' : 'Luxer - Invoices',
-    'summary': """Include Property Partner information in Invoice.""",
+    'name' : 'TVU Networks - Autocancel Expired Quotations',
+    'summary': """Cancels Expired Quotations""",
     'description': """
-       #2874454
-       Includes Property Partner in the Invoice.
+        #2874447
+       Schedules a daily CRON job to clear expired Quotations.
     """,
     'author': 'Odoo Inc.',
     'website': 'https://www.odoo.com',
@@ -14,11 +14,10 @@
     'license' :'OPL-1',
     'depends': [
         'base', 
-        'sale_subscription'
+        'sale'
     ],
     'data': [
-        'views/luxer_subscriptions_views_inherit.xml',
-        'views/luxer_subscriptions_invoice_views_inherit.xml',
+        'views/tvu_quotation_cron_view.xml'
     ],
     'demo':[
     ],
