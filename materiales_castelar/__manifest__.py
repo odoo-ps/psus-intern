@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Materiales Castelar',
+    'name': 'Receipt Checker - Materiales Castelar',
 
     'summary': """Make sure difference warehouses will not receive more than the demanded quantity""",
 
@@ -37,5 +37,5 @@
 
     'application': False,
 
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
 }
