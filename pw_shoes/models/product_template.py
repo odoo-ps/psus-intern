@@ -4,8 +4,6 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 import logging
 
-_logger = logging.getLogger(__name__)
-
 class ProductTemplate(models.Model):
     _inherit="product.template"
 
@@ -32,8 +30,5 @@ class ProductTemplate(models.Model):
     @api.depends("pair_per_case","price_per_pair")
     def _compute_sales_price(self):
         for record in self:
-            _logger.info("************************* Executing compute_sales_price")
             if self.pair_per_case or self.price_per_pair:
-                _logger.info("************************* Pair per case: " + str(self.pair_per_case) + " * Price per pair: " + str(self.price_per_pair))
-                self.list_price = self.pair_per_case * self.price_per_pair
-                _logger.info("************************* = " + str(self.list_price))
+                self.list_price = self.pair_per_case * self.price_per_pair                
