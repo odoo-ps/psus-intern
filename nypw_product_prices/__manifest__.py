@@ -13,10 +13,10 @@
         
     """,
     'license': 'OPL-1',
-    'author': 'Odoo',
+    'author': 'Odoo Inc',
     'website': 'www.odoo.com',
     'category': 'Training',
-    'version': '0.1',
+    'version': '1.0',
     'depends': ['product'],
     'data': [
         'views/product_views_inherit.xml',
