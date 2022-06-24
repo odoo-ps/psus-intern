@@ -13,7 +13,7 @@ class modifiedContact(models.Model):
     #Override the built in write method.
     #Raises error if wrong user group tries to edit salesperson or salesprices field.
     def write(self, vals):
-        isAdmin = self.env.user.has_group('fgd_glass.group_fgd_sales_admin') or user.has_group('fgd-glass.group_fgd_sales_admin_commission')
+        isAdmin = self.env.user.has_group('fgd_glass.group_fgd_sales_admin') or self.env.user.has_group('fgd_glass.group_fgd_sales_admin_commission')
         if ('user_id' in vals or 'sales_prices' in vals) and not isAdmin:
             raise AccessError('You are attempting to edit a field you do not have access to')
         else:
