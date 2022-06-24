@@ -6,22 +6,21 @@
     
     'description':"""
        Materiales Castelar: Warehouse Control Receipt
-       -Task id:2874379    
+       -Create an action to control the Receipt in Inventory App to make sure the ordered quantity will not greater than the demand for warehouse.
+       -Task ID:2874379    
     """,
     
     'author': 'Odoo Inc',
-    
     'website': 'https://www.odoo.com',
-    
     'category':'Custom Development',
-    'version':'2.1',
+    'version':'15.0.1.0',
     'license': 'OPL-1', 
-    'depends':['base','stock.move','sale'],
+    'depends':['stock','sale'],
     
     'data':[
+        
     ],
-    
     'demo':[
-       
-    ]      
+        
+    ] 
 }
