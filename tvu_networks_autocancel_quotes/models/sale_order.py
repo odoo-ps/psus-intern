@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 import time
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
