@@ -7,7 +7,7 @@
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
         <field name="doall">0</field>
-        <field name="nextcall">2022-06-22 23:59:59/field>
+        <field name="nextcall" eval="(datetime.now().replace(hour=0, minute=0, second=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
         <field name="model_id" ref="model_sale_order"/>
         <field name="code">model._check_quote()</field>
         <field name="priority" eval="3"/>

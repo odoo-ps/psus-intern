@@ -3,27 +3,25 @@
 {
     'name': 'TV quotation',
 
-    'application': True,
+    'application': False,
 
     'summary': """App to cancel quotations at midnight""",
 
-    'description': """description""",
+    'description': """Task ID: 2874296
+        Expected to cancel all expired quotations at midnight every day.
+    """,
 
-    'author': 'wiwu',
+    'author': 'Odoo Inc',
 
     'category': 'Inventory',
 
-    'version': '0.1',
+    'version': '1.0',
 
     'depends': ['sale'],
 
-    'license': 'GPL-3',
+    'license': 'OPL-1',
 
     'data' : [
         'data/cron.xml',
-    ],
-
-    'demo': [
-
     ],
 }
