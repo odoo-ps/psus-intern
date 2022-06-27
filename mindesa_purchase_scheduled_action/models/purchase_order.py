@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 
 # Create a Scheduled Action that will confirm all RFQs into PO given partner_id = Mindesa SAPI de CV (id = 1 in res.partner) and user_id = OdooBot (id = 1 in res.users).
 
-class ScheduledAction(models.Model):
+class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     # _name = 'transfer.rfqs.to.po'
 
