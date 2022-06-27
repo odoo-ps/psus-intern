@@ -1,6 +1,6 @@
 from odoo import models
 
-class QuotationsRemoval(models.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def _remove_expired_quotations(self):
