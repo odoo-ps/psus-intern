@@ -1,10 +1,10 @@
 {
     'name': 'Greenville Produce',
     'summary': """Unique product lists per customer on website""",
-    'description': """Add the parner address in the invoce with in the subscription""",
+    'description': """Unique product lists per customer on website""",
     'author': 'Odoo PS',
     'website':'https://www.odoo.com',
-    'category': 'Administrative',
+    'category': 'Sale',
     'version': '14.0.1.0.0',
     'depends': ['sale','website'],
     'data':[
