@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+
+#FGD Glass ignores
+todo.txt
+yanchao/
+TVU_Network/
+training-library-module/
+pw-shoes/
+access-levels
