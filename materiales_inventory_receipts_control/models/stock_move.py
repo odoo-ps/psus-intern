@@ -3,7 +3,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
-class ReceiptsControl(models.Model):
+class StockMove(models.Model):
     _inherit = 'stock.move'
 
     @api.onchange('quantity_done')
