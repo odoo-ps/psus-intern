@@ -14,10 +14,21 @@
     'version': '1.0',
     'license': 'OPL-1',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['point_of_sale'],
 
-    # only loaded in demonstration mode
-    'demo': [],
+    'data':[
+        'views/res_partner_views.xml',
+    ],
+
+    'assets': {
+        'web.assets_qweb': [
+            'owl_framework_pos_changes/static/src/xml/ClientDetailsEdit.xml',
+        ],
+        'point_of_sale.assets':[
+            'owl_framework_pos_changes/static/src/js/models.js'
+        ]
+
+    },
+
     'application': False,
 }
