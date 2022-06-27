@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="base_view_partner_form_inherit_odoo_access">
+        <field name="name">base.view.partner.form.inherit.access</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_payment_term_id']" position="after">
+                <field name="is_sales_person" />
+                <field name="property_product_pricelist" attrs="{'readonly':[('is_sales_person','=',True)]}"></field>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="before">
+                <field name="is_sales_person" invisible="1" />
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('is_sales_person','=',True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
