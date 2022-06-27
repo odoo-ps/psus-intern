@@ -4,7 +4,7 @@
 from odoo import api, fields, models, _
 from traitlets import default
 
-class AutoCalculatePrice(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     pair_per_case = fields.Integer(string='pair_per_case')
