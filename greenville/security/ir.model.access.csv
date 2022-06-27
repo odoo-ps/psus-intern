@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+list_product,list product,model_productlist,product_list_access,1,1,1,1
+
+

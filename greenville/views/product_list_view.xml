@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_list_view_list" model="ir.ui.view">
+            <field name="name">product.list.view.list</field>
+            <field name="model">productlist</field>
+            <field name="arch" type="xml">
+                <tree string="Product List">
+                    <field name="name"/>
+                    <!-- <field name="contacts_id"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="mission_view_form" model="ir.ui.view">
+            <field name="name">mission.form</field>
+            <field name="model">productlist</field>
+            <field name="arch" type="xml">
+                <form string="Mission Form">
+                    <sheet>
+                        <h1><field name="name"/></h1>
+                        <notebook>
+                            <page string="Product List">
+                                <group>
+                                    <field name="product_ids" />
+                                </group>
+                            </page>
+                            <page string="Customers that use this list">
+                                <group>
+                                    <field name="customer_ids"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+
+        </record>
+    </data>
+</odoo>
