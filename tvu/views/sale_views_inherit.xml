@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- modify the page of each sale order to include the expiration date-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_inherit_tvu">
+            <field name="name">sale.order.form.inherit.tvu</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sale_shipping']" position="after">
+                    <group name="sale_expiration">
+                        <label for="expiration" string="Expiration"/>
+                        <div name="commitment_date_div" class="o_row">
+                            <field name="expiration"/>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+
+        </record>
+
+        <record model="ir.ui.view" id="sale_view_quotation_tree_with_onboarding_inherit_tvu">
+            <field name="name">sale.view.quotation.tree.with.onboarding</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/> <!--from "edit view: list" -> "external id"-->
+
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="expiration"/>
+                    <field name="state"/>
+                </xpath>
+            </field>
+
+        </record>
+
+
+    </data>
+</odoo>
