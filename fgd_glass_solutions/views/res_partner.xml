@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
         <record id="view_partner_form_inherit_fgd" model="ir.ui.view">
-            <field name="name">res.partner.view.form.inherit</field>
+            <field name="name">res.partner.view.form.inherit.fgd</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="groups_id" eval="[(4, ref('product.group_product_pricelist'))]" />
             <field name="arch" type="xml">
                 <field name="property_product_pricelist" position="attributes">
-                    <attribute
-                        name="attrs"
-                        add="{'readonly':[('fgd_salesperson_pricelist_readonly', '=', True)]}" />
+                    <attribute name="readonly">[('partner_create_only', '=', True)]</attribute>
                 </field>
                 <field name="user_id" position="attributes">
-                    <attribute
-                        name="attrs"
-                        add="{'readonly':[('fgd_salesperson_pricelist_readonly', '=', True)]}" />
+                    <attribute name="readonly">[('partner_create_only', '=', True)]</attribute>
                 </field>
             </field>
         </record>
-
     </data>
 </odoo>

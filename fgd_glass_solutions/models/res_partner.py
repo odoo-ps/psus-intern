@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields
 
 
-class ResPartner(models.Model):
+class Partner(models.Model):
     _inherit = 'res.partner'
 
-    fgd_salesperson_pricelist_readonly = fields.Boolean('Salesperson and Pricelist Readonly',
-                                                        required=True,
-                                                        default=False)
+    partner_create_only = fields.Boolean(
+        compute='_compute_partner_create_only')
 
-    @api.model
-    def create(self, values):
-        orig = super().create(values)
-        orig.write({'fgd_salesperson_pricelist_readonly': True})
-        return orig
+    def _compute_partner_create_only(self):
+        for record in self:
+            record.partner_create_only = (
+                not record.has_group('sales_team.group_sale_manager') and
+                (record.has_group('sales_team.group_sale_salesman') or
+                 record.has_group('sales_team.group_sale_salesman_all_leads'))
+            )

@@ -11,10 +11,9 @@
     'website': 'Custom Development',
     'license': 'OPL-1',
     'category': 'Custom Development',
-    'depends': [
-        'base'
-    ],
+    'depends': ['product'],
     'data': [
+        'views/res_partner.xml'
     ],
     'auto_install': False,
     'application': False,
