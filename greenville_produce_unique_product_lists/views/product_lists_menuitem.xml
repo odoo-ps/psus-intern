@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_products_list" name="Products List" action="products_list_action" parent="sale.product_menu_catalog" sequence="6"/>
+
+    <record model="ir.actions.act_window" id="products_list_action">
+        <field name="name">Product List</field>
+        <field name="res_model">greenville.products_list</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first products list
+            </p>
+        </field>
+    </record>
+</odoo>
