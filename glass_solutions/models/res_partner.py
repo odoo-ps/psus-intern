@@ -1,22 +1,16 @@
 # *-* coding: utf-8 *-*
 
-from multiprocessing.dummy import current_process
 from odoo import models,fields,api
 
 
 class Partner(models.Model):
     _inherit = "res.partner"
     
-    is_sales_person=fields.Boolean(defult=False, compute='_compute_is_readonly',store=False)
+    is_sales_person=fields.Boolean(defult=False, compute='_compute_is_readonly')
     
-    
-    def _compute_is_readonly(self):
-        if self.env.user.has_group('sales_team.group_sale_manager'):
-            self.is_sales_person = False
-            return
-        elif (self.env.user.has_group('sales_team.group_sale_salesman_all_leads') or self.env.user.has_group('sales_team.group_sale_salesman')):
-            self.is_sales_person = True
-
-            
-         
-        
+    def _compute_is_sales_person(self):
+        for record in self:
+            if record.env.user.has_group('sales_team.group_sale_manager'):
+                record.is_sales_person = False
+            elif (record.env.user.has_group('sales_team.group_sale_salesman_all_leads') or self.env.user.has_group('sales_team.group_sale_salesman')):
+                record.is_sales_person = True  
