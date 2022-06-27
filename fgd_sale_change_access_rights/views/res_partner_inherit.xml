@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base_view_partner_form_inherit_odoo_access" model="ir.ui.view" >
+        <field name="name">base.view.partner.form.inherit.access</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="read_only"/>
+                <field name="property_product_pricelist" attrs="{'readonly':[('read_only','=',True)]}"></field>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="before">
+                <field name="read_only" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('read_only','=',True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
