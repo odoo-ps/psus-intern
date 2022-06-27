@@ -20,6 +20,8 @@
     'license': 'OPL-1',
     # any module necessary for this one to work correctly
     'depends': ['product'],
+    # always loaded
+    'data': ['views/product_template_views.xml'],
     'application': False,
     'auto_install': True
 }

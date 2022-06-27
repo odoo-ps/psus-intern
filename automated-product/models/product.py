@@ -4,9 +4,12 @@
 from odoo import api, fields, models
 
 
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+
 class ProductCategory(models.Model):
     _inherit = "product.category"
 
-    # inherits parent_id (houses product category)
-    # but sets it as required
-    parent_id = fields.Many2one(required=True)
+    # TODO: autogenerate name based on selected product categories
+    # follow Odoo name nomenclature
