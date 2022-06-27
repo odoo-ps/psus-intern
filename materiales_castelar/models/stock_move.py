@@ -3,7 +3,7 @@
 from odoo import models, api, exceptions
 
 
-class materiales_castelar(models.Model):
+class StockMove(models.Model):
     
     _inherit = 'stock.move'
 

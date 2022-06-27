@@ -3,11 +3,7 @@
     'name': "Materiales Castelar: Control Receipts",
 
     'summary': """
-    Materiales Castelar wants to control receipts to make sure the different warehouses won't receive more than the ordered quantity.
-    """,
-
-    'description': """
-        
+    A module to ensure that the warehouses don't receive more than the ordered quantity.
     """,
 
     'author': "Odoo Inc.",
@@ -17,10 +13,6 @@
     'version': '1.0',
 
     'depends': ['stock'],
-
-    'data': [
-        
-    ],
 
     'license': 'OPL-1'
 }
