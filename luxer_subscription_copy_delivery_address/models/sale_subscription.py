@@ -3,7 +3,7 @@
 
 from odoo import api, fields, models
 
-class CopyPropertyToInvoice(models.Model):
+class SaleSubscription(models.Model):
     _inherit = 'sale.subscription'
 
     property_partner = fields.Many2one(comodel_name = 'res.partner', string='Property Partner')
