@@ -1,3 +1,4 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 fgd_admin,FGD Admin,model_res_partner,group_fgd_sales_admin,1,1,1,1
 fgd_sales_own,FGD Sales Own,model_res_partner,group_fgd_sales_own,1,1,1,1
+fgd_global,FGD Global,model_res_partner,,1,0,0,0
