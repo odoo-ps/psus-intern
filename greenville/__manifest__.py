@@ -14,9 +14,15 @@
 
     "version" : "0.1",
 
-    "depends" : ["sale"],
+    "depends" : ["sale","base","sale_management"],
 
-    "data" : [],
+    "data" : [
+        "security/ir.model.access.csv",
+
+        "views/sale_menuitems_inherit.xml",
+        "views/product_list_view.xml"
+
+    ],
 
     "demo" : []
 

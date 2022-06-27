@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_list_view_form">
+            <field name="name">product.list.view.form</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <form string="Product List Form">
+                    <field name="name"/>
+                    <field name="product_ids"/>
+                    <field name="customer_ids"/>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
