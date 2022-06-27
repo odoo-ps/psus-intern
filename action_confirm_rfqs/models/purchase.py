@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import models
 
 
 class PurchaseRequisition(models.Model):
@@ -12,5 +12,5 @@ class PurchaseRequisition(models.Model):
             ('state', '!=', 'draft'),
             ('partner_id', '=', 1),
             ('user_id', '=', 1)
-        ])
+        ]).button_confirm()
 
