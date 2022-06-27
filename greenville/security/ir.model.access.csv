@@ -1,0 +1,2 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+productlist_admin,productlist admin,greenville.model_product_list,productlist_access,1,1,1,1
