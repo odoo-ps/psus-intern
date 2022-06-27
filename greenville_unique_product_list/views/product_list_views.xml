@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="greenville_product_list_view_tree" model="ir.ui.view">
+            <field name="name">product.list.view.tree</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <tree string="Product Lists">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="greenville_product_list_form_view" model="ir.ui.view">
+            <field name="name">product.list.form</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <h1><field name="name" /></h1>
+                        <notebook>
+                            <page name="product_list" string="Product List">
+                                <field name="product_ids" />
+                            </page>
+                            <page name="customers" string="Customers That Use This List">
+                                <field name="customer_ids" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
