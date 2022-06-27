@@ -15,7 +15,7 @@ class modifiedContact(models.Model):
     def write(self, vals):
         isAdmin = self.env.user.has_group('fgd_glass.group_fgd_sales_admin')
         if ('user_id' in vals or 'sales_prices' in vals) and not isAdmin:
-            raise AccessError('You are attempting to edit a field you do not have access to')
+            raise AccessError(_('You are attempting to edit a field you do not have access to'))
         else:
             res = super(modifiedContact, self).write(vals)
             return res
