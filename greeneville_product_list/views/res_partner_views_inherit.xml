@@ -11,7 +11,7 @@
                         <group>
                             <group name="group_general">
                                 <field name="product_categ_ids" widget="many2many_tags"/>
-                                <field name="product_list_id"/>
+                                <field name="product_list_id" widget="selection"/>
                             </group>
                         </group>
                     </page>

@@ -18,7 +18,7 @@
 
     'version': '14.0.1.0',
 
-    'depends': ['product', 'base'],
+    'depends': ['base', 'product', 'website'],
 
     'data': [
         'views/product_list_menuitems.xml',
