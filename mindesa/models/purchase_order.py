@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import models
 
 class PurchaseOrder(models.Model):
   _inherit = "purchase.order"
   
   def confirm_rfqs(self):
-    orders = self.env['purchase.order'].search([
-      ('state', '=', 'draft'), 
-      ('user_id.id', '=', 2), 
-      ('partner_id.id', '=', 1)
+    odoobot = self.env.ref('base.partner_root')
+    partner = self.env['res.partner'].find_or_create('info@yourcompany.com')
+    orders  = self.env['purchase.order'].search([
+      ('user_id.id','=',odoobot.id),
+      ('partner_id.id','=',partner.id)
     ])
     for order in orders:
-      order.button_confirm()
+      if order.state == 'draft':
+        order.button_confirm()
+      else:
+        continue
+    

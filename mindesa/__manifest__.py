@@ -9,12 +9,7 @@
   'website': 'https://www.odoo.com',
   'category': 'Training',
   'version': '14.0.1.0.0',
-  'depends': [
-    'sale',
-    'sale_subscription',
-    'product',
-    'purchase',
-  ],
+  'depends': ['purchase'],
   'data': ['views/confirm_rdqs_scheduler.xml'],
   'license': 'OPL-1'
 }
