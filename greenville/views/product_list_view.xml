@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record model="ir.ui.view" id="product_list_form">
-            <field name="name">product.list.form</field>
+        <record id="product_list_view_form" model="ir.ui.view" >
+            <field name="name">product.list.view.form</field>
             <field name="model">product.list</field>
             <field name="arch" type="xml">
                 <form string="Product list form">
@@ -23,8 +22,8 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="product_list_search">
-            <field name="name">product.list.search</field>
+        <record id="product_list_view_search" model="ir.ui.view">
+            <field name="name">product.list.view.search</field>
             <field name="model">product.list</field>
             <field name="arch" type="xml">
                 <search>
@@ -32,6 +31,4 @@
                 </search>
             </field>
         </record>
-        
-    </data>
 </odoo>

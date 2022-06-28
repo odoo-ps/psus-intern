@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record model="ir.actions.act_window" id="product_list_action">
+    <record id="product_list_menu" model="ir.actions.act_window">
         <field name="name">Product List</field>
         <field name="res_model">product.list</field>
         <field name="view_mode">tree,form,pivot</field>
@@ -13,9 +12,9 @@
     </record>
 
     <menuitem
-        id="menu_product_list"
+        id="product_list_menu"
         name="Product List"
-        action="product_list_action"
+        action="product_list_menu"
         parent="sale.product_menu_catalog"
         sequence="10"/>
 </odoo>
