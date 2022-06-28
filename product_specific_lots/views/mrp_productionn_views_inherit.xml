@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="mrp_procution_form_view" model="ir.ui.view">
+            <field name="name">mrp.production.form.view.inherit.lot.prefix</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"></field>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="lot_number_prefix" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
