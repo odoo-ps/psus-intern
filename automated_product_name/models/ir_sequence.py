@@ -7,4 +7,4 @@ class IrSequence(models.Model):
     _inherit = 'ir.sequence'
 
     category_id = fields.Many2one("product.template", string='category id', required=True)
-    gender = fields.Char("product.template", string='product gender', required=True)
+    gender = fields.Many2one("product.template", string='product gender', required=True)
