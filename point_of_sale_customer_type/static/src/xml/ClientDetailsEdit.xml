@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template id="pos_templates">
+    <t t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" t-name="PosCustomerType">
+        <xpath expr="//div[@class='client-details-right']" position="inside">
+            <div id="pos_customer_type" class="client-detail">
+                <span class="label">Type</span>
+                <select name="customer_type"
+                    id="customer_type_select"
+                    class="details needsclick"
+                    t-att-value="props.partner.customer_type"
+                    t-on-change="captureChange">
+                    <option value="consumer">Consumer</option>
+                    <option value="patient">Patient</option>
+                    <option value="caregiver">Caregiver</option>
+                    <option value="external_patient">External</option>
+                </select>
+            </div>
+        </xpath>
+    </t>
+</template>
