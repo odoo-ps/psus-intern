@@ -9,7 +9,10 @@ class PurchaseOrder(models.Model):
 
     
     def confirm_all_RFQs(self):
-        rfqs = self.env['purchase.order'].search([('state','=','draft'),('partner_id', '=',1), ('user_id','=',2)])
+        
+        odoobot = self.env.ref('base.partner_root')
+        mindesa = self.env.ref('base.main_partner')
+        rfqs = self.env['purchase.order'].search([('state','=','draft'),('partner_id', '=',mindesa.id), ('user_id','=',odoobot.id)])
         for rfq in rfqs:
-            rfq.state = 'purchase'
+            rfq.button_confirm()
             
