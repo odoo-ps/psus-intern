@@ -25,6 +25,7 @@
         'security/product_list_security.xml',
         'security/ir.model.access.csv',
         'views/product_list_views.xml',
+        'views/res_partner_views_inherit.xml',
     ],
 
     'demo': [
