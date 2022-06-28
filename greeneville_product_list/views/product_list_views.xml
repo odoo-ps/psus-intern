@@ -15,7 +15,8 @@
                                 <field name="product_ids" />
                             </page>
                             <page string="Customers That Use This List">
-                                <field name="customer_ids" widget="many2many" />
+                                <field name="customer_ids" widget="many2many"
+                                       readonly="1" />
                             </page>
                         </notebook>
                     </sheet>
