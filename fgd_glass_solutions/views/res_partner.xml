@@ -7,11 +7,24 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="groups_id" eval="[(4, ref('product.group_product_pricelist'))]" />
             <field name="arch" type="xml">
-                <field name="property_product_pricelist" position="attributes">
-                    <attribute name="readonly">[('partner_create_only', '=', True)]</attribute>
+                <field name="user_id" position="before">
+                    <field name="partner_create_only" invisible="1" />
                 </field>
                 <field name="user_id" position="attributes">
-                    <attribute name="readonly">[('partner_create_only', '=', True)]</attribute>
+                    <attribute name="attrs">
+                        {
+                            'readonly': [('partner_create_only','=',True)],
+                        }
+                    </attribute>
+                </field>
+                <field name="property_product_pricelist" position="before">
+                    <field name="partner_create_only" invisible="1" />
+                </field>
+                <field name="property_product_pricelist" position="attributes">
+                    <attribute name="attrs">{
+                        'readonly': [('partner_create_only','=',True)],
+                        'invisible': [('is_company','=',False),('parent_id','!=',False)],
+                    }</attribute>
                 </field>
             </field>
         </record>
