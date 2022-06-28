@@ -12,7 +12,7 @@
     'website': 'https://www.odoo.com',
     'category': 'Training',
     'version': '14.0.1.0.0',
-    'depends': ['product', 'mrp', 'stock'],
+    'depends': ['product', 'mrp'],
     'data': [
         'views/product_template_views_inherit.xml',
     ],
