@@ -18,10 +18,13 @@
 
     'version': '14.0.1.0',
 
-    'depends': ['sale'],
+    'depends': ['product', 'base'],
 
     'data': [
-
+        'views/product_list_menuitems.xml',
+        'security/product_list_security.xml',
+        'security/ir.model.access.csv',
+        'views/product_list_views.xml',
     ],
 
     'demo': [
