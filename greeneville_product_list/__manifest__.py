@@ -7,7 +7,9 @@
 
     'description': """
         Task ID: 2874406
-        ====== TBF
+        Add "Product List" module under Sales/Products
+        Add "eCommerce" Tab under Contacts form
+        Enable filter functionality for Website - Shop
     """,
 
     'author': 'Odoo Inc',
@@ -18,7 +20,7 @@
 
     'version': '14.0.1.0',
 
-    'depends': ['base', 'product', 'website'],
+    'depends': ['product', 'website'],
 
     'data': [
         'views/product_list_menuitems.xml',
