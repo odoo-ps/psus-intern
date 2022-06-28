@@ -6,17 +6,11 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    is_partner_id_readonly = fields.Boolean(compute='_compute_is_partner_id_readonly',
-                                            inverse='_inverse_is_partner_id_readonly',
-                                            readonly=True)
+    is_sales_person = fields.Boolean(compute='_compute_is_sales_person',
+                                     readonly=True)
 
-    @api.depends()
-    def _compute_is_partner_id_readonly(self):
+    def _compute_is_sales_person(self):
         if self.env.user.has_group('sales_team.group_sale_manager'):
-            self.is_partner_id_readonly = False
-            return
+            self.is_sales_person = False
         elif (self.env.user.has_group('sales_team.group_sale_salesman_all_leads') or self.env.user.has_group('sales_team.group_sale_salesman')):
-            self.is_partner_id_readonly = True
-
-    def _inverse_is_partner_id_readonly(self):
-        pass
+            self.is_sales_person = True

@@ -6,14 +6,14 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='team_id']" position="after">
-                <field name="is_partner_id_readonly"/>
-                <field name="property_product_pricelist" attrs="{'readonly':[('is_partner_id_readonly','=',True)]}"></field>
+                <field name="is_sales_person"/>
+                <field name="property_product_pricelist" attrs="{'readonly':[('is_sales_person','=',True)]}"></field>
             </xpath>
             <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="before">
-                <field name="is_partner_id_readonly" invisible="1"/>
+                <field name="is_sales_person" invisible="1"/>
             </xpath>
             <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
-                <attribute name="attrs">{'readonly':[('is_partner_id_readonly','=',True)]}</attribute>
+                <attribute name="attrs">{'readonly':[('is_sales_person','=',True)]}</attribute>
             </xpath>
         </field>
     </record>
