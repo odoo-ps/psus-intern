@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_upc" model="ir.sequence">
+            <field name="name">UPC</field>
+            <field name="code">product.template</field>
+            <field name="prefix">B</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+            <field name="gender" eval="product.template.gender" />
+        </record>
+
+    </data>
+</odoo>
