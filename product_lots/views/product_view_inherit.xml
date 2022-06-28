@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="product_view_inherit" model="ir.ui.view">
+            <field name="name">product.view.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/> 
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="lot_number_prefix"/>
+                    <field name="lot_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record  id="sequence_lot_number" model="ir.sequence">
+            <field name="name">Lot Number</field>
+            <field name="code">product.template.lot_number_prefix</field>
+            <field name="prefix" />
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+            <field name="active">True</field>
+        </record>
+</odoo>
