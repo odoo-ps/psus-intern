@@ -19,7 +19,7 @@
 
     'category': 'Custom Development',
 
-    'version': '15.0.1.0',
+    'version': '14.0.1.0',
 
     'depends': ['stock'],
 
