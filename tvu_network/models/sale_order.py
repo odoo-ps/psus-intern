@@ -7,6 +7,7 @@ class SaleOrder(models.Model):
     
     @api.autovacuum
     def _autocancel_expired_quotations(self):
-        for sale in self.env['sale.order'].search([]).filtered(lambda s: ((s.validity_date and s.validity_date < fields.Date.today()) or s.is_expired)):
+        
+        for sale in self.env['sale.order'].search([('state', '=', 'draft'), ('validity_date', '!=', False), ('is_expired', '!=', False)]).filtered(lambda so: (so.validity_date and so.validity_date < fields.Date.today())):
             sale.action_cancel()
             
