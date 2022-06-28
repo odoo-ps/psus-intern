@@ -1,0 +1,82 @@
+<!-- <?xml version='1.0' encoding='utf-8'?> -->
+<odoo>
+    <data>
+        <record id="product_lists_tree_view" model="ir.ui.view" >
+            <field name="name">product.lists.tree</field>
+            <field name="model">product.lists</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="products"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_lists_form_view" model="ir.ui.view" >
+            <field name="name">product.lists.form</field>
+            <field name="model">product.lists</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="0"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="tag"
+                            widget="many2many_tags"/>
+                        </group>
+                        <notebook>
+                            <page string = "Product List" name = "page">
+                                <field name = "products">
+                                    <tree>
+                                        <field name = "name"/>
+                                        <field name = "invoice_policy"/>
+                                        <field name = "standard_price"/>
+                                        <field name = "qty_available"/>
+                                        <field name = "virtual_available"/>
+                                        <field name = "uom_name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string = "Customers">
+                                <field name ="customers_using_this_list">
+                                    <tree>
+                                        <control>
+                                            <create name="add_customer_control" string="Add a customer"/>
+                                        </control>
+                                        <field name = "name"/>
+                                        <field name = "city"/>
+                                        <field name = "state_id"/>
+                                        <field name = "active"/>
+                                    </tree>
+                                </field>
+
+
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="products_lists_menu_action" model="ir.actions.act_window" >
+            <field name="name">Product lists</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.lists</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="products_lists_menu"
+            name="Product Lists"
+            parent = "sale.product_menu_catalog"
+            sequence= "2"
+            action = "products_lists_menu_action"
+        />
+
+    </data>
+</odoo>
