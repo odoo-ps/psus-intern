@@ -9,11 +9,10 @@
   'author': 'Odoo',
   'website': 'https://www.odoo.com',
   'category': 'Training',
-  'version': '0.1',
+  'version': '14.0.1.0.0',
   'depends': ['sale'],
   'data': [
-    'views/res_partner_inherit.xml',
-    'security/ir.model.access.csv'
+    'views/res_partner_inherit.xml'
   ],
   'license': 'OPL-1'
 }
