@@ -13,6 +13,6 @@ class ProductList(models.Model):
     product_ids = fields.Many2many(comodel_name='product.template',
                                    string='Product List')
 
-    customer_ids = fields.one2many(comodel_name='res.partner',
+    customer_ids = fields.One2many(comodel_name='res.partner',
                                    inverse_name='product_list_id',
                                    string='Customers That Use This List')
