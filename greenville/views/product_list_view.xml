@@ -7,10 +7,18 @@
             <field name="name">product.list.view.form</field>
             <field name="model">product.list</field>
             <field name="arch" type="xml">
-                <form string="Product List Form">
-                    <field name="name"/>
-                    <field name="product_ids"/>
-                    <field name="customer_ids"/>
+                <form>
+                    <sheet>
+                        <h1><field name="name"/></h1>
+                        <notebook>
+                            <page string="Product List">
+                                <field name="product_ids"/>
+                            </page>
+                            <page string="Customers that use this list">
+                                <field name="customer_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>

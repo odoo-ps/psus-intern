@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- adds the menu item for the product list to the sales module -->
+
 <odoo>
     <data>
 

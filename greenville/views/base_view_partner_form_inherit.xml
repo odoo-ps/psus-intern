@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 	base.view_partner_form -->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="base_view_partner_form_inherit_greenville">
+            <field name="name">base.view.partner.form.inherit.greenville</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+
+            <field name="arch" type="xml">
+                <field name="property_payment_term_id" position="after">
+                    <field name="product_list_ids"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
