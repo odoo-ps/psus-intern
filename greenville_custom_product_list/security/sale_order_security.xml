@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id = "group_sales_admin" model ="res.groups">
+        <field name ="name">access_product_list</field>
+    </record>
+</odoo>

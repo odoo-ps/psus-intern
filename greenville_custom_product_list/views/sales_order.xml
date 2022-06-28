@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <data noupdate="1">
+                <record id="product_list_action" model="ir.actions.act_window">
+                        <field name="name">Product Lists</field>
+                        <field name="res_model">product.list</field>
+                        <field name="view_mode">tree,form</field>
+                        <field name ="help" type = "html">
+                                <p>
+                                    Create your product lists here
+                                </p>
+                            </field>
+                </record>
+                <record model= 'ir.ui.view' id = 'product_list_view'>
+                        <field name = 'name'>product.list.view</field>
+                        <field name = 'model'>product.list</field>
+                        <field name ='arch' type = 'xml'>
+                            <tree string ='Product Lists'>
+                                <field name='id'/>
+                                <field name = 'name' string='Name' />
+                            </tree>
+                        </field>
+                        
+                    </record>
+                    <record model= 'ir.ui.view' id = 'product_form_view'>
+                        <field name = 'name'>product.form.view</field>
+                        <field name = 'model'>product.list</field>
+                        <field name ='arch' type = 'xml'>
+                            <form string ='Product List Create'>
+                                <h1><field name = 'name' string = 'Name'/></h1>
+                                
+                                <notebook>
+                                        <page name="custom_product_list_page" string="Product Lists">
+                                                <field name ='product_list_id'/>
+                                        </page>
+                                        <page name ="custom_customers_list" string="Customers List">
+                                                <field name="product_customer_id" />
+                                        </page>
+                                </notebook>
+                                
+                            </form>
+                        </field>
+                        
+                    </record>
+                <menuitem id="product_menu_list1" name="Product Lists1" parent="sale.product_menu_catalog" sequence="4" action="product_list_action"/>
+        
+        </data>
+</odoo>
