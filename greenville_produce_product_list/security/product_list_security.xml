@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_product_list_admin" model="res.groups">
+        <field name="name">Product List / Admin</field>
+    </record>
+    <record id="group_product_list_customer" model="res.groups">
+        <field name="name">Product List / Customer</field>
+    </record>
+</odoo>
