@@ -14,5 +14,6 @@
     'license': 'OPL-1',
     'data': [
         "views/product_view_inherit.xml",
+        "views/mrp_production_view.xml",
     ],
 }
