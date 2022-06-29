@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_bexp_quotation">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="web.external_layout">
+            <div class="page container">
+              <style>
+                @media print {
+                  .pagebreak {
+                    page-break-after: always;
+                  }
+                }
+                [type='numeric'] {
+                  text-align: right;
+                }
+              </style>
+
+              <div class="row my-1">
+                <div class="col">
+                  <div class="card bg-primary">
+                    <div class="card-header">Customer</div>
+                    <div class="card-body">
+                      <t t-out="o.partner_id.name" />
+                      ,
+                      <br />
+                      <t t-out="o.partner_id.street" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <h2>ESTIMATE</h2>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Quote #ID</th>
+                        <td>
+                          <t t-out="o.id" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Date</th>
+                        <td>
+                          <t t-out="o.date_order" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Revision</th>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Payment Terms</th>
+                        <td>
+                          <t t-out="o.payment_term_id.name" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="card bg-primary">
+                    <div class="card-header">SHIP TO</div>
+                    <div class="card-body">
+                      <t t-out="o.final_client" />
+                      ,
+                      <br />
+                      <t t-out="o.job_site" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card bg-primary">
+                <div class="card-header">Scope of Service</div>
+                <div class="card-body">
+                  <p>
+                    <t t-out="o.opportunity_id.name" />
+                  </p>
+                  <t t-if="o.travel_in">
+                    <p>
+                      Travel in:
+                      <t t-out="o.travel_in" />
+                    </p>
+                  </t>
+                  <t t-if="o.travel_out">
+                    <p>
+                      Travel out:
+                      <t t-out="o.travel_in" />
+                    </p>
+                  </t>
+                </div>
+                <div class="class-footer">
+                  Estimated dates of travel
+                </div>
+              </div>
+
+              <table class="table">
+                <thead>
+                  <th scope="col">No.</th>
+                  <th scope="col">Item</th>
+                  <th scope="col">Activity</th>
+                  <th scope="col" type="numeric">Qty</th>
+                  <th scope="col" type="numeric">Rate</th>
+                  <th scope="col" type="numeric">Amount</th>
+                </thead>
+                <tbody>
+                  <t t-foreach="o.order_line" t-as="line">
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        <t t-out="line.product_id.name" />
+                      </td>
+                      <td>
+                        <t t-out="line.name" />
+                      </td>
+                      <td type="numeric">
+                        <t t-out="line.product_uom_qty" />
+                      </td>
+                      <td type="numeric">
+                        <t t-out="line.price_unit" />
+                      </td>
+                      <td type="numeric">
+                        <t t-out="line.price_subtotal" />
+                      </td>
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+
+              <div class="row justify-content-end">
+                <table class="col-7 table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">SUBTOTAL</th>
+                      <td type="numeric">
+                        <t t-out="o.amount_untaxed" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">TAX</th>
+                      <td type="numeric">
+                        <t t-out="o.amount_tax" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary" scope="row">TOTAL</th>
+                      <td type="numeric">
+                        <t t-out="o.amount_total" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="pagebreak" />
+
+              <h1>TERMS OF SERVICES</h1>
+              <t t-out="o.note" />
+
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>
