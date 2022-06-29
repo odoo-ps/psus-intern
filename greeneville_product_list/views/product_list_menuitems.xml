@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record model="ir.actions.act_window" id="product_list_action">
+    <record model="ir.actions.act_window" id="greenville_product_list_action">
         <field name="name">Product Lists</field>
         <field name="res_model">product.list</field>
         <field name="view_mode">tree,form</field>
@@ -12,12 +12,12 @@
     </record>
 
     <data>
-        <menuitem id="menu_product_list"
+        <menuitem id="menu_greenville_product_list"
                   name="Product List"
                   parent="sale.product_menu_catalog"
                   sequence="4"
-                  groups="group_product_list_admin"
-                  action="product_list_action"
+                  groups="group_greenville_product_list_admin"
+                  action="greenville_product_list_action"
         />
     </data>
 </odoo>
