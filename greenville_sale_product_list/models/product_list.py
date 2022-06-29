@@ -7,6 +7,6 @@ class ProductList(models.Model):
     _description = 'Product List'
 
     name = fields.Char(string='Name', required=True)
-    product_ids = fields.Many2many('product.product', string='Products')
-    customer_ids = fields.One2many('res.partner', 'product_list_id', string='Customers')
+    product_id = fields.Many2many('product.product', string='Products')
+    customer_id = fields.One2many('res.partner', 'product_list_id', string='Customers')
     
