@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="quotation_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Qoute ID#</th>
+                                                <td t-if="doc.name" name="td_quoteID">
+                                                    <span t-field="doc.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Date</th>
+                                                <td t-if="doc.date_order" name="td_date">
+                                                    <span t-field="doc.date_order" t-options='{"format": "dd/MM/yyyy"}' />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Revision</th>
+                                                <td />
+                                            </tr>
+                                            <tr>
+                                                <th>Payment terms</th>
+                                                <td t-if="doc.payment_term_id" name="td_payment_terms">
+                                                    <span t-field="doc.payment_term_id" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>Customer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td t-if="doc.final_client" name="td_customer">
+                                                    <div t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>Ship to</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td t-if="doc.final_client" name="td_customer">
+                                                    <div t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th colspan="5">Scope of service</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5" t-if="doc.opportunity_name" name="td_customer">
+                                                    <div t-field="doc.opportunity_name" />
+                                                    <p>
+                                                        Travel in:
+                                                        <span t-field="doc.travel_in" />
+                                                    </p>
+                                                    <p>
+                                                        Travel out:
+                                                        <span t-field="doc.travel_out" />
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Estimated dates to travel</td>
+                                                <td>From</td>
+                                                <td />
+                                                <td>To</td>
+                                                <td />
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th class="text-center">No.</th>
+                                                <th class="text-center">Item</th>
+                                                <th class="text-center">Activity</th>
+                                                <th class="text-center">Qty</th>
+                                                <th class="text-center">Rate</th>
+                                                <th class="text-center">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="i" t-value="1" />
+                                            <t t-foreach="doc.order_line" t-as="order">
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <span t-esc="i" />
+                                                    </td>
+                                                    <td class="text-center" t-if="order.product_id" name="td_name">
+                                                        <span t-field="order.product_id" />
+                                                    </td>
+                                                    <td class="text-center" t-if="order.name" name="td_product">
+                                                        <span t-field="order.name" />
+                                                    </td>
+                                                    <td class="text-center" t-if="order.product_uom_qty" name="td_qty">
+                                                        <span t-field="order.product_uom_qty" />
+                                                    </td>
+                                                    <td class="text-right" t-if="order.price_unit" name="td_rate">
+                                                        <span t-field="order.price_unit" />
+                                                    </td>
+                                                    <td class="text-right" t-if="order.price_subtotal" name="td_amount">
+                                                        <span t-field="order.price_subtotal" />
+                                                    </td>
+                                                </tr>
+                                                <t t-set="i" t-value="i+1" />
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" />
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>Subtotal</th>
+                                                <td class="text-right">
+                                                    <span t-field="doc.amount_untaxed" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Taxes</th>
+                                                <td class="text-right">
+                                                    <span t-field="doc.amount_tax" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total</th>
+                                                <td class="text-right" t-if="doc.amount_total" name="td_total">
+                                                    <span t-field="doc.amount_total" />
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="page-break-after:always;"></p>
+                    </div>
+                    <div class="page">
+                        <strong>Terms and conditions</strong>
+                        <span t-raw="doc.note" />
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
