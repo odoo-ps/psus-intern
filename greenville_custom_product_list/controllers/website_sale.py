@@ -13,5 +13,4 @@ class WebsiteSaleInherit(WebsiteSale):
         prod_list = request.env.user.partner_id.product_list_name_id.product_list_id
         if prod_list:
             res.append(('id','in',request.env.user.partner_id.product_list_name_id.product_list_id))
-        print(res)
         return res
