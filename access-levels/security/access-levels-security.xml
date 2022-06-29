@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_access_levels_pm" model="res.groups">
+        <field name="name">Timesheet Project Manager (PM)</field>
+    </record>
+
+    <record id="group_access_levels_supervisor" model="res.groups"> 
+        <field name="name">Timesheet Supervisor</field>
+    </record>
+
+    <record id="group_access_levels_admin" model="res.groups">
+        <field name="name">Timesheet Administrator</field>
+    </record>
+</odoo>
