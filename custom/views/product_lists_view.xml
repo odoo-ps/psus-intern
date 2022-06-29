@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custom_product_lists_view_action" model="ir.actions.act_window">
+            <field name="name">Product Lists</field>
+            <field name="res_model">custom.productlists</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="custom_product_lists_tree_view" model="ir.ui.view">
+            <field name="name">custom.product.lists.tree.view</field>
+            <field name="model">custom.productlists</field>
+            <field name="arch" type="xml">
+                <tree string="Product Lists">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="custom_product_lists_form_view" model="ir.ui.view">
+            <field name="name">custom.product.lists.form.view</field>
+            <field name="model">custom.productlists</field>
+            <field name="arch" type="xml">
+                <form string="Product Lists">
+                    <sheet name="name" string="Product Lists">
+                        <div class="product_title">
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="0_text_overflow" name="name" placeholder="Store Name [ID NUMBER]"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                        </group>
+                        <notebook>
+                            <page string="Product List">
+                                <group>
+                                    <field name="product_list_id">
+                                        <tree editable="buttom">
+                                            <field name="name" string="Product Name"/>
+                                            <field name="invoice_policy" />
+                                            <field name="standard_price"/>
+                                            <field name="qty_available" />
+                                            <field name="virtual_available"/>
+                                            <field name="uom_id"/>
+                                        </tree>
+                                    </field>    
+                                </group>
+                            </page>
+                            <page string="Customers That Use This List">
+                                <group>
+                                    <field name="customer_list_ids" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <menuitem id="product_lists_menu" name="Product Lists" parent="sale.product_menu_catalog" sequence="9" action="custom_product_lists_view_action"/>
+    </data>
+</odoo>
