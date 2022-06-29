@@ -9,7 +9,7 @@
                  <xpath expr="//page[1]" position="after">
                     <page name='ecommerce' string = 'Ecommerce' >
                         <group name="product_list" string="Product List">
-                            <field name="product_id"/>
+                            <field name="product_list_name_id"/>
                         </group>
                         
                     </page>

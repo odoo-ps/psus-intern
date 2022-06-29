@@ -21,8 +21,7 @@ class ProductListsTemplate(models.Model):
     product_customer_id = fields.One2many(
         string='Customer List',
         comodel_name='res.partner',
-        inverse_name='product_id',
-        read_only=True
+        inverse_name='product_list_name_id'
         
     )
     
