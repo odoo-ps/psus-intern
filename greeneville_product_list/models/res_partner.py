@@ -18,4 +18,5 @@ class Partner(models.Model):
     def _compute_product_categ_ids(self):
         for record in self:
             for product_id in record.product_list_id.product_ids:
-                record.product_categ_ids = [(4, product_id.categ_id.id)]
+                if product_id and product_id.categ_id:
+                    record.product_categ_ids = [(4, product_id.categ_id.id)]
