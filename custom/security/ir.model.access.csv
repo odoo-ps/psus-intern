@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+productlists_admin,productlists admin,model_custom_productlists,group_custom_admin,1,1,1,1
+productlists_read_all,productlists read all,model_custom_productlists,,1,0,0,0
+producttags_admin,producttags admin,model_custom_producttags,group_custom_admin,1,1,1,1
+producttags_read_all,producttags read all,model_custom_producttags,,1,0,0,0
