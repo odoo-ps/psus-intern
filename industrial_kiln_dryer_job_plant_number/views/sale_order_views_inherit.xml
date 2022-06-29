@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_view_form_inherit_ikd" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.ikd.job.number</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="job_num_prefix" />
+                    <field name="job_num_suffix" />
+                    <field name="job_num_sequence" />
+                    <field name="job_number" />
+                    <field name="plant_code" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
