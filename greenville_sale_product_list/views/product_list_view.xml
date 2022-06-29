@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_list_view_form">
+            <field name="name">product.list.form</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <form string="Product List Form">
+                    <sheet>
+                        <h1><field name="name"/></h1>
+                        <notebook>
+                            <page string="Product List">
+                                <field name="product_id"/>
+                            </page>
+                            <page string="Customers That Use This List">
+                                <field name="customer_id"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_list_view_list">
+            <field name="name">product.list.form</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <tree string="Product List Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_list_view_search">
+            <field name="name">product.list.search</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <search string="Product List Search">
+                    <field name="name"/>
+                    <field name="product_id"/>
+                    <field name="customer_id"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>
