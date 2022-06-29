@@ -16,7 +16,7 @@
             <field name="model">greenville.products.list</field>
             <field name="arch" type="xml">
                 <form string="Product List">
-                    <h1><field name="name">product_name</field></h1>
+                    <h1><field name="name"/></h1>
                     <h4>Tags</h4>
                     <notebook>
                         <page string="Product List">

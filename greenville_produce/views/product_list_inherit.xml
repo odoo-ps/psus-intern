@@ -9,7 +9,6 @@
                 <xpath expr="//page[@name='sales_purchases']" position="after">
                     <page name="eCommerce" string="eCommerce">
                         <group>
-                            <field name="product_list_id" string="Available Product Categories"/>
                             <field name="product_list_id" string="Product List"/>
                         </group>
                     </page>
