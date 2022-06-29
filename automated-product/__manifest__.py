@@ -22,6 +22,5 @@
     'depends': ['product'],
     # always loaded
     'data': ['views/product_template_views.xml'],
-    'application': False,
-    'auto_install': True
+    'application': False
 }
