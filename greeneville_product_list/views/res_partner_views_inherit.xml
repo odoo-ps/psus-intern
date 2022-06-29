@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_partner_form_inherit_product">
+            <field name="name">res.partner.form.inherit.product</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="ecommerce" string="eCommerce">
+                        <group>
+                            <group name="group_general">
+                                <field name="product_categ_ids" widget="many2many_tags"/>
+                                <field name="product_list_id" widget="selection"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
