@@ -2,7 +2,25 @@
 <odoo>
     <data noupdate="1">
         <!-- add job_number sequencer here -->
+        <record id="sale_order_job_sequence" model="ir.sequence">
+            <field name="name">Job Number</field>
+            <field name="code">sale.order.job.seq</field>
+            <field name="active">TRUE</field>
+            <field name="padding">5</field>
+            <field name="number_next">13500</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False" />
+        </record>
 
         <!-- add plant_code sequencer here -->
+        <record id="sale_order_plant_sequence" model="ir.sequence">
+            <field name="name">Job Number</field>
+            <field name="code">sale.order.plant.seq</field>
+            <field name="active">TRUE</field>
+            <field name="padding">5</field>
+            <field name="number_next">101</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False" />
+        </record>
     </data>
 </odoo>
