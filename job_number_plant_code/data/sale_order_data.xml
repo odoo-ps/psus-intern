@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- add job_number sequencer here -->
+
+        <!-- add plant_code sequencer here -->
+    </data>
+</odoo>
