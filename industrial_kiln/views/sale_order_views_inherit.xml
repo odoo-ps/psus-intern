@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_order_form">
+        <field name="name">sale.view.order.form.inherit.industrial.kiln</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref='sale.view_order_form'/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="job_number_prefix" />
+                <field name="job_sequence" />
+                <field name="job_number_sufix" />
+                <field name="job_number" />
+            </field>
+        </field>
+    </record>
+</odoo>
