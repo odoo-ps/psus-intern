@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'TVU Networks',
+    'name': '15.0-TVUNetworks-2879288',
     'summary': """cancel expired quotations  """,
     'description': """
         canceling expired quotations
+        Task id: 2879288
     """,
-    'Author' : 'yixi',
+    'Author' : 'Odoo Inc',
     'website' : 'https://www.odoo.com',
-    'category' : 'Training',
-    'version' : '0.1',
-    'depends': ['base','sales'],
+    'category' : 'Custom Development',
+    'version' : '1.1',
+    'depends': ['sales'],
     'data' : [
         'views/.xml'
     ],

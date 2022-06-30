@@ -4,12 +4,14 @@
     'name': 'NY P&W Shoes',
     'summary': """Shoe company  """,
     'description': """
+
         Having fields for auto price calculation
+        Task id: 2879307
     """,
-    'Author' : 'yixi',
+    'Author' : 'Odoo Inc',
     'website' : 'https://www.odoo.com',
-    'category' : 'Training',
-    'version' : '0.1',
+    'category' : 'Custom Development',
+    'version' : '1.1',
     'depends': ['base','product'],
     'data' : [
         'views/product_views_inheritted.xml'
