@@ -6,16 +6,16 @@
     'description': """
         canceling expired quotations
         Task id: 2879288
+        Keywords: auto_install, installable, application
     """,
     'Author' : 'Odoo Inc',
     'website' : 'https://www.odoo.com',
     'category' : 'Custom Development',
-    'version' : '1.1',
+    'version' : '15.0.1.0',
     'depends': ['sales'],
     'data' : [
         'views/.xml'
     ],
     'license': "OPL-1",
     'demo': [],
-
 }

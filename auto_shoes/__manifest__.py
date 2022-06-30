@@ -11,7 +11,7 @@
     'Author' : 'Odoo Inc',
     'website' : 'https://www.odoo.com',
     'category' : 'Custom Development',
-    'version' : '1.1',
+    'version' : '15.0.1',
     'depends': ['base','product'],
     'data' : [
         'views/product_views_inheritted.xml'

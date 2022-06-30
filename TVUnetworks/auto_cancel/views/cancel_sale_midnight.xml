@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="auto_cancel_quotations" model="ir.cron">
+        <record id="auto_cancel_quotations_TVUNetworks" model="ir.cron">
             <field name="name">Auto_cancellation</field>
             <field name="active" eval="True" />
             <field name="user_id" ref="base.user_root" />
