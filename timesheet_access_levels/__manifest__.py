@@ -5,6 +5,7 @@
     'version': '1.0',
     'license': 'OPL-1',
     'author': 'Odoo Inc',
+    'category': 'Training',
     'summary': 'Implmented timesheet pipeline based on permissions',
     'description': """
         There are several levels of approval for timesheets. A project manager must approve it, and then a supervisor, and then finally 

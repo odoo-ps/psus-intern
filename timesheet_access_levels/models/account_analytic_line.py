@@ -19,8 +19,6 @@ class ModifiedAnalyticLine(models.Model):
 
     levels_of_approval = fields.Integer(default=3)
 
-    messenger = fields.Many2one(comodel_name ='mail.thread',ondelete='cascade')
-
     
 
     def _compute_can_validate(self):
@@ -34,56 +32,52 @@ class ModifiedAnalyticLine(models.Model):
             else:
                 line.user_can_validate = False
     
-    @api.depends('user_can_validate')
-    def write(self, vals):    
-        if not self.user_can_validate:
-            raise AccessError('You are attempting to edit a timesheet you do not have access to')
-        else:
+    @api.depends('user_can_validate') 
+    def write(self, vals):
+        currLevelIntValue = int(self.current_level)       
+        if self.user_can_validate or currLevelIntValue == 1:
             res = super(ModifiedAnalyticLine, self).write(vals)
             return res
+        else:
+            raise AccessError(_('You are attempting to edit a timesheet you do not have access to'))
+            
 
 
     @api.depends('user_can_validate')
     def action_validate_timesheet(self):
-        currLevelIntValue = int(self.current_level)
-        if self.user_can_validate:
-            if currLevelIntValue < self.levels_of_approval: 
-                self.current_level = str(currLevelIntValue + 1)
+        for record in self:
+            currLevelIntValue = int(record.current_level)
+            if record.user_can_validate:
+                if currLevelIntValue < record.levels_of_approval: 
+                    record.current_level = str(currLevelIntValue + 1)
+                else:
+                    record.invoice_ready = True
             else:
-                self.invoice_ready = True
-        else:
-            raise AccessError(_("You are trying to validate a timesheet that you do not have permission to"))
+                raise AccessError(_("You are trying to validate a timesheet that you do not have permission to"))
 
 
     @api.depends('user_can_validate')
     def action_invalidate_timesheet(self):
-        currLevelIntValue = int(self.current_level)
-        if self.user_can_validate and currLevelIntValue >= 1: 
-            if currLevelIntValue > 1:
-                self.current_level = str(currLevelIntValue - 1)
-            people_to_notify = [self.create_uid]
-            invalidator_id = self.env.user.partner_id.id
-            message_text='Your timesheet was invalidated. Please review and resubmit it.'
+        for record in self:
+            if record.user_can_validate: 
+                record.current_level = '1'
+                invalidator_id = record.env.user.partner_id.id
+                message_text=_('Your timesheet was invalidated. Please review and resubmit it.')
 
-            channel = self.env['mail.channel'].sudo().search([
-                (self.create_uid.partner_id.id, 'in', 'channel_partner_ids')
-            ],
-                limit=1,
-            )
-            if not channel:
-                channel = self.env['mail.channel'].with_context(mail_create_nosubscribe=True).sudo().create({
-                    'channel_partner_ids': [(4, self.create_uid.partner_id.id)],
+                channel = record.env['mail.channel'].with_context(mail_create_nosubscribe=True).sudo().create({
+                    'channel_partner_ids': [(4, record.create_uid.partner_id.id)],
                     'public': 'private',
                     'channel_type': 'chat',
                     'name': f'Timesheet Invalidated',
                     'display_name': f'Timesheet Invalidated',
                 })
 
-            channel.sudo().message_post(
-                body=message_text,
-                author_id=invalidator_id,
-                message_type="comment",
-            )
+                channel.sudo().message_post(
+                    body=message_text,
+                    author_id=invalidator_id,
+                    message_type="comment",
+                )
 
-        else:
-            raise AccessError(_("You are trying to invalidate a timesheet that you do not have permission to"))
+            else:
+                raise AccessError(_("You are trying to invalidate a timesheet that you do not have permission to"))
+
