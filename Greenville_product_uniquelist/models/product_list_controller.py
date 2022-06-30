@@ -12,6 +12,6 @@ class ProductList(WebsiteSale):
         domain = super(ProductList, self)._get_search_domain(search, category, attrib_values, search_in_description)
         product_list_id = http.request.env.user.partner_id.product_list_id
         if product_list_id:
-            domain.append(('id', 'in', product_list_id.product_list.ids))
+            domain.append([('id', 'in', product_list_id.product_list.ids)])
         return domain
         
