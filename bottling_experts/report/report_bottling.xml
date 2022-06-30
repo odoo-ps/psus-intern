@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <template id='report_bottling_document'>
+    <t t-call='web.html_container'>
+      <t t-foreach='docs' t-as='doc'>
+        <t t-call='web.external_layout'>
+          <div class='page'>
+            <div class='container'>
+              <section name='oreder_header' class='row'>
+                <div class='col-6'></div>
+                <div class='col-6'>
+                  <div class='pb-4 mb-4 d-flex justify-content-end align-items-start'>
+                    <h2 class='h1 text-uppercase'>estimate</h2>
+                  </div>
+                  <div>
+                    <table class='table table-sm table-bordered border-dark'>
+                      <tbody>
+                        <tr>
+                          <th style='background-color: #dadada;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>quote id#</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right' t-field='doc.name' />
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style='background-color: #dadada;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>date</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right' t-field='doc.date_order' />
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style='background-color: #dadada;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>revision</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right'></p>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style='background-color: #dadada;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>payment terms</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right' t-field='doc.payment_term_id' />
+                          </th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+              <section name='oder_client_info' class='row'>
+                <div class='col-6'>
+                  <table style='min-height: 200px;' class='table table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-uppercase'>Customer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p t-field='doc.partner_id' t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='col-6'>
+                  <table style='min-height: 200px;' class='table table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-uppercase'>ship to</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p t-field='doc.partner_shipping_id' t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              <section name='order_scope_service' class='row'>
+                <div class='col-12'>
+                  <table class='table table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-uppercase'>Scope of service</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p t-field='doc.opportunity_name' />
+                          <p>Travel in: <span t-field='doc.travel_in' /></p>
+                          <p>Travel out: <span t-field='doc.travel_out' /></p>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              <section name='order_info' class='row'>
+                <div class='col-12'>
+                  <table class='table table-sm table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-center fw-bold'>No.</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Item</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Activity</th>
+                        <th scope='col' class='text-white text-center fw-bold'>QTY</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Rate</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <t t-set='i' t-value='1' />
+                      <t t-foreach='doc.order_line' t-as='product'>
+                        <tr>
+                          <th scope='row'>
+                            <p class='text-center' t-esc='i' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.product_id.name' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.name' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.product_uom_qty' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.price_unit' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.price_total' />
+                          </th>
+                        </tr>
+                        <t t-set='i' t-value='i+1' />
+                      </t>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='col-7 ml-auto'>
+                  <table class='table table-sm table-bordered'>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p>Subtotal</p>
+                        </th>
+                        <th class='text-right' scope='row'>
+                          <p></p>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th scope='row'>
+                          <p>Tax</p>
+                        </th>
+                        <th class='text-right' scope='row'>
+                          <p t-field='doc.amount_tax' />
+                        </th>
+                      </tr>
+                      <tr>
+                        <th style='background-color: #0a1f5c' scope='row'>
+                          <p class='text-white'>Total</p>
+                        </th>
+                        <th class='text-right' scope='row'>
+                          <p t-field='doc.amount_total' />
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+          <p style='page-break-after: always;'></p>
+          <div class='page'>
+           <div class='container'>
+             <section class='row'>
+               <div class='col-6'>
+               </div>
+               <div class='col-6 text-right'>
+                 <p class='h1'>Page 2 of Quotation</p>
+               </div>
+             </section>
+             <section class='row'>
+               <div class='col-12'>
+                 <p class='h3 text-uppercase'>terms of service</p>
+               </div>
+               <div class='col-12'>
+                 <p t-field='doc.note'/>
+               </div>
+             </section>
+           </div>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>
