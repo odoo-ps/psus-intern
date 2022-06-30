@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, api, exceptions
 
+class StockMove(models.Model):
+    
+    _inherit = 'stock.move'
 
-# class order-less-than-demand(models.Model):
-#     _name = 'order-less-than-demand.order-less-than-demand'
-#     _description = 'order-less-than-demand.order-less-than-demand'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    @api.onchange('quantity_done')
+    def _validate_product_quantity(self):
+        for record in self:
+            if record.quantity_done > record.product_uom_qty:
+                raise exceptions.ValidationError("You can't receive more than the ordered quantity. Please, enter another quantity")
+    
