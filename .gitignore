@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+#access-levels
+fgd_glass/
+pw-shoes/
+training-library-module/
+TVU_Network/
+yanchao/
+todo.txt

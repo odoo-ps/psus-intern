@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_template_only_form_view_inherit_nypw">
+            <field name="name">account.analytic.line.invalidate</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="current_level"></field>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
