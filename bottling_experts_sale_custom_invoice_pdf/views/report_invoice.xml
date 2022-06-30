@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="testing_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//address" position="replace">
+            <t>
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <table class="quotation_table" style="width: 100%; margin-bottom: 10px;">
+                    <tr>
+                        <th>QUOTE ID#</th>
+                        <td>
+                            <span t-field="o.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>DATE</th>
+                        <td>
+                            <span t-field="o.date"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>REVISION</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>PAYMENT TERMS</th>
+                        <td>
+                            <span t-field="o.invoice_payment_term_id"/>
+                        </td>
+                    </tr>
+                </table>
+                <style>
+                    table, th, td {
+                    border: 1px solid;
+                    }
+                    table.quotation_table > tbody > tr > th {
+                    background-color:#dadada
+                    }
+                </style>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="customer_table" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='page'][1]" position="replace">
+            <t>
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <table class="customer_table" style="width: 48%; float: left;">
+                    <tr>
+                        <th style="background-color: #091e5d; color: white;">CUSTOMER</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: white;">
+                            <address t-field="o.partner_i"
+                                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                            <div t-if="o.partner_id.vat" class="mt16">
+                                <t t-if="o.company_id.account_fiscal_country_id.vat_label"
+                                   t-esc="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                                <t t-else="">Tax ID</t>:
+                                <span t-field="o.partner_id.vat"/>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+
+                <table class="shipping_table" style="width: 48%; float: right;">
+                    <tr>
+                        <th style="background-color: #091e5d; color: white;">SHIP TO</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: white;">
+                            <address t-field="o.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                            <div t-if="o.partner_id.vat" class="mt16">
+                                <t t-if="o.company_id.account_fiscal_country_id.vat_label"
+                                   t-esc="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                                <t t-else="">Tax ID</t>:
+                                <span t-field="o.partner_id.vat"/>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+
+                <table class="scope_of_service_table" style="width: 100%">
+                    <tr>
+                        <th style="background-color: #091e5d; color: white;">SCOPE OF SERVICE</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: white;">
+                            <address t-field="o.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                            <div t-if="o.partner_id.vat" class="mt16">
+                                <t t-if="o.company_id.account_fiscal_country_id.vat_label"
+                                   t-esc="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                                <t t-else="">Tax ID</t>:
+                                <span t-field="o.partner_id.vat"/>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+                <style>
+                    table, tr, th, td {
+                    border: 3px solid;
+                    }
+                    table.quotation_table > tbody > tr > th {
+                    background-color:#dadada
+                    }
+                </style>
+            </t>
+        </xpath>
+    </template>
+</odoo>
