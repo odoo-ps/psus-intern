@@ -7,50 +7,46 @@ class ModifiedAnalyticLine(models.Model):
 
 
     current_level = fields.Selection(selection = [
-                                      ('1', 'timesheet_access_levels.group_access_levels_pm'),
-                                      ('2', 'timesheet_access_levels.group_access_levels_supervisor'),
-                                      ('3', 'timesheet_access_levels.group_access_levels_admin'),
-                                      ], default='1',string="Needs approval from")
+                                      ('timesheet_access_levels.group_access_levels_pm', 'Project Manager'),
+                                      ('timesheet_access_levels.group_access_levels_supervisor', 'Supervisor'),
+                                      ('timesheet_access_levels.group_access_levels_admin', 'Admin'),
+                                      ], default='timesheet_access_levels.group_access_levels_pm',
+                                         string="Needs approval from")
 
     user_can_validate = fields.Boolean(compute='_compute_can_validate',
-        help="Whether or not the current user can validate/reset to draft the record.")
+        help="Whether or not the current user can validate/reset to draft the record.",default=False)
 
-    invoice_ready = fields.Boolean(required=True, default=False)
-
-    levels_of_approval = fields.Integer(default=3)
-
-    
+    invoice_ready = fields.Boolean(required=True, default=False)   
 
     def _compute_can_validate(self):
-        print('validate function overwritten')
-        curr_permitted_editor = dict(self._fields['current_level'].selection).get(self.current_level)
+        curr_permitted_editor = self.current_level
         for line in self:
             if (self.env.user.has_group(curr_permitted_editor) and (
-                not curr_permitted_editor == 'access-levels.group_access_levels_pm' or 
+                not curr_permitted_editor == 'timesheet_access_levels.group_access_levels_pm' or 
                 line.employee_id.timesheet_manager_id.id == self.env.user.id)):
                     line.user_can_validate = True
             else:
                 line.user_can_validate = False
     
+
     @api.depends('user_can_validate') 
-    def write(self, vals):
-        currLevelIntValue = int(self.current_level)       
-        if self.user_can_validate or currLevelIntValue == 1:
+    def write(self, vals):     
+        if self.user_can_validate or record.current_level == 'timesheet_access_levels.group_access_levels_pm':
             res = super(ModifiedAnalyticLine, self).write(vals)
             return res
         else:
             raise AccessError(_('You are attempting to edit a timesheet you do not have access to'))
             
 
-
     @api.depends('user_can_validate')
     def action_validate_timesheet(self):
         for record in self:
-            currLevelIntValue = int(record.current_level)
             if record.user_can_validate:
-                if currLevelIntValue < record.levels_of_approval: 
-                    record.current_level = str(currLevelIntValue + 1)
-                else:
+                if record.current_level == 'timesheet_access_levels.group_access_levels_pm': 
+                    record.current_level = 'timesheet_access_levels.group_access_levels_supervisor'
+                elif record.current_level == 'timesheet_access_levels.group_access_levels_supervisor':
+                    record.current_level = 'timesheet_access_levels.group_access_levels_admin'
+                elif record.current_level == 'timesheet_access_levels.group_access_levels_admin':
                     record.invoice_ready = True
             else:
                 raise AccessError(_("You are trying to validate a timesheet that you do not have permission to"))
@@ -60,7 +56,7 @@ class ModifiedAnalyticLine(models.Model):
     def action_invalidate_timesheet(self):
         for record in self:
             if record.user_can_validate: 
-                record.current_level = '1'
+                record.current_level = 'timesheet_access_levels.group_access_levels_pm'
                 invalidator_id = record.env.user.partner_id.id
                 message_text=_('Your timesheet was invalidated. Please review and resubmit it.')
 
@@ -80,4 +76,3 @@ class ModifiedAnalyticLine(models.Model):
 
             else:
                 raise AccessError(_("You are trying to invalidate a timesheet that you do not have permission to"))
-

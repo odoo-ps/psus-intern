@@ -11,6 +11,6 @@
 
     <record id="group_access_levels_admin" model="res.groups">
         <field name="name">Timesheet Administrator</field>
-        <field name="implied_ids" eval="[(4, ref('timesheet_access_levels.group_access_levels_pm')), (4, ref('timesheet_access_levels.group_access_levels_supervisor'))]"/>
+        <field name="implied_ids" eval="[(4, ref('timesheet_access_levels.group_access_levels_supervisor'))]"/>
     </record>
 </odoo>
