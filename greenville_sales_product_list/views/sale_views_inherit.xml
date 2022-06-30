@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="product_list_action" model="ir.actions.act_window">
+            <field name="name">Product Lists</field>
+            <field name="res_model">product.list</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create the first product
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product_lists" name="Product Lists" parent="sale.product_menu_catalog" sequence="3" action="product_list_action" /> <!-- groups="base.group_user" -->
+
+        <record id="product_list_view_tree" model="ir.ui.view">
+            <field name="name">product.list.tree</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <tree string="Product List">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_list_view_form" model="ir.ui.view">
+            <field name="name">product.list.form</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <form string="Products">
+                    <sheet>
+                        <h1><field name="name"/></h1>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                        <notebook>
+                            <page string="Product List">
+                                <field name="product_ids"/>
+                            </page>
+                            <page string="Customers that use this list">
+                                <field name="customer_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
