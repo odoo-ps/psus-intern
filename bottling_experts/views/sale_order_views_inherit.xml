@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="sale_order_inherit">
+        <field name="name">sale.order.inherti</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <field name="opportunity_name" />
+                <field name="travel_in" />
+                <field name="travel_out" />
+                <field name="note"></field>
+            </field>
+            
+        </field>
+    </record>
+    <record id="task_report" model="ir.actions.report">
+        <field name="name">Bottling custom report</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">bottling_experts.bottling_report</field>
+        <field name="report_file">bottling_experts.quotation</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+</odoo>

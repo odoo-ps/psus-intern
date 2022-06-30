@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="bottling_report">
+
+        <t t-call="web.html_container">
+            <link href="/bottling_experts/static/src/css/report.css" rel="stylesheet" />
+
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <img class="img img-responsive" t-att-src="'/bottling_experts/static/src/img/bottling_logo.png'" height="240" width="240" />
+                            </div>
+                            <div class="col">
+                                <h1> ESTIMATE</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name", "website", "email"], "no_marker": True}' />
+                            </div>
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Qoute ID#</th>
+                                            <td t-if="doc.name" name="td_quoteID">
+                                                <span t-field="doc.name" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date</th>
+                                            <td t-if="doc.date_order" name="td_date">
+                                                <span t-field="doc.date_order" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Revision</th>
+                                            <td />
+                                        </tr>
+                                        <tr>
+                                            <th>Payment terms</th>
+                                            <td t-if="doc.payment_term_id" name="td_payment_terms">
+                                                <span t-field="doc.payment_term_id" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="container ex">
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>CUSTOMER</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <div t-field="doc.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address","name"], "no_marker": True}' />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>SHIP TO</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <div t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' />
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6">SCOPE OF SERVICE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="6">
+                                                <span t-field="doc.opportunity_name" />
+                                                <br></br>
+                                                <span t-field="doc.travel_in" />
+                                                <br></br>
+                                                <span t-field="doc.travel_out" />
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Estimated date of travel </td>
+                                            <td>From</td>
+                                            <td></td>
+                                            <td>To</td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col">
+                                <table class="table scope-table">
+                                    <col style="width:10%" />
+                                    <col style="width:15%" />
+                                    <col style="width:30%" />
+                                    <col style="width:10%" />
+                                    <col style="width:15%" />
+                                    <thead>
+                                        <th style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">No.</th>
+                                        <th style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">Item</th>
+                                        <th style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">Activity</th>
+                                        <th style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">QTY</th>
+                                        <th style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">Rate</th>
+                                        <th style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">Ammount</th>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="i" t-value="1" />
+                                        <t t-foreach="doc.order_line" t-as="order">
+                                            <tr>
+                                                <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">
+                                                    <span t-esc="i" />
+                                                </td>
+                                                <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">
+                                                    <span t-field="order.product_id" />
+                                                </td>
+                                                <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">
+                                                    <span t-field="order.name" />
+                                                </td>
+                                                <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">
+                                                    <span t-field="order.product_uom_qty" />
+                                                </td>
+                                                <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">
+                                                    <span t-field="order.price_unit" />
+                                                </td>
+                                                <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;' class="text-center">
+                                                    <span t-field="order.price_subtotal" />
+                                                </td>
+                                            </tr>
+                                            <t t-set="i" t-value="i+1" />
+                                        </t>
+                                        <tr>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;'>
+                                                <span>SUBTOTAL</span>
+                                            </td>
+                                            <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;'>
+                                                <span t-field="doc.amount_untaxed"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;'>
+                                                <span>TAX</span>
+                                            </td>
+                                            <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;'>
+                                                <span t-field="doc.amount_tax"></span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:none;'></td>
+                                            <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;'>
+                                                <span>TOTAL</span>
+                                            </td>
+                                            <td style='border:solid;border-width: 0.1ex; border-color:#D3D3D3;'>
+                                                <span t-field="doc.amount_total"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <p style="page-break-after:always;"></p>
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col">
+                                <h2>TERMS OF SERVICE</h2>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col">
+                                <span t-raw="doc.note" />
+                            </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

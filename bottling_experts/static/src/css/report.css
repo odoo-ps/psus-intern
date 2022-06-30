@@ -1,0 +1,32 @@
+
+
+.address{
+    text-align: left;
+}
+
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: #091E5D;
+    color: white;
+  }
+
+#bottling_report table{
+    table-layout: fixed;
+}
+#bottling_report th{
+    background-color: #091E5D;
+    color: white;
+    display: flex;
+    padding: 3;
+}
+
+#bottling_report td{
+    justify-content: space-evenly;
+}
+#bottling_report td div{
+    display: flex;
+}
+.scope-table{
+    text-align: center;
+}
