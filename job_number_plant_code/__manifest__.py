@@ -24,6 +24,11 @@
     'license': 'OPL-1',
     # any module necessary for this one to work correctly
     'depends': ['sale'],
+    # always loaded
+    'data': [
+        'data/sale_order_data.xml',
+        'views/sale_order_views.xml'
+    ],
     'application': False,
     'auto_install': False
 }
