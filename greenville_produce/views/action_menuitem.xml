@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record model="ir.actions.act_window" id="product_list_action">
+        <field name="name">Product List</field>
+        <field name="res_model">greenville.products.list</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+        <menuitem name="Product List"
+                id="menu_product_list"
+                parent="sale.product_menu_catalog"
+                sequence="3"
+                action="product_list_action"/>
+    </data>
+</odoo>
