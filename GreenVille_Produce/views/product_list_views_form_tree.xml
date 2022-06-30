@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="productlist_view_form">
+            <field name="name">greenville.productlist.form</field>
+            <field name="model">greenville.productlist</field>
+            <field name="arch" type="xml">
+                <form string="Course Form">
+                    <sheet>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <!-- <group>
+                            <group>
+                                <field name="active" />
+                                 <field name="level" />
+                            </group>
+                            <group>
+                               <field name="base_price" />
+                               <field name="additional_fee"/>
+                               <field name="total_price" force_save="1" />
+                            </group>
+                        </group> -->
+                        <notebook>
+                            <page string="Product List">
+                                <!-- <label for="product_lists" />
+                                <field name="product_lists" /> -->
+                                <!-- This is the description -->
+                                <field name="product_lists" />
+                            </page>
+                            <page string="Customers that use this list">
+                                You know what dont write any notes
+                                <field name="customer_using_product_list" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="course_view_list">
+            <field name="name">greenville.productlist.list</field>
+            <field name="model">greenville.productlist</field>
+            <field name="arch" type="xml">
+                <tree string="Course List">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        
+
+    </data>
+</odoo>
