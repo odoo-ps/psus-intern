@@ -26,29 +26,29 @@ class ProductTemplate(models.Model):
 
     @api.depends('prefix_code', 'order_reference')
     def _compute_name(self):
-        for record in self:
-            new_name = record.prefix_code + record.order_reference
-            if not record.name:
-                record.name = new_name
+        for template in self:
+            new_name = template.prefix_code + template.order_reference
+            if not template.name:
+                template.name = new_name
 
     @api.depends('categ_id')
     def _compute_prefix_code(self):
-        for record in self:
+        for template in self:
             # grab complete category information (id, string)
             # split category string
             # splice all subcategories to two letters, as list
             # join all prefixes with "/" and category id
-            category = record.categ_id.name_get()[0]
+            category = template.categ_id.name_get()[0]
             category = category[1].split(" / ")
             category = [cat[0:2] for cat in category]
-            record.prefix_code = ("/".join(category)).upper() + \
+            template.prefix_code = ("/".join(category)).upper() + \
                 "/"
 
     @api.depends('product_gender', 'order_reference')
     def _compute_unique_upc(self):
-        for record in self:
-            prefix_gender = str(record.product_gender).upper()
-            record.unique_upc = prefix_gender + record.order_reference
+        for template in self:
+            prefix_gender = str(template.product_gender).upper()
+            template.unique_upc = prefix_gender + template.order_reference
 
     # overwrite create function to make sequential reference number
     @api.model
