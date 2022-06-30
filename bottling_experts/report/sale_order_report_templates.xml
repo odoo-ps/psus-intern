@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <template id='sale_order_bottling_experts_report'>
+    <t t-call='web.html_container'>
+      <t t-foreach='docs' t-as='doc'>
+        <t t-call='web.external_layout'>
+
+          <div class='page'>
+            <div class='container'>
+              <section name='order_header' class='row'>
+                <div class="col">
+                  <img class="img img-responsive" t-att-src="'/bottling_experts/static/src/img/bottling_logo.png'" height="240" width="280" />
+                  <p t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name", "website", "email"], "no_marker": True}'/>
+                </div>
+                <div class='col-6'>
+                  <div class='pb-4 mb-4 d-flex justify-content-end align-items-start'>
+                    <h1 class='h1 text-uppercase'><strong>estimate</strong></h1>
+                  </div>
+                  <div>
+                    <table class='table table-sm table-bordered border-dark'>
+                      <tbody>
+                        <tr>
+                          <th style='background-color: #989ca6;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>quote id#</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right' t-field='doc.name' />
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style='background-color: #989ca6;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>date</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right' t-field='doc.date_order' />
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style='background-color: #989ca6;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>revision</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right'></p>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style='background-color: #989ca6;' scope='row'>
+                            <p class='pl-3 fw-bold text-uppercase'>payment terms</p>
+                          </th>
+                          <th scope='row'>
+                            <p class='pr-3 text-right' t-field='doc.payment_term_id' />
+                          </th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+              <section name='oder_client_info' class='row'>
+                <div class='col-6'>
+                  <table style='min-height: 200px;' class='table table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-uppercase'>customer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p t-field='doc.partner_id' t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='col-6'>
+                  <table style='min-height: 200px;' class='table table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-uppercase'>ship to</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p t-field='doc.partner_shipping_id' t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br/>
+                </div>
+              </section>
+
+              <section name='order_scope_service' class='row'>
+                <div class='col-12'>
+                  <table class='table table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th colspan="6" class='text-white text-uppercase'>scope of service</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="6">
+                          <span t-field="doc.opportunity_name" />
+                          <br></br>
+                          <span t-field="doc.travel_in" />
+                          <br></br>
+                          <span t-field="doc.travel_out" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Estimated dates of travel</td>
+                        <td >From</td>
+                        <td style='background-color: #989ca6;'></td>
+                        <td>To</td>
+                        <td colspan="2" style='background-color: #989ca6;'></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section name='order_info' class='row'>
+                <div class='col-12'>
+                  <table class='table table-sm table-bordered border-dark'>
+                    <thead style='background-color: #0a1f5c;'>
+                      <tr>
+                        <th scope='col' class='text-white text-center fw-bold'>No.</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Item</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Activity</th>
+                        <th scope='col' class='text-white text-center fw-bold'>QTY</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Rate</th>
+                        <th scope='col' class='text-white text-center fw-bold'>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <t t-set='i' t-value='1' />
+                      <t t-foreach='doc.order_line' t-as='product'>
+                        <tr>
+                          <th scope='row'>
+                            <p class='text-center' t-esc='i' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.product_id.name' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.name' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.product_uom_qty' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.price_unit' />
+                          </th>
+                          <th scope='row'>
+                            <p class='text-center' t-field='product.price_total' />
+                          </th>
+                        </tr>
+                        <t t-set='i' t-value='i+1' />
+                      </t>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='col-7 ml-auto'>
+                  <table class='table table-sm table-bordered'>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>
+                          <p>Subtotal</p>
+                        </th>
+                        <th class='text-right' scope='row'>
+                          <p></p>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th scope='row'>
+                          <p>Tax</p>
+                        </th>
+                        <th class='text-right' scope='row'>
+                          <p t-field='doc.amount_tax' />
+                        </th>
+                      </tr>
+                      <tr>
+                        <th style='background-color: #0a1f5c' scope='row'>
+                          <p class='text-white'>Total</p>
+                        </th>
+                        <th class='text-right' scope='row'>
+                          <p t-field='doc.amount_total' />
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <p style='page-break-after: always;'></p>
+
+          <div class='page'>
+            <div class='container'> 
+              <section name='order_header' class='row'>
+                <div class="col">
+                  <img class="img img-responsive" t-att-src="'/bottling_experts/static/src/img/bottling_logo.png'" height="240" width="280" />
+                  <p class='h1 text-uppercase'><br/><strong>terms of service</strong></p>
+                </div>
+              </section>
+            </div>
+
+            <div class='container'> 
+              <section class='row'>
+                <div class='col'>
+                  <p t-raw='doc.note'/>
+                </div>
+              </section>
+            </div>
+          </div>
+
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>
