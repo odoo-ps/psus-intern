@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="vat" position="after">
                 <field name="plant_code" />
+                <field name="has_confirmed_SO" />
             </field>
         </field>
     </record>
