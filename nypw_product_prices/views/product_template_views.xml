@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_view_inherit">
+            <field name="name">product.template.product.form.inherit.pwshoes</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="pair_per_case">Pair per case</field>
+                    <field name="price_per_pair">Price per pair</field>
+                    <field name="list_price_editable" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='list_price']" position="replace">
+                    <field name="list_price" widget="monetary" attrs="{'readonly':[('list_price_editable','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
