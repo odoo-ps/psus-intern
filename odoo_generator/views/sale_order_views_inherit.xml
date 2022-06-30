@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record model="ir.ui.view" id="sale_view_order_form">
+        <field name="name">sale.order.view.form.inherit.generator</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="job_prefix" />
+                <field name="job_suffix" />
+                <field name="job_number" />
+            </field>
+        </field>
+    </record>
+</odoo>
