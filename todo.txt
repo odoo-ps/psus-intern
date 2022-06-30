@@ -1,4 +1,0 @@
-add field values for records
-fix error with record rule domain
-
-git push psus-intern FGD_Glass:14.0-FGD-Glass-2873858-jden
