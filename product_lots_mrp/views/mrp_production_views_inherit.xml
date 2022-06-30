@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_production_form_view_inherit_lots" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.lots</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <label for="lot_number"/>
+                <div>
+                    <field name="lot_number"/>
+                    <button name="action_generate_lot" type="object" class="btn btn-primary fa fa-plus-square-o" aria-label="Creates a new serial/lot number" title="Creates a new serial/lot number" role="img" attrs="{'invisible': [('lot_number', '!=', False)]}"/>
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>
