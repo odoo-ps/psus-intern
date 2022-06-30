@@ -7,10 +7,10 @@
         ID: 2879282
 
     """,
-    'Author' : 'yixi',
+    'Author' : 'Odoo Inc',
     'website' : 'https://www.odoo.com',
-    'category' : 'Training',
-    'version' : '0.1',
+    'category' : 'Custom Development',
+    'version' : '15.0.1',
     'depends': ['sale'],
     'data' : [
         'views/product_menuitems.xml',
