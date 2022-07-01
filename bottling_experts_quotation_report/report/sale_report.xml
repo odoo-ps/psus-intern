@@ -12,23 +12,5 @@
             <field name="binding_model_id" ref="sale.model_sale_order"/>
             <field name="binding_type">report</field>
         </record>
-
-<!--        <record id="paperformat_bottling_experts" model="report.paperformat">-->
-<!--            <field name="name">US Letter - Bottling Experts</field>-->
-<!--            <field name="default" eval="True"/>-->
-<!--            <field name="format">A4</field>-->
-<!--            <field name="orientation">Portrait</field>-->
-<!--            <field name="margin_top">9</field>-->
-<!--            <field name="margin_bottom">16</field>-->
-<!--            <field name="margin_left">0</field>-->
-<!--            <field name="margin_right">0</field>-->
-<!--            <field name="header_line" eval="False"/>-->
-<!--            <field name="header_spacing">3</field>-->
-<!--            <field name="dpi">80</field>-->
-<!--        </record>-->
-
-<!--        <record id="bottling_experts_quotation_report.action_report_saleorder_bottling_experts" model="ir.actions.report">-->
-<!--            <field name="paperformat_id" ref="bottling_experts_quotation_report.paperformat_bottling_experts"/>-->
-<!--        </record>-->
     </data>
 </odoo>

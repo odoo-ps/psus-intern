@@ -7,7 +7,9 @@
 
     'description': """
         Task ID: 2874418
-        # TO BE FINISHED
+        According to opinions from the company - `Bottling Experts`,
+        the report template for its Order/Quotation is modified.
+        Detailed description can be refered to https://www.odoo.com/web#id=2874418&cids=3&menu_id=4720&action=4665&active_id=2874404&model=project.task&view_type=form
     """,
 
     'author': 'Odoo Inc',
