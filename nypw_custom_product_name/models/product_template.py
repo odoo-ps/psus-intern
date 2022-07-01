@@ -11,12 +11,14 @@ class ProductTemplate(models.Model):
         selection=[('Gender1', 'Gender1'), ('Gender2', 'Gender2'),('Gender3','Gender3')],
         default='Gender1'
     )
+
     upc_sequence_compute = fields.Many2one(
         name='UPC Sequence',
         comodel_name='ir.sequence',
         ondelete='restrict', 
         compute = '_compute_upc_sequence_mapping',
         store= True,readonly=True)
+
     upc_sequence = fields.Char(name = 'UPC Sequence',
             store= True,
             compute = '_compute_upc_sequence',
@@ -36,7 +38,6 @@ class ProductTemplate(models.Model):
         if "categ_id" in vals:
             category_id = self.env['product.category'].search([('id','=',vals['categ_id'])])
             vals['name'] = self.env['ir.sequence'].next_by_code(category_id.name) 
-            print("after",vals)
         else:
             vals['name'] = self.env['ir.sequence'].next_by_code(self.categ_id.name) 
     
