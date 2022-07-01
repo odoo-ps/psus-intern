@@ -24,15 +24,15 @@ class product_template_inherit_model(models.Model):
     @api.onchange('product_gender')
     def generate_upc(self):
         if self.product_gender == 'producttype1':
-            self.unique_product_code = 'PT1' + self.env['ir.sequence'].next_by_code('product.template')
+            self.unique_product_code = 'PT1' + self.env['ir.sequence'].next_by_code('product.template.upc.generator.pt.one')
         elif self.product_gender == 'producttype2':
-            self.unique_product_code = 'PT2' + self.env['ir.sequence'].next_by_code('product.template')
+            self.unique_product_code = 'PT2' + self.env['ir.sequence'].next_by_code('product.template.upc.generator.pt.two')
         elif self.product_gender == 'producttype3':
-            self.unique_product_code = 'PT3' + self.env['ir.sequence'].next_by_code('product.template')
+            self.unique_product_code = 'PT3' + self.env['ir.sequence'].next_by_code('product.template.upc.generator.pt.three')
         elif self.product_gender == 'producttype4':
-            self.unique_product_code = 'PT4' + self.env['ir.sequence'].next_by_code('product.template')
-        else :
-            self.unique_product_code = 'PT5' + self.env['ir.sequence'].next_by_code('product.template')
+            self.unique_product_code = 'PT4' + self.env['ir.sequence'].next_by_code('product.template.upc.generator.pt.four')
+        elif self.product_gender == 'producttype5':
+            self.unique_product_code = 'PT5' + self.env['ir.sequence'].next_by_code('product.template.upc.generator.pt.five')
     
     @api.model
     def create(self, vals):
