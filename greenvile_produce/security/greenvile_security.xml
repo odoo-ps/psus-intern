@@ -3,7 +3,8 @@
     <record id="only_active_modify" model="ir.rule">
         <field name="name">Only view your items</field>
         <field name="perm_read" eval="1" />
-        <field name="domain_force">[(user.partner_id.id,'in','product_list_id.customers')]</field>
+        <field name="domain_force">[('user.partner_id.id','in',lists.product_list_id.customers)]</field>
+        <!-- This record rule causes an error when i try to acces the website. -->
         <field name="model_id" ref="model_product_template" />
     </record>
 </odoo>
