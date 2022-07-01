@@ -6,9 +6,12 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='list_price']" position="replace">
+                    <field name="list_price" optional="show" attrs="{'disabled': [('pair_per_case', '>', 0),('price_per_pair', '>', 0)]}"/>
+                </xpath>
                 <xpath expr="//field[@name='detailed_type']" position="after">
-                    <field name="pair_per_case" string="Pairs present in a case" optional="show"></field>
-                    <field name="price_per_pair" string="Price of one pair" optional="show"></field>
+                    <field name="pair_per_case" string="Pairs present in a case" optional="show" />
+                    <field name="price_per_pair" string="Price of one pair" optional="show"/>
                 </xpath>
             </field>
         </record>
