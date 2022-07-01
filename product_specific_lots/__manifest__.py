@@ -18,9 +18,9 @@
     'application': False,
     'version': '0.1.0',
     'license': 'OPL-1',
-    'depends': ['mrp'],
+    'depends': ['sale', 'mrp'],
     'data': [
-        'views/product_view_inherit.xml',
-        'views/mrp_production_view_inherit.xml'
+        'views/product_views.xml',
+        'views/mrp_production_views.xml'
     ]
 }
