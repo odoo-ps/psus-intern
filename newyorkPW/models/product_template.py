@@ -34,6 +34,7 @@ class ProductTemplate(models.Model):
         if not self.env['ir.sequence'].search([('code', '=', 'sequence.{}'.format(product_category.name))]):
                 self.env['ir.sequence'].create({
                     'name': product_category.name,
+                    'product_category_id': product_category,
                     'code': 'sequence.'+product_category.name,
                     'implementation': 'standard',
                     'prefix': product_category.name,
