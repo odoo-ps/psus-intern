@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+    <record id="view_order_form_inherit_kiln_sale" model="ir.ui.view">
+      <field name="name">sale.order.view.form.inherit</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form" />
+      <field name="arch" type="xml">
+        <group name="partner_details">
+          <field name="job_number" placeholder="Auto-generated" />
+          <field name="sequence_id" />
+        </group>
+      </field>
+    </record>
+
+    <record id="view_partner_form_inherit_kiln_sale" model="ir.ui.view">
+      <field name="name">res.partner.view.form.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/group/group" position="inside">
+          <field name="plant_no" />
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>
