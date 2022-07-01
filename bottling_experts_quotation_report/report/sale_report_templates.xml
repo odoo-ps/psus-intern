@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_bottling_experts">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bottling_experts_quotation_report.report_saleorder_document_bottling_experts"
+                   t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_saleorder_document_bottling_experts">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-3 mb4 offset-9">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 145px;"
+                         alt="Logo"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <span t-if="company.company_details" t-field="company.company_details" />
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="row mb-3">
+                <div class="col-5">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 1pt">
+                            <td class="bg-secondary" style="font-weight:bold;">QUOTE ID#</td>
+                            <td>
+                                <span t-field="doc.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bg-secondary" style="font-weight:bold;">DATE</td>
+                            <td>
+                                <span t-field="doc.create_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bg-secondary" style="font-weight:bold;">REVISION</td>
+                            <td>
+                                <span t-field="doc.write_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bg-secondary" style="font-weight:bold;">PAYMENT TERMS</td>
+                            <td>
+                                <span t-field="doc.payment_term_id"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-3"/>
+                <div class="col-4">
+                    <div>
+                        <small>
+                            <span t-field="company.street"/>
+                        </small>
+                    </div>
+                    <div>
+                        <small><span t-field="company.city"/>,
+                            <span t-field="company.state_id.code"/>
+                        </small>
+                    </div>
+                    <div>
+                        <small>
+                            <span t-field="company.country_id"/>
+                        </small>
+                    </div>
+                    <div>
+                        <small>
+                            <span t-field="company.website"/>
+                        </small>
+                    </div>
+                    <div>
+                        <small>
+                            <span t-field="company.email"/>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 2px solid black">
+                            <td class="bg-primary" style="font-weight:bold;">
+                                Customer
+                            </td>
+                        </tr>
+                        <t t-if="doc.partner_id.street">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.partner_id.street"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="doc.partner_id.street2">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.partner_id.street2"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td>
+                                <t t-if="doc.partner_id.city">
+                                    <span t-field="doc.partner_id.city"/>,
+                                </t>
+                                <span t-field="doc.partner_id.state_id.code"/>
+                                -
+                                <span t-field="doc.partner_id.zip"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-6 mb-3">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 2px solid black">
+                            <td class="bg-primary" style="font-weight:bold;">
+                                Final Client
+                            </td>
+                        </tr>
+                        <t t-if="doc.partner_shipping_id.street">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.partner_shipping_id.street"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="doc.partner_shipping_id.street2">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.partner_shipping_id.street2"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td>
+                                <t t-if="doc.partner_shipping_id.city">
+                                    <span t-field="doc.partner_shipping_id.city"/>,
+                                </t>
+                                <span t-field="doc.partner_shipping_id.state_id.code"/>
+                                -
+                                <span t-field="doc.partner_shipping_id.zip"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 2px solid black">
+                            <td colspan="5" class="text-left bg-primary" style="font-weight:bold;">SCOPE OF SERVICE</td>
+                        </tr>
+                        <tr height="100px">
+                            <td colspan="5" class="text-left"><span t-field="doc.x_studio_opportunity" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>Estimated dates of travel &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; From</td>
+                            <td class="bg-secondary" style="width:120px;">
+                                <span t-field="doc.travel_in_date" />
+                            </td>
+                            <td>To</td>
+                            <td class="bg-secondary" style="width:120px;">
+                                <span t-field="doc.travel_out_date" />
+                            </td>
+                            <td class="w-25" />
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-12">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <thead>
+                            <tr class="bg-primary" style="border: 2px solid black">
+                                <th name="th_no">No.</th>
+                                <th name="th_item" style="width:15%">Item</th>
+                                <th name="th_activity" style="width:50%">Activity</th>
+                                <th name="th_qty">QTY</th>
+                                <th name="th_rate">Rate</th>
+                                <th name="th_amount">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.order_line.sorted(key=lambda ol: ol.sequence)" t-as="ol">
+                                <tr>
+                                    <td name="td_no">
+                                        <span t-field="ol.sequence"/>
+                                    </td>
+                                    <td name="td_item">
+                                        <span t-field="ol.product_id"/>
+                                    </td>
+                                    <td name="td_activity">
+                                        <span t-field="ol.name"/>
+                                    </td>
+                                    <td name="td_qty">
+                                        <span t-field="ol.product_uom_qty"/>
+                                        <span t-field="ol.product_uom"/>
+                                    </td>
+                                    <td name="td_rate">
+                                        <span t-field="ol.price_unit"
+                                              t-options='{"widget": "monetary", "display_currency": ol.currency_id}'/>
+                                    </td>
+                                    <td name="td_amount">
+                                        <span t-field="ol.price_subtotal"
+                                              t-options='{"widget": "monetary", "display_currency": ol.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="clearfix mb-3" name="so_total_summary">
+                <div id="total" class="row" name="total">
+                    <div t-attf-class="col-6 offset-6 ml-auto">
+                        <table class="table table-sm o_main_table" style="border:2px solid black">
+                            <tr class="border-black o_subtotal">
+                                <td>
+                                    <strong>SUBTOTAL</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-class="oe_subtotal_footer_separator"
+                                          t-field="doc.amount_untaxed"
+                                          t-options='{"widget": "monetary", "display_currency": ol.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black o_subtotal">
+                                <td>
+                                    <strong>TAX</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-class="oe_subtotal_footer_separator"
+                                          t-field="doc.amount_tax"
+                                          t-options='{"widget": "monetary", "display_currency": ol.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr class="o_subtotal">
+                                <td class="bg-primary text-white" style="font-weight:bold;">
+                                    TOTAL
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="doc.amount_total"
+                                          t-options='{"widget": "monetary", "display_currency": ol.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <p style="page-break-before:always;" />
+
+            <div>
+                <div class="mb-5"><h2>TERMS OF SERVICE</h2></div>
+                <div t-field="doc.note" />
+            </div>
+        </div>
+
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="row">
+                <div class="col-12 text-center mb-3">
+                    <small>Thank you for choosing Bottling Experts!</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center text-light bg-primary py-2">
+                    <span t-field="company.name" /> | <span t-field="company.email" /> | <span t-field="company.website" />
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>
