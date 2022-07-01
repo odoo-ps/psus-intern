@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="timesheet_approve_tier_approvers" model="res.groups">
+        <field name="name">User: assigned timesheets</field>
+        <field name="category_id" ref="base.module_category_services_timesheets" />
+    </record>
+
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('timesheet_approve_tier_approvers'))]" />
+    </record>
+
+    <record id="timesheet_approve_tier_rule" model="ir.rule">
+        <field name="name">Approvers can only access timesheets they are assigned to</field>
+        <field name="model_id" ref="model_account_analytic_line" />
+        <field name="groups" eval="[(4,ref('timesheet_approve_tier_approvers'))]" />
+        <field name="domain_force">[('approver_id','=',user.id)]</field>
+    </record>
+
+    <record id="timesheet_approve_tier_rule_managers" model="ir.rule">
+        <field name="name">Timesheet Managers can only see timesheets approved by managers</field>
+        <field name="model_id" ref="model_account_analytic_line" />
+        <field name="groups" eval="[(4,ref('hr_timesheet.group_hr_timesheet_approver'))]" />
+        <field name="domain_force">[('validated_status','=','manager')]</field>
+    </record>
+
+</odoo>
