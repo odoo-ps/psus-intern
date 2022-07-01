@@ -3,6 +3,7 @@
 from odoo import http
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 import logging
+from odoo.addons.website_sale.controllers.main import TableCompute
 
 _logger = logging.getLogger(__name__)
 
@@ -11,7 +12,10 @@ class WebsiteSaleInherit(WebsiteSale):
     #@http.route("/shop/", auth="public", website=True)
     @http.route()
     #def shop(self, category=None, search="", **kw):
-    def shop(self, page=0, category=None, search='', min_price=0.0, max_price=0.0, ppg=False, **post): #taken from the inherited func in odoo/addons/website_sale/controllers/main.py
+    def shop(self, page=0, category=None, search='', min_price=0.0, max_price=0.0, ppg=False, **post):
+        # ^^ taken from the inherited func in odoo/addons/website_sale/controllers/main.py ^^
+
+
         #products = http.request.env["product.list"].search([])
         res=super(WebsiteSaleInherit, self).shop(page=page, category=category, search=search, min_price=min_price, max_price=max_price, ppg=ppg)
 
@@ -47,6 +51,23 @@ class WebsiteSaleInherit(WebsiteSale):
 
         #Product_list now contains the products in the product list that this person is using.
 
+        #allproducts = http.request.env['product.template'].search([("id", "in", product_list.product_ids)])
+
+
+        """ This worked and would list every product and whether it was in the user's list or not
+        
+        allproducts = http.request.env['product.template'].search([])
+        for product in allproducts:
+            _logger.critical("ALL PRODUCTS - " + product.name)
+            _logger.critical("type of product: " + str(type(product)))
+            _logger.critical("type of product_list.product_ids: " + str(type(product_list.product_ids)))
+            if product in product_list.product_ids:
+                _logger.critical(product.name + " is in " + product_list.name)
+            else:
+                _logger.critical(product.name + " NOT in " + product_list.name)
+
+
+        """
         
 
         """
@@ -65,9 +86,21 @@ class WebsiteSaleInherit(WebsiteSale):
                     _logger.critical("product " + str(product.name))
                 #_logger.critical("Is this customer in this list: ", str(user == prodlist.customer_ids.id))
         """
+        #res.qcontext.update({"products":product_list.product_ids})
+
+        qcontext = res.qcontext
+
+        _logger.critical(qcontext)
+
+        qcontext["products"] = product_list.product_ids
+
+        ppr = http.request.env['website'].get_current_website().shop_ppr or 4 #from odoo/addons/website_sale/controllers/main.py in WebsiteSale.shop()
+
+        qcontext["bins"] = TableCompute().process(product_list.product_ids, ppg, ppr) #generate the table that displays the products with the new product list
         
-        
-        return res
+        return http.request.render("website_sale.products",qcontext=qcontext)
+
+        #return res
         #return http.request.render("website_sale.products",{"products":product_list.product_ids, "category":category})
         #return http.request.render("website_sale.products",context)
         #return "hi there :)"
