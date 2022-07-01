@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="product_list_view_form">
+            <field name="name">product.list.view.form</field>
+            <field name="model">product.list</field>
+            <field name="arch" type="xml">
+                <form string="Product List Form">
+                    <sheet>
+                        <h1><field name="name"/></h1>
+                        <group>
+                            <notebook>
+                                <page string="List Items">
+                                        <field name="product_ids"/>
+                                </page>
+                                <page string="Customers Using List">
+                                        <field name="customer_ids" widget="many2many"/>
+                                </page>
+                            </notebook>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+            
+        </record>
+
+
+    </data>
+</odoo>
