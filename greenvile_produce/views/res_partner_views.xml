@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_template_only_form_view_inherit_nypw">
+            <field name="name">res.partner.productlist</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <group name="purchase" position="after">
+                    <group name="Product List">
+                        <field name="products_to_purchase" />
+                    </group>
+                </group> 
+            </field>
+        </record>
+    </data>
+</odoo>

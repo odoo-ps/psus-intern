@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_lists_view_form">
+            <field name="name">greenvile.produce.productlist.form</field>
+            <field name="model">greenvile.produce.productlist</field>
+            <field name="arch" type="xml">
+                <form string="Produce Form">
+                    <sheet>
+                        <h1>Hello</h1>
+                        <notebook>
+                            <page string="Products List">
+                                <field name="products"/>
+                            </page>
+                            <page string="Customers that use this list">
+                                <field name="customers"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
