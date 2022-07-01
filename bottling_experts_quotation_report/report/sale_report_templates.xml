@@ -46,7 +46,7 @@
              t-att-data-oe-lang="o and o.env.context.get('lang')">
             <div class="row mb-3">
                 <div class="col-5">
-                    <table class="table table-sm o_main_table">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
                         <tr style="border: 1pt">
                             <td class="bg-secondary" style="font-weight:bold;">QUOTE ID#</td>
                             <td>
@@ -105,8 +105,8 @@
 
             <div class="row mb-3">
                 <div class="col-6">
-                    <table class="table table-sm o_main_table">
-                        <tr>
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 2px solid black">
                             <td class="bg-primary" style="font-weight:bold;">
                                 Customer
                             </td>
@@ -138,8 +138,8 @@
                     </table>
                 </div>
                 <div class="col-6 mb-3">
-                    <table class="table table-sm o_main_table">
-                        <tr>
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 2px solid black">
                             <td class="bg-primary" style="font-weight:bold;">
                                 Final Client
                             </td>
@@ -174,11 +174,11 @@
 
             <div class="row">
                 <div class="col-12 mb-5">
-                    <table class="table table-sm o_main_table">
-                        <tr>
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
+                        <tr style="border: 2px solid black">
                             <td colspan="5" class="text-left bg-primary" style="font-weight:bold;">SCOPE OF SERVICE</td>
                         </tr>
-                        <tr>
+                        <tr height="100px">
                             <td colspan="5" class="text-left"><span t-field="doc.x_studio_opportunity" /></td>
                         </tr>
 
@@ -199,9 +199,9 @@
 
             <div class="row mb-1">
                 <div class="col-12">
-                    <table class="table table-sm o_main_table">
+                    <table class="table table-sm o_main_table" style="border:2px solid black">
                         <thead>
-                            <tr class="bg-primary">
+                            <tr class="bg-primary" style="border: 2px solid black">
                                 <th name="th_no">No.</th>
                                 <th name="th_item" style="width:15%">Item</th>
                                 <th name="th_activity" style="width:50%">Activity</th>
@@ -244,7 +244,7 @@
             <div class="clearfix mb-3" name="so_total_summary">
                 <div id="total" class="row" name="total">
                     <div t-attf-class="col-6 offset-6 ml-auto">
-                        <table class="table table-sm o_main_table">
+                        <table class="table table-sm o_main_table" style="border:2px solid black">
                             <tr class="border-black o_subtotal">
                                 <td>
                                     <strong>SUBTOTAL</strong>
