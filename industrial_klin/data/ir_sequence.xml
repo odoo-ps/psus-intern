@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="industrial_klin_sequence_id" model="ir.sequence">
+            <field name="name">Industrial Klin Sequence</field>
+            <field name="code">sequence.order</field>
+            <field name="number_next_actual">13500</field>
+            <field name="prefix"></field>
+            <field name="suffix"></field>
+            <field name="padding">1</field>
+        </record>
+
+        <record id="industrial_klin_plant_iteration_sequence_id" model="ir.sequence">
+            <field name="name">Industrial Klin Plant Iteration Sequence</field>
+            <field name="code">sequence.plant_iteration</field>
+            <field name="number_next_actual">1</field>
+            <field name="prefix"></field>
+            <field name="suffix"></field>
+            <field name="padding">3</field>
+        </record>
+
+        <record id="industrial_klin_plant_sequence_id" model="ir.sequence">
+            <field name="name">Industrial Klin Plant Sequence</field>
+            <field name="code">sequence.plant</field>
+            <field name="number_next_actual">1</field>
+            <field name="prefix"></field>
+            <field name="suffix"></field>
+            <field name="padding">2</field>
+        </record>
+
+    </data>
+</odoo>
