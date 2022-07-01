@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_job" model="ir.sequence">
+            <field name="name">Job 0umber sequence</field>
+            <field name="code">job.number</field>
+            <field name="padding">5</field>
+            <field name="number_next">13500</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="sequence_plantcode_base" model="ir.sequence">
+            <field name="name">Plant Code Sequence</field>
+            <field name="code">plant.code</field>
+            <field name="padding">3</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="sequence_plantcode_sub" model="ir.sequence">
+            <field name="name">Plant Code Sub-Sequence</field>
+            <field name="code">plant.code.sub</field>
+            <field name="padding">2</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>
