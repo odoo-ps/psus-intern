@@ -18,10 +18,11 @@
 
     'version': '15.0.1.0',
 
-    'depends': ['base'],
+    'depends': ['sale'],
 
     'data': [
-
+        'report/sale_report.xml',
+        'report/sale_report_templates.xml',
     ],
 
     'demo': [
