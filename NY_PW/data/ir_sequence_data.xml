@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Sequences for product.template -->
+    <record id="seq_product_order" model="ir.sequence">
+        <field name="name">Product Template Product Generator</field>
+        <field name="code">product.template</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_upc_order_pt_1" model="ir.sequence">
+        <field name="name">Product Template UPC Generator PT 1</field>
+        <field name="code">product.template.upc.generator.pt.one</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_upc_order_pt_2" model="ir.sequence">
+        <field name="name">Product Template UPC Generator PT 2</field>
+        <field name="code">product.template.upc.generator.pt.two</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_upc_order_pt_3" model="ir.sequence">
+        <field name="name">Product Template UPC Generator PT 3</field>
+        <field name="code">product.template.upc.generator.pt.three</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_upc_order_pt_4" model="ir.sequence">
+        <field name="name">Product Template UPC Generator PT 4</field>
+        <field name="code">product.template.upc.generator.pt.four</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_upc_order_5" model="ir.sequence">
+        <field name="name">Product Template UPC Generator PT 5</field>
+        <field name="code">product.template.upc.generator.pt.five</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>
