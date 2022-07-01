@@ -16,12 +16,9 @@
     'version': '15.0.1.0.0',
     'license': 'OPL-1',
     # any module necessary for this one to work correctly
-    'depends': ['sale_management',
-                'account_accountant',
+    'depends': ['account',
+                'sale',
                 'purchase'],
-    # always loaded
-    'data': [
-        'report/botexp_invoice_report.xml'],
     'application': False,
     'auto_install': False
 }
