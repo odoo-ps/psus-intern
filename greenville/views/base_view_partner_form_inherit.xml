@@ -9,7 +9,6 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
 
             <field name="arch" type="xml">
-                <!--<field name="property_payment_term_id" position="after">-->
                 <xpath expr="//notebook" position="inside">
                     <page name="ecommerce" string="eCommerce">
                         <group>
@@ -17,7 +16,6 @@
                         </group>
                     </page>
                 </xpath>
-                <!--</field>-->
             </field>
         </record>
     </data>

@@ -10,4 +10,4 @@ class ResPartner(models.Model):
     product_list_id = fields.Many2one(comodel_name="product.list",
                                         string="Using Product List")
                                         #inverse_name="customer_ids")
-                                        
+    
