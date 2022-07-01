@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_inherit_view_ecommerce" model = "ir.ui.view">
+            <field name="name">res.partner.inherit.view.ecommerce.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <notebook position ="inside">
+                    <page string="Ecommerce">
+                        <group>
+                            <field name="product_list_to_customers" string="Product List"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>
