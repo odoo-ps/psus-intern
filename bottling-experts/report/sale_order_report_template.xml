@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="bottling_experts">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="container">
+                        <div class="row gy-5">
+                            <div class="col"></div>
+                            <div class="col">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>QUOTE ID#</th>
+                                            <td>
+                                                <span t-field="doc.name" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>QUOTATION DATE</th>
+                                            <td>
+                                                <span t-field="doc.date_order" t-options='{"format": "dd/MM/yyyy"}' />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>REVISION</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>PAyment TERMS</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row gy-5">
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>CUSTOMER</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="table text-white" style='background-color: #0a1f5c;'>SHIP TO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row gy-5">
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>SCOPE OF SERVICE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                               <p>
+
+                                                   <span t-field="doc.opportunity_name"> </span> 
+                                               </p>
+
+                                                <p>
+                                                    Travel in: <span t-field="doc.travel_in"> </span> 
+                                                </p>
+                                                <p>
+                                                    Travel out:<span t-field="doc.travel_out"> </span>
+                                                </p>
+
+                                            </td>                  
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>  
+                                                <p>
+                                                   <b> Estimated dates of travel</b>
+                                                   <b> From       </b>
+                                                   <input type="text"></input>
+                                                   <b> to         </b>
+                                                   <input type="text"></input>
+                                                </p>
+                                            
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row gy-5">
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>No.</th>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>Item</th>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>Activity</th>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>QTY</th>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>Rate</th>
+                                            <th scope="col" class="table text-white"  style='background-color: #0a1f5c;'>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="i" t-value="1" />
+                                        <t t-foreach="doc.order_line" t-as="product">
+                                            <tr>
+                                                <td name="td_no">
+                                                    <span t-esc="i" />
+                                                </td>
+                                                <td name="td_item">
+                                                    <span t-field="product.product_id.name" />
+                                                </td>
+                                                <td name="td_activity">
+                                                    <span t-field="product.name" />
+                                                </td>
+                                                <td name="td_qty">
+                                                    <span t-field="product.product_uom_qty" />
+                                                </td>
+                                                <td name="td_rate">
+                                                    <span t-field="product.price_unit" />
+                                                </td>
+                                                <td name="td_amount">
+                                                    <span t-field="product.price_total" />
+                                                </td>
+                                            </tr>
+                                            <t t-set="i" t-value="i+1" />
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            
+                        </div>
+                        <div class="col"></div>
+                            <div class="col">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>QUOTE ID#</th>
+                                            <td>
+                                                <span t-field="doc.name" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>QUOTATION DATE</th>
+                                            <td>
+                                                <span t-field="doc.date_order" t-options='{"format": "dd/MM/yyyy"}' />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>REVISION</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"  style='background-color: grey;'>PAyment TERMS</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row gy-5">
+                                <div class="col"></div>
+                                <div class="col">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">SUBTOTAL</th>
+                                                <td>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">TAX</th>
+                                                <td>
+                                                    <span t-field="doc.amount_tax"  />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-white" scope="row" style='background-color: #0a1f5c;'>TOTAL</th>
+                                                <td>
+                                                    <span t-field="doc.amount_total" />
+                                                </td>
+                                            </tr>
+                                    
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <p style="page-break-after:always;"></p>
+                        <div class="page">
+                            <div>
+                                <h3>TERMS OF SERVICE</h3>
+                            </div>
+                            <div>
+                                <span t-field="doc.note" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </t>    
+            </t>
+        </t>
+    </template>
+</odoo>
