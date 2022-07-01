@@ -179,20 +179,19 @@
                             <td colspan="5" class="text-left bg-primary" style="font-weight:bold;">SCOPE OF SERVICE</td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="text-left">Luis D'oleo - Automation support</td>
+                            <td colspan="5" class="text-left"><span t-field="doc.x_studio_opportunity" /></td>
                         </tr>
-                        <tr>
-                            <td colspan="5" class="text-left">Travel in: 12/10</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="text-left">Travel Out: 12/13</td>
-                        </tr>
+
                         <tr>
                             <td>Estimated dates of travel &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; From</td>
-                            <td class="bg-secondary" style="width:120px;"></td>
+                            <td class="bg-secondary" style="width:120px;">
+                                <span t-field="doc.travel_in_date" />
+                            </td>
                             <td>To</td>
-                            <td class="bg-secondary" style="width:120px;"></td>
-                            <td class="w-25"></td>
+                            <td class="bg-secondary" style="width:120px;">
+                                <span t-field="doc.travel_out_date" />
+                            </td>
+                            <td class="w-25" />
                         </tr>
                     </table>
                 </div>
