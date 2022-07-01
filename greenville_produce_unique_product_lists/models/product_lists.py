@@ -8,7 +8,7 @@ class ProductLists(models.Model):
     _description = 'Greenville Products List'
 
     name = fields.Char(string='Title', required=True)
-    product_template_ids = fields.Many2many(
+    product_ids = fields.Many2many(
         'product.template', string='Product Template')
-    customers_using_list = fields.One2many(
+    customer_ids = fields.One2many(
         'res.partner', 'products_list_id', string='Customers Using List')

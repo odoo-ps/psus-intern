@@ -12,10 +12,10 @@
                         </h1>
                         <notebook>
                             <page string="Product List">
-                                <field name="product_template_ids" string="Product Template"/>
+                                <field name="product_ids" string="Product Template"/>
                             </page>
                             <page string="Customers That Use This List">
-                                <field name="customers_using_list"/>
+                                <field name="customer_ids"/>
                             </page>
                         </notebook>
                     </sheet>
