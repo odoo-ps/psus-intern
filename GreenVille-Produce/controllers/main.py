@@ -1,7 +1,5 @@
-from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from ..models import unique_custom_product_list
 
 class WebsiteSaleInherit(WebsiteSale):
 

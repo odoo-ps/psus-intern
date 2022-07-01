@@ -4,8 +4,8 @@
 from odoo import models, fields, api
 
 
-class unique_custom_product_list(models.Model):
-    _name = 'greenville.product'
+class product_list(models.Model):
+    _name = 'product.list'
     _description = "List of products specific for a customer"
 
     name = fields.Char(string = 'Title', required = True )
