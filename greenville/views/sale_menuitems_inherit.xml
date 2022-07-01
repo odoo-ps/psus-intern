@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- adds the menu item for the product list to the sales module -->
+
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="product_list_list_action">
+            <field name="name">Product List</field>
+            <field name="res_model">product.list</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Product List" id="product_list" sequence="3" parent="sale.product_menu_catalog" action="product_list_list_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- adds a product list field to the res.partner view -->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="base_view_partner_form_inherit_greenville">
+            <field name="name">base.view.partner.form.inherit.greenville</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="ecommerce" string="eCommerce">
+                        <group>
+                            <field name="product_list_id" string="Product List"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
