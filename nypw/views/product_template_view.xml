@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='product_template_inherit_gender_view'>
+            <field name='name'>product.template.form.inherit.view</field>
+            <field name='model'>product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name='arch' type='xml'>
+                <xpath expr='//field[@name="categ_id"]' position='after'>
+                    <field name='gender' />
+                    <field name='gender_sequence' />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
