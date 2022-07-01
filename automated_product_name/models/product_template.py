@@ -10,20 +10,20 @@ class ProductTemplate(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        vals_list[0]['name'] = self._update_name(
-            vals_list[0]['categ_id'], vals_list[0]['name'])
+        vals_list[0].update(name=self._update_name(
+            vals_list[0]['categ_id'], vals_list[0]['name']))
         gender_sequence = (self.generate_sequence(
             {'name': 'Gender Sequence', 'code': vals_list[0]['categ_id'], 'prefix': vals_list[0]['categ_id'], 'padding': 5, 'number_increment': 1, 'implementation': 'standard'}))
-        vals_list[0]['barcode'] = f"{gender_sequence}-{vals_list[0]['name']}"
+        vals_list[0].update(
+            barcode=f"{gender_sequence}-{vals_list[0]['name']}")
         templates = super().create(vals_list)
 
         return templates
 
     def write(self, vals):
         if 'categ_id' in vals:
-            vals['name'] = self._update_name(vals['categ_id'], self.name)
-            vals['barcode'] = f"{self.barcode.split('-')[0]}-{vals['name']}"
-
+            vals.update(name=self._update_name(
+                vals['categ_id'], self.name), barcode=f"{self.barcode.split('-')[0]}-{vals['name']}")
         return super().write(vals)
 
     def _update_name(self, categ_id, name):
@@ -33,7 +33,7 @@ class ProductTemplate(models.Model):
         prefix = str.upper(new_name[0:2] or new_name[0])
         if categ_ref.sequence_number:
             new_name = f"{categ_ref.sequence_id.code}{self.generate_sequence({'name':'Product Sequence','code':prefix,'prefix':prefix,'padding':5,'number_increment':1,'implementation':'standard'})}"
-        
+
         return new_name
 
     # Generates sequence for product name

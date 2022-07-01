@@ -31,5 +31,4 @@ class ProductCategory(models.Model):
 
                 category.sequence_id = ir_sequence_ref.search(
                     [('code', '=', prefix)])
-                print(category.sequence_number)
-                print(category.sequence_id)
+                
