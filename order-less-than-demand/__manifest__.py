@@ -3,13 +3,10 @@
     'name': "order-less-than-demand",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Validate product quantity on receipt""",
 
     'description': """
-        In Inventory app, in Receipts, when receiving the product, quantity_done must be equal or less than the demand (product_uom_qty).
-        If the user enters a bigger quantity than the demand, a warning should appear saying "You can't receive more than the ordered quantity.
-        Please, enter another quantity". 
+        In Inventory app, in Receipts, when receiving the product, quantity_done must be equal or less than the demand (product_uom_qty). 
     """,
 
     'author': "Odoo",
