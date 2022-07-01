@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_inherit_bottling_experts">
+            <field name="name">sale.order.form.inherit.bottling_experts</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='customer_signature']" position="after">
+                    <page groups="base.group_no_one" string="Studio Opportunity" name="studio_opportunity">
+                        <group>
+                            <field name="x_studio_opportunity"/>
+                            <field name="travel_in_date"/>
+                            <field name="travel_out_date"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

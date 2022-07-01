@@ -21,6 +21,7 @@
     'depends': ['sale'],
 
     'data': [
+        'views/sale_views_inherit.xml',
         'report/sale_report.xml',
         'report/sale_report_templates.xml',
     ],
