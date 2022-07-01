@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="productlist_view_form">
+            <field name="name">greenville.product.form</field>
+            <field name="model">greenville.product</field>
+            <field name="arch" type="xml">
+                <form string="Course Form">
+                    <sheet>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <notebook>
+                            <page string="Product List">
+                                <field name="product_lists" />
+                            </page>
+                            <page string="Customers that use this list">
+                                You know what dont write any notes
+                                <field name="customer_using_product_list" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="course_view_list">
+            <field name="name">greenville.product.list</field>
+            <field name="model">greenville.product</field>
+            <field name="arch" type="xml">
+                <tree string="Course List">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        
+
+    </data>
+</odoo>
