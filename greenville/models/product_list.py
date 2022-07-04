@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 from odoo import fields, models
 
 class ProductList(models.Model):
   _name = 'product.list'
+  _description = 'A product list for show to the customer those that he will buy'
 
   name = fields.Char(
     string='List Name', 

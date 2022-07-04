@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
   'name': 'Greenville Producer',
   'summary': '''Unique product lists per customer on website''',

@@ -7,17 +7,10 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 
 class WebsiteSaleInherit(WebsiteSale):
   
-  @http.route([
-    '''/shop''',
-    '''/shop/page/<int:page>''',
-    '''/shop/category/<model("product.public.category"):category>''',
-    '''/shop/category/<model("product.public.category"):category>/page/<int:page>'''
-  ], type='http', auth="public", website=True, sitemap=WebsiteSale.sitemap_shop)
+  @http.route('/shop', type='http', auth="public", website=True, sitemap=WebsiteSale.sitemap_shop)
   def shop(self, page=0, category=None, search='', ppg=False, **post):
     res = super(WebsiteSaleInherit, self).shop(page=page, category=category, search=search, ppg=ppg, **post)
     url = "/shop"
-    if category:
-      url = '/shop/category/%s' % slug(category)
     products_list_req = http.request.env['product.list'].search(
       [('customer','=',http.request.env.user.partner_id.id)]
     ).products
