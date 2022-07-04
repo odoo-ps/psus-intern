@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record model='ir.ui.view' id='productlist_view_form'>
+    <field name='name'>greenville.productlist.form</field>
+    <field name='model'>product.list</field>
+    <field name='arch' type='xml'>
+      <form string='Product List Form'>
+        <group colspan="4">
+          <field name='name' />
+        </group>
+        <notebook>
+          <page string='Product List'>
+            <group>
+              <field name='products'/>
+            </group>
+          </page>
+          <page string='Customer That Use This List'>
+            <group>
+              <field name='customer'/>
+            </group>
+          </page>
+        </notebook>
+      </form>
+    </field>
+  </record>
+</odoo>
