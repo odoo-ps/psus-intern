@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <data>
+    <record model='res.partner' id='mindesa'>
+      <field name='name'>Mindesa SAPI de CV</field>
+      <field name='email'>test@mindesa.com</field>  
+      <field name='is_company'>True</field>  
+    </record>
+  </data>
+</odoo>

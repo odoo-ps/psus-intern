@@ -1,4 +1,3 @@
-# -*- Encoding: utf-8 -*-
 {
   'name': 'Mindesa App',
   'summary': '''Scheduled Action to Confirm RFQs''',
@@ -11,5 +10,6 @@
   'version': '14.0.1.0.0',
   'depends': ['purchase'],
   'data': ['views/confirm_rdqs_scheduler.xml'],
+  'demo': ['demo/partner_demo.xml'],
   'license': 'OPL-1'
 }
