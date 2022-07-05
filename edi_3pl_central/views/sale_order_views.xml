@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="phoenix_sale_order_form_view" model="ir.ui.view">
+        <field name="name">Phoenix Performance: Sale Order Form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_policy']" position="after">
+                <field name="shipping_collect_account"/>
+                <field name="shipping_carrier"/>
+                <field name="shipping_billing_code" context="{'default_carrier_id':shipping_carrier}"/>
+                <field name="ship_priority"/>
+                <field name="warehouse_instructions"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

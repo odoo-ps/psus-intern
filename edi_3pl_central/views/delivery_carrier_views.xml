@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="phoenix_delivery_carrier_form" model="ir.ui.view">
+        <field name="name">Phoenix Performance: Shipping Methods</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="carrier_name"/>
+                <field name="billing_code"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

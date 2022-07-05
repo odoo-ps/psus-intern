@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sync_document_import_request_inventory" model="sync.document.type">
+        <field name="name">Import: Request Inventory</field>
+        <field name="doc_code">import_request_inventory</field>
+        <field name="op_type">in-mv</field>
+        <field name="active" eval="True"/>
+    </record>
+    <record id="sync_document_export_delivery_order" model="sync.document.type">
+        <field name="name">Export: Delivery Order</field>
+        <field name="doc_code">export_delivery_order</field>
+        <field name="op_type">out</field>
+        <field name="active" eval="True"/>
+    </record>
+    <record id="sync_document_export_receipt" model="sync.document.type">
+        <field name="name">Export: Receipt</field>
+        <field name="doc_code">export_receipt</field>
+        <field name="op_type">out</field>
+        <field name="active" eval="True"/>
+    </record>
+    <record id="sync_document_import_confirm_receipt" model="sync.document.type">
+        <field name="name">Import: Confirm Receipt</field>
+        <field name="doc_code">import_confirm_receipt</field>
+        <field name="op_type">in-mv</field>
+        <field name="active" eval="True"/>
+    </record>
+    <record id="sync_document_import_confirm_delivery_order" model="sync.document.type">
+        <field name="name">Import: Confirm Delivery Order</field>
+        <field name="doc_code">import_confirm_delivery_order</field>
+        <field name="op_type">in-mv</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>
