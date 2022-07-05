@@ -5,6 +5,7 @@
     'version': '15.0.0.1',
     'category': 'Survey',
     'summary': 'Create code surveys and validate answers',
+    'Author': 'Odoo PS',
     'description': """
 Create Code questions and assert results
 ========================================
@@ -21,8 +22,11 @@ task: 2856501
         'survey',
     ],
     'data': [
+        'views/survey_user_input_line_view_form_inherit.xml',
+        'views/survey_question_form_inherit.xml',
+        'views/survey_templates.xml',
     ],
     'demo': [
     ],
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
 }
