@@ -1,2 +1,0 @@
-# psus-demos
-PSUS Demo
