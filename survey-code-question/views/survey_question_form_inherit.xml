@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- This is the icon for The type of question chosen -->
+    <!-- This is the icon for The type of question chosen when adding a question -->
     <record id="survey_question_form_inherit" model="ir.ui.view">
         <field name="name">survey.question.form.inherit</field>
         <field name="model">survey.question</field>

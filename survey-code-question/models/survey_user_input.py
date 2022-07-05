@@ -9,4 +9,4 @@ class SurveyUserInputLine(models.Model):
 
     value_code_box = fields.Char('Code answer')
 
-    #TODO (i think) inherit save_lines and _get_line_answer values
+    #TODO (i think) inherit save_lines and _get_line_answer_values
