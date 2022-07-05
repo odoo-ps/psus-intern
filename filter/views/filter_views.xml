@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="filter_view_tree" model="ir.ui.view">
+        <field name="name">filter.view.tree</field>
+        <field name="model">parts.part</field>
+        <field name="arch" type="xml">
+            <tree string="Make a Selection">
+                <field name="year" widget="selection" />
+                <field name="make" widget="selection" />
+                <field name="model" widget="selection" />
+                <field name="engine" widget="selection" />
+                <field name="details" widget="selection" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="filter_action" model="ir.actions.act_window">
+        <field name="name">Filter Parts</field>
+        <field name="res_model">parts.part</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

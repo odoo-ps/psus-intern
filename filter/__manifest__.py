@@ -17,6 +17,13 @@
     'license': 'OPL-1',
     # any module necessary for this one to work correctly
     'depends': ['base'],
+    # always loaded
+    'data': [
+        'security/ir.model.access.csv',
+        'views/filter_views.xml',
+        'views/filter_part_views.xml',
+        'views/filter_menus.xml'],
     'application': True,
+    'installable': True,
     'auto_install': False
 }

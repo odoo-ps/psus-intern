@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="filter_root_menu" name="Compatibility Filter">
+        <menuitem id="filter_menu" name="All Parts" >
+            <menuitem id="filter_menu_action" action="filter_action" />
+            <menuitem id="filter_part_menu_action" action="filter_part_action"/>
+        </menuitem>
+        <!-- <menuitem id="filter_settings_menu" name="Settings">
+            <menuitem id="filter_year_menu_action" action="filter_year_action" />
+        </menuitem> -->
+    </menuitem>
+</odoo>
