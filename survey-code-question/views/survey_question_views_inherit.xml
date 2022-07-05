@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="survey_question_views_inherit" model="ir.ui.view">
-        <field name="name">survey.question.views.inherit</field>
-        <field name="model">survey.question.answer</field>
-        <field name="inherit_id" ref="" />
-    </record>
-</odoo>
