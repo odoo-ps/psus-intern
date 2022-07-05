@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="export_receipt_xml">
+        <WarehouseTransactions>
+            <WarehouseTransaction>
+                <TransInfo>
+                    <ReferenceNum><t t-esc="picking.name"/></ReferenceNum>
+                    <ExpectedDate><t t-esc="picking.scheduled_date" t-options='{"widget": "date", "format": "yyyy-MM-dd"}'/></ExpectedDate>
+                </TransInfo>
+                <ShippingInstructions>
+                    <Carrier><t t-esc="picking.carrier_id.name"/></Carrier>
+                </ShippingInstructions>
+                <ReceiveItems>
+                    <t t-foreach="picking.move_lines" t-as="move_line">
+                        <ReceiveItem>
+                            <SKU><t t-esc="move_line.product_id.default_code"/></SKU>
+                            <OrigQtyPrimary><t t-esc="move_line.product_uom_qty"/></OrigQtyPrimary>
+                            <SavedElements>
+                                <CodeDescrPair>
+                                    <Code>OdooStockMoveID</Code>
+                                    <Description><t t-esc="move_line.id"/></Description>
+                                </CodeDescrPair>
+                            </SavedElements>
+                        </ReceiveItem>
+                    </t>
+                </ReceiveItems>
+            </WarehouseTransaction>
+        </WarehouseTransactions>
+    </template>
+</odoo>
