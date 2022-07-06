@@ -21,8 +21,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/filter_views.xml',
-        'views/filter_part_views.xml',
-        'views/filter_menus.xml'],
+        'views/filter_menus.xml',
+        'wizard/filter_wizard_views.xml'],
     'application': True,
     'installable': True,
     'auto_install': False

@@ -1,2 +1,8 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_parts_part,parts part access,model_parts_part,base.group_user,1,1,1,1
+filter.access_parts_part,access_parts_part,filter.model_parts_part,base.group_user,1,1,1,1
+filter.access_parts_year,access_parts_year,filter.model_parts_year,base.group_user,1,1,1,1
+filter.access_parts_make,access_parts_make,filter.model_parts_make,base.group_user,1,1,1,1
+filter.access_parts_model,access_parts_model,filter.model_parts_model,base.group_user,1,1,1,1
+filter.access_parts_engine,access_parts_engine,filter.model_parts_engine,base.group_user,1,1,1,1
+filter.access_parts_details,access_parts_details,filter.model_parts_details,base.group_user,1,1,1,1
+filter.access_filter_wizard,access_filter_wizard,filter.model_filter_wizard,base.group_user,1,1,1,1
