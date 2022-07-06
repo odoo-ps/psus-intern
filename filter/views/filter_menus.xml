@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <menuitem id="filter_root_menu" name="Compatibility Filter">
-        <menuitem id="filter_menu_action" action="filter_action" />
-    </menuitem>
-</odoo>

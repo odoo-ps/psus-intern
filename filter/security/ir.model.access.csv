@@ -1,8 +1,9 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-filter.access_parts_part,access_parts_part,filter.model_parts_part,base.group_user,1,1,1,1
-filter.access_parts_year,access_parts_year,filter.model_parts_year,base.group_user,1,1,1,1
-filter.access_parts_make,access_parts_make,filter.model_parts_make,base.group_user,1,1,1,1
-filter.access_parts_model,access_parts_model,filter.model_parts_model,base.group_user,1,1,1,1
-filter.access_parts_engine,access_parts_engine,filter.model_parts_engine,base.group_user,1,1,1,1
-filter.access_parts_details,access_parts_details,filter.model_parts_details,base.group_user,1,1,1,1
-filter.access_filter_wizard,access_filter_wizard,filter.model_filter_wizard,base.group_user,1,1,1,1
+filter.access_component,access_component,filter.model_component,base.group_user,1,1,1,1
+filter.access_component_brand,access_component_brand,filter.model_component_brand,base.group_user,1,1,1,1
+filter.access_component_model,access_component_model,filter.model_component_model,base.group_user,1,1,1,1
+filter.access_component_version,access_component_version,filter.model_component_version,base.group_user,1,1,1,1
+filter.access_component_internal,access_component_internal,filter.model_component_internal,base.group_user,1,1,1,1
+filter.access_component_external,access_component_external,filter.model_component_external,base.group_user,1,1,1,1
+filter.access_component_search_wizard,access_component_search_wizard,filter.model_component_search_wizard,base.group_user,1,1,1,1
+filter.access_component_search_wizard_line,access_component_search_wizard_line,filter.model_component_search_wizard_line,base.group_user,1,1,1,1

@@ -20,9 +20,10 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/filter_views.xml',
-        'views/filter_menus.xml',
-        'wizard/filter_wizard_views.xml'],
+        'wizard/component_search_wizard_views.xml',
+        'views/component_views.xml',
+        'views/component_menu.xml'
+    ],
     'application': True,
     'installable': True,
     'auto_install': False

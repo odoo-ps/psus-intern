@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="component_view_tree" model="ir.ui.view">
+        <field name="name">component.view.tree</field>
+        <field name="model">component</field>
+        <field name="arch" type="xml">
+            <tree string="All Components">
+                <button name="action_search_show_wizard" string="Search"
+                    type="object" class="oe_highlight" />
+                <field name="name" />
+                <field name="product_name" string="Component for"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="component_view_form" model="ir.ui.view">
+        <field name="name">component.view.form</field>
+        <field name="model">component</field>
+        <field name="arch" type="xml">
+            <form string="New Component">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="Base Information">
+                            <field name="brand_id" string="Make" />
+                            <field name="model_id" />
+                            <field name="version_id" string="Year" />
+                        </group>
+                        <group name="Details">
+                            <field name="internal_id" string="Engine" />
+                            <field name="external_id" string="Trim Level" />
+                            <field name="product_name" string="Component For" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="component_main_action" model="ir.actions.act_window">
+        <field name="name">Available Components</field>
+        <field name="res_model">component</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="component_brand_action" model="ir.actions.act_window">
+        <field name="name">All Brands</field>
+        <field name="res_model">component.brand</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="component_model_action" model="ir.actions.act_window">
+        <field name="name">All Models</field>
+        <field name="res_model">component.model</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="component_version_action" model="ir.actions.act_window">
+        <field name="name">All Versions</field>
+        <field name="res_model">component.version</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="component_internal_action" model="ir.actions.act_window">
+        <field name="name">All Internal Details</field>
+        <field name="res_model">component.internal</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="component_external_action" model="ir.actions.act_window">
+        <field name="name">All External Details</field>
+        <field name="res_model">component.external</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="component_search_action_search_server" model="ir.actions.server">
+        <field name="name">Search Components</field>
+        <field name="model_id" ref="filter.model_component"/>
+        <field name="binding_model_id" ref="filter.model_component"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_quotation_sent()
+        </field>
+    </record>
+</odoo>
