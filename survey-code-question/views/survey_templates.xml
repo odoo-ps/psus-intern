@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- This is the web template that creates the text box.-->
+    <!-- This is the web template that creates the code text box.-->
     <template id="question_container_inherit" inherit_id="survey.question_container" name="Question Container Inherit">
         <t t-if="question.question_type == 'matrix'" position="after">
-            <t t-if="question.question_type == 'code'"><t t-call="survey-code-question.question_code_box"/></t>
+            <t t-if="question.question_type == 'code_box'"><t t-call="survey-code-question.question_code_box"/></t>
         </t>
     </template>
 
