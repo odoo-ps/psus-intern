@@ -45,7 +45,20 @@ class SyncDocumentType(models.Model):
         for record in records:
             xml = get_xml_func(record)
             export_file_path, filename, tmp_dir = self.write_xml_file(xml, f"{record.name.replace('/','_')}.xml")
-            conn._conn.put(export_file_path, os.path.join(sync_action_id.dir_path, filename))
+
+            ####### my additions
+            #_logger.info("Type of conn: " + str(type(conn._conn)))
+            #_logger.info("Storbinary path: " + str(os.path.join(sync_action_id.dir_path, filename)))
+            #_logger.info("Export file path: " + export_file_path)
+            
+            #conn._conn.put(export_file_path, os.path.join(sync_action_id.dir_path, filename)) # "put" method doesn't exist
+
+            command = "STOR " + os.path.join(sync_action_id.dir_path, filename)
+            file = open(export_file_path, mode="rb") #file must be open in binary mode
+            conn._conn.storbinary(command, file)
+
+            ##########
+
             _logger.info('Writing xml file %s' % filename)
             os.remove(export_file_path)
             os.rmdir(tmp_dir)
