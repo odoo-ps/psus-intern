@@ -8,5 +8,5 @@ class StockInventory(models.Model):
     _name = 'stock.inventory'
     _inherit = ['stock.inventory', 'sync.document.status']
 
-    def _import_stock_status(self):
-        return self._execute_edi_sync('import_request_inventory')
+    def _import_stock_status(self, raise_user_error=True):
+        return self._execute_edi_sync('import_request_inventory', raise_user_error=raise_user_error)

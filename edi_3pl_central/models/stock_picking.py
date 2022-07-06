@@ -52,27 +52,27 @@ class StockPicking(models.Model):
 
     # -- EDI Sync Actions ----------------------------------
 
-    def export_delivery_orders_to_edi(self):
+    def export_delivery_orders_to_edi(self, raise_user_error=True):
         records = self.filtered(lambda p: p.picking_type_code == 'outgoing' \
                                             and p.state == 'assigned')
         if not self._context.get('force_export', False):
             records = records.filtered(lambda p: p.edi_status == 'pending')
-        return self._execute_edi_sync('export_delivery_order', records) if records else True
+        return self._execute_edi_sync('export_delivery_order', records, raise_user_error=raise_user_error) if records else True
  
     @api.model
-    def import_delivery_orders_from_edi(self):
-        return self._execute_edi_sync('import_confirm_delivery_order')
+    def import_delivery_orders_from_edi(self, raise_user_error=True):
+        return self._execute_edi_sync('import_confirm_delivery_order', raise_user_error=raise_user_error)
 
-    def export_receipts_to_edi(self):
+    def export_receipts_to_edi(self, raise_user_error=True):
         records = self.filtered(lambda p: p.picking_type_code == 'incoming' \
                                             and p.state == 'assigned')
         if not self._context.get('force_export', False):
             records = records.filtered(lambda p: p.edi_status == 'pending')
-        return self._execute_edi_sync('export_receipt', records) if records else True
+        return self._execute_edi_sync('export_receipt', records, raise_user_error=raise_user_error) if records else True
 
     @api.model
-    def import_receipts_from_edi(self):
-        return self._execute_edi_sync('import_confirm_receipt')
+    def import_receipts_from_edi(self, raise_user_error=True):
+        return self._execute_edi_sync('import_confirm_receipt', raise_user_error=raise_user_error)
 
     # -- Automatic Export --------------------------------
 
@@ -80,6 +80,6 @@ class StockPicking(models.Model):
     def _compute_state(self):
         ''' When orders becomes ready, export 940/943 EDI document. '''
         res = super()._compute_state()
-        self.with_context(ignore_edi_errors=True).export_delivery_orders_to_edi()
-        self.with_context(ignore_edi_errors=True).export_receipts_to_edi()
+        self.export_delivery_orders_to_edi(raise_user_error=False)
+        self.export_receipts_to_edi(raise_user_error=False)
         return res

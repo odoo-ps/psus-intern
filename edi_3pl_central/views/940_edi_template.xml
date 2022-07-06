@@ -30,9 +30,9 @@
                 <Notes><t t-esc="picking.warehouse_instructions_edi"/></Notes>
                 <orderItems>
                     <t t-foreach="picking.move_lines" t-as="move_line">
-                        <OrderItem t-if="move_line.forecast_availability > 0">
+                        <OrderItem t-if="move_line.reserved_availability > 0">
                             <SKU><t t-esc="move_line.product_id.default_code"/></SKU>
-                            <OrderQty><t t-esc="move_line.forecast_availability"/></OrderQty>
+                            <OrderQty><t t-esc="move_line.reserved_availability"/></OrderQty>
                             <UPC><t t-esc="move_line.product_id.barcode"/></UPC>
                             <SavedElements>
                                 <CodeDescrPair>
