@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- adds a menu item "Custom Mappings" under the Technical/EDI menu -->
+
+<odoo>
+    <data>
+        <record id="action_custom_mapping_views" model="ir.actions.act_window">
+            <field name="name">Custom mappings :)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi2.custom.mapping</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_edi_custom_mapping" name="Custom Mappings" parent="base_edi.menu_edi" action="action_custom_mapping_views" sequence="3"/>
+    </data>
+</odoo>

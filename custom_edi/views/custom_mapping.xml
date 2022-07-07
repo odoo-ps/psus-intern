@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record model="ir.ui.view" id="custom_mapping_view_tree">
+            <field name="name">edi2.custom.mapping.tree</field>
+            <field name="model">edi2.custom.mapping</field>
+            <field name="arch" type="xml">
+                <tree string="Custom Mappings">
+                    <field name="name"/>
+                    <field name="model"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- form view -->
+        <record model="ir.ui.view" id="custom_mapping_view_form">
+            <field name="name">edi2.custom.mapping.form</field>
+            <field name="model">edi2.custom.mapping</field>
+            <field name="arch" type="xml">
+                <form string="Custom Mappings">
+                    <field name="name"/>
+                    <field name="model"/>
+                    hi stranger :)
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
