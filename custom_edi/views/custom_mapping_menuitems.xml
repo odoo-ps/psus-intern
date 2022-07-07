@@ -4,7 +4,7 @@
 <odoo>
     <data>
         <record id="action_custom_mapping_views" model="ir.actions.act_window">
-            <field name="name">Custom mappings :)</field>
+            <field name="name">Custom mappings</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">edi2.custom.mapping</field>
             <field name="view_mode">tree,form</field>
