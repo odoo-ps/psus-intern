@@ -2,4 +2,3 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from . import component_search_wizard
-from . import component_search_wizard_line

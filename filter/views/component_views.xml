@@ -5,9 +5,12 @@
         <field name="model">component</field>
         <field name="arch" type="xml">
             <tree string="All Components">
-                <button name="action_search_show_wizard" string="Search"
-                    type="object" class="oe_highlight" />
                 <field name="name" />
+                <field name="brand_id" />
+                <field name="model_id" />
+                <field name="version_id" />
+                <field name="internal_id" />
+                <field name="external_id" />
             </tree>
         </field>
     </record>
@@ -25,14 +28,14 @@
                         </h1>
                     </div>
                     <group>
-                        <group name="Base Information">
-                            <field name="brand_id" string="Make" />
+                        <group>
+                            <field name="brand_id" />
                             <field name="model_id" />
-                            <field name="version_id" string="Year" />
+                            <field name="version_id" />
                         </group>
-                        <group name="Details">
-                            <field name="internal_id" string="Engine" />
-                            <field name="external_id" string="Trim Level" />
+                        <group>
+                            <field name="internal_id" />
+                            <field name="external_id" />
                         </group>
                     </group>
                 </sheet>
@@ -44,46 +47,5 @@
         <field name="name">Available Components</field>
         <field name="res_model">component</field>
         <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="component_brand_action" model="ir.actions.act_window">
-        <field name="name">All Brands</field>
-        <field name="res_model">component.brand</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <record id="component_model_action" model="ir.actions.act_window">
-        <field name="name">All Models</field>
-        <field name="res_model">component.model</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <record id="component_version_action" model="ir.actions.act_window">
-        <field name="name">All Versions</field>
-        <field name="res_model">component.version</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <record id="component_internal_action" model="ir.actions.act_window">
-        <field name="name">All Internal Details</field>
-        <field name="res_model">component.internal</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <record id="component_external_action" model="ir.actions.act_window">
-        <field name="name">All External Details</field>
-        <field name="res_model">component.external</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <record id="component_search_action_search_server" model="ir.actions.server">
-        <field name="name">Search Components</field>
-        <field name="model_id" ref="filter.model_component"/>
-        <field name="binding_model_id" ref="filter.model_component"/>
-        <field name="binding_view_types">form</field>
-        <field name="state">code</field>
-        <field name="code">
-            action = model.action_search_show_wizard()
-        </field>
     </record>
 </odoo>

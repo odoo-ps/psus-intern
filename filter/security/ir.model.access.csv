@@ -6,4 +6,3 @@ filter.access_component_version,access_component_version,filter.model_component_
 filter.access_component_internal,access_component_internal,filter.model_component_internal,base.group_user,1,1,1,1
 filter.access_component_external,access_component_external,filter.model_component_external,base.group_user,1,1,1,1
 filter.access_component_search_wizard,access_component_search_wizard,filter.model_component_search_wizard,base.group_user,1,1,1,1
-filter.access_component_search_wizard_line,access_component_search_wizard_line,filter.model_component_search_wizard_line,base.group_user,1,1,1,1

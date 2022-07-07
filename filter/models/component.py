@@ -15,23 +15,6 @@ class Component(models.Model):
     internal_id = fields.Many2one("component.internal")
     external_id = fields.Many2one("component.external")
 
-    def action_search_show_wizard(self):
-        component_ids = self.env['component'].browse(self.env.context.get('active_id'))
-
-        # doesnt exist
-        print("main: ", component_ids)
-
-        return {
-            'name': _('Compatible Parts Available'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'component.search.wizard',
-            'target': 'new',
-            'view_id':
-                self.env.ref('filter.component_search_wizard_view_form').id,
-            'view_mode': 'form',
-            'context': {'default_component_ids': component_ids}
-        }
-
 
 class ComponentBrand(models.Model):
     _name = "component.brand"

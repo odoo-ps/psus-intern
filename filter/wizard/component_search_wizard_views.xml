@@ -6,21 +6,40 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Search Components For">
-                <field name="search_line_ids" widget="one2many_list">
-                    <tree string="Components" editable="bottom">
-                        <field name="brand_id" />
-                        <field name="model_id" />
-                        <field name="version_id" />
-                        <field name="internal_id" />
-                        <field name="external_id" />
-                    </tree>
-                </field>
+                <group>
+                    <field name="brand_id" options="{'no_create': True}" />
+                    <field name="model_id" options="{'no_create': True}" />
+                    <field name="version_id" options="{'no_create': True}" />
+                </group>
+                <group>
+                    <field name="internal_id" options="{'no_create': True}" />
+                    <field name="external_id" options="{'no_create': True}" />
+                    <field name="is_completed" invisible="1" />
+                </group>
                 <footer>
-                    <button name="action_search" type="object"
+                    <button name="action_search_wizard" type="object"
                         string="Search" class="oe_highlight" />
-                    <button string="Cancel" class="btn btn-default" special="cancel" />
                 </footer>
+                <group>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" attrs="{'invisible': [('is_completed', '=', False)],
+                                'readonly': True}" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="component_ids" attrs="{'invisible': [('is_completed', '=', False)],
+                            'readonly': True}" />
+                    </group>
+                </group>
             </form>
         </field>
+    </record>
+
+    <record id="launch_component_search_wizard" model="ir.actions.act_window">
+        <field name="name">Component Search</field>
+        <field name="res_model">component.search.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
     </record>
 </odoo>
