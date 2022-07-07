@@ -9,9 +9,9 @@ class ComponentSearchWizard(models.TransientModel):
     _description = "Component Search Wizard"
 
     # wizard related information
-    name = fields.Char(default=lambda self: _('New'))
-    component_ids = fields.Many2many("component")
-    is_completed = fields.Boolean(default=False)
+    name = fields.Char(default=lambda self: _('Please specify your item'), readonly=True)
+    component_ids = fields.Many2many("component", readonly=True)
+    is_completed = fields.Boolean(default=False, readonly=True)
 
     # the selected options
     brand_id = fields.Many2one("component.brand", required=True)
@@ -21,12 +21,7 @@ class ComponentSearchWizard(models.TransientModel):
     external_id = fields.Many2one("component.external", required=True)
 
     def action_search_wizard(self):
-        self.name = "Available Components for %s %s %s %s %s" % \
-            (self.version_id.name, self.brand_id.name,
-             self.model_id.name, self.internal_id.name,
-             self.external_id.name)
-        self.is_completed = True
-
+        # search for matching components
         self.component_ids = self.env['component'].search([
             ('brand_id', '=', self.brand_id.id),
             ('model_id', '=', self.model_id.id),
@@ -35,5 +30,14 @@ class ComponentSearchWizard(models.TransientModel):
             ('external_id', '=', self.external_id.id)
         ])
 
-        # find way to show results of search
+        # search successful (components found)
+        self.name = "Available Components for %s %s %s %s %s" % \
+            (self.version_id.name, self.brand_id.name,
+             self.model_id.name, self.internal_id.name,
+             self.external_id.name)
+
+        # flag for warning
+        if self.component_ids:
+            self.is_completed = True
+
         return True

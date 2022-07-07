@@ -19,3 +19,4 @@ Task ID: 2869113
             - creation of component information
 - layout:
     - its ugly, change it
+    - maybe try it a little differently?

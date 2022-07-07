@@ -21,17 +21,15 @@
                         string="Search" class="oe_highlight" />
                 </footer>
                 <group>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="name" attrs="{'invisible': [('is_completed', '=', False)],
-                                'readonly': True}" />
-                        </h1>
-                    </div>
-                    <group>
-                        <field name="component_ids" attrs="{'invisible': [('is_completed', '=', False)],
-                            'readonly': True}" />
-                    </group>
+                    <h1>
+                        <field name="name" />
+                    </h1>
                 </group>
+                <notebook attrs="{'invisible': [('is_completed', '=', False)]}">
+                    <page string="Results Found" nolabel="1">
+                        <field name="component_ids" />
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>
