@@ -16,8 +16,8 @@ _logger = logging.getLogger(__name__)
 class SyncDocumentType(models.Model):
     """
     EDI Document list https://en.wikipedia.org/wiki/X12_Document_List
-    We do not make X12 rather, we create XML and intermidiate service
-    will convert those XML to X12 or any desire format.
+    We do not make X12 rather, we create XML and intermediate service
+    will convert those XML to X12 or any desired format.
     """
 
     _name = "sync.document.type"
@@ -41,8 +41,8 @@ class SyncDocumentType(models.Model):
         """
         This is dummy demo method.
         @param conn : sftp/ftp connection class.
-        @param sync_action_id: recorset of type `edi.sync.action`
-        @param values:dict of values that may be useful to various methods
+        @param sync_action_id: recordset of type `edi.sync.action`
+        @param values: dict of values that may be useful to various methods
 
         @return bool : return bool (True|False)
         """
@@ -64,16 +64,13 @@ class EDIConfig(models.Model):
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.user.company_id.id, required=True)
     ftp_host = fields.Char(string="Host", required=True)
     ftp_port = fields.Integer(string="Port", required=True, default=22)
-    ftp_portocol = fields.Selection(selection=[("ftp", "FTP - File Transfer Protocol"), ("sftp", "SFTP - SSH File Transfer Protocol")], string="Protocol", required=True, default="ftp")
+    ftp_protocol = fields.Selection(selection=[("ftp", "FTP - File Transfer Protocol"), ("sftp", "SFTP - SSH File Transfer Protocol")], string="Protocol", required=True, default="ftp")
     ftp_login = fields.Char(string="Username", required=True)
     ftp_password = fields.Char(string="Password", required=True)
     sync_action_ids = fields.One2many(comodel_name="edi.sync.action", inverse_name="config_id", string="Synchronization Actions")
     note = fields.Html(string="Notes")
     activity_user_id = fields.Many2one('res.users', string='Responsible')
 
-    # @api.onchange('ftp_portocol')
-    # def onchange_ftp_portocol(self):
-    #     self.ftp_port = 10022 if self.ftp_portocol and self.ftp_portocol == 'sftp' else 22
 
     def debug_logging(self):
         for c in self:
@@ -97,8 +94,8 @@ class EDIConfig(models.Model):
         config = self._get_provider_config()
         from importlib import import_module
 
-        connector = import_module("odoo.addons.base_edi.models.%s" % ("%s_connection" % self.ftp_portocol))
-        return getattr(connector, "%sConnection" % self.ftp_portocol.upper())(config=config)
+        connector = import_module("odoo.addons.base_edi.models.%s" % ("%s_connection" % self.ftp_protocol))
+        return getattr(connector, "%sConnection" % self.ftp_protocol.upper())(config=config)
 
     def test_provider_connection(self):
         files = []
@@ -141,7 +138,7 @@ class EDISyncAction(models.Model):
         default="/",
         help="Directory path on FTP host, used for moving file to after importing files." "'/' is root path in ftp host and path should always start with same.",
     )
-    # TODO: implment file filter allow using user to read only specific named files.
+    # TODO: implement file filter allowing using user to read only specifically named files.
     # file_expr = fields.Char(string='Files filter expression', default='*.xml')
     last_sync_date = fields.Datetime(string="Last Synchronized On")
     action_defaults = fields.Text(
@@ -170,7 +167,7 @@ class EDISyncAction(models.Model):
     @api.model
     def _do_doc_sync_cron(self, sync_action_id=False, use_new_cursor=False, company_id=False, records=False):
         """
-        Call the doucment code method added by the modules.
+        Call the document code method added by the modules.
         """
         sync_action_todo = self
         if sync_action_id:

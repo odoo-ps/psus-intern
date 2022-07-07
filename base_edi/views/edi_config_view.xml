@@ -133,7 +133,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="ftp_portocol"/>
+                            <field name="ftp_protocol"/>
                             <field name="ftp_host"/>
                             <field name="ftp_port"/>
                             <field name="ftp_login"/>

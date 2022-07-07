@@ -78,17 +78,44 @@ class SyncDocumentType(models.Model):
     # Shared XML Import for 944/945/846 |
     # ===================================
 
-    def _import_xml(self, conn, sync_action_id, values, _root_processor):
-        conn._connect()
-        conn.cd(sync_action_id.dir_path)
-        files = conn.ls()
+    def _import_xml(self, conn, sync_action_id, values, _root_processor): #downloading XMLs from the server and processing them
+
+        conn._connect() #connect to server
+        conn.cd(sync_action_id.dir_path) #go to the sync action's set directory path on the server
+        files = conn.ls() #get list of files
         if not files:
             _logger.warning('Directory on host is empty')
         for file in files:
-            if not (file.endswith('.xml') or file.endswith('.txt')):
+            if not (file.endswith('.xml') or file.endswith('.txt')): #ignore anything that's not xml or txt
                 continue
-            temp_file = 'temp.xml'
-            conn._conn.get(file, temp_file)
+
+            #temp_file = 'temp.xml'
+            #conn._conn.get(file, temp_file) ## ************************* what does this line do????
+            # -> downloads `file` from server and puts it in local `temp_file`
+
+            #rewrote the below commented out code to use ftp_connection's download_file instead of get (same problem as put)
+
+            file_content = conn.download_file(file)
+
+            _logger.info('Importing EDI document %s' % file)
+            root = ET.fromstring(file_content) #returns root element of the xml
+            nsmap = root.nsmap #gets the namespace
+            records = _root_processor(root, nsmap) #_root_processor is a processing function passed in and processes the individual records
+            if records and "edi_status" in records._fields:
+                records.write({
+                    "edi_status": 'processed',
+                    "edi_sync_time": datetime.now()
+                })
+                for record in records:
+                    _logger.info(f'Updated record from EDI, {record}')
+                    if hasattr(record, 'message_post'):
+                        record.message_post(
+                            author_id = self.env.ref('base.partner_root').id,
+                            body=_("EDI file imported: %s", file)
+                        )
+
+            """
+
             with open(temp_file, 'rb') as file_data:
                 _logger.info('Importing EDI document %s' % file)
                 file_content = file_data.read()
@@ -107,6 +134,8 @@ class SyncDocumentType(models.Model):
                                 author_id = self.env.ref('base.partner_root').id,
                                 body=_("EDI file imported: %s", file)
                             )
+            """
+
             try:
                 conn.rename(file, os.path.join(sync_action_id.dir_mv_path, file))
             except IOError as e:
@@ -163,6 +192,7 @@ class SyncDocumentType(models.Model):
         return self._import_xml( conn, sync_action_id, values, self.with_context(sync_action_id=sync_action_id)._process_total_inventory)
 
     # = Processors ==============================================
+    # Called when importing XMLs
 
     def _process_total_inventory(self, root, nsmap = None):
         ''' stock.inventory '''
