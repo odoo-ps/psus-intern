@@ -9,9 +9,14 @@ Task ID: 2869113
 
 ### TODO:
 - MAIN: user input > returns list
-    - wizard
+    - wizard.action_search()
+        - reachable
+        - edit behavior to filter out components
+    - component.action_search_show_wizard()
+        - reachable?
+        - edit lines part
 - edit security + rules
-- view hierarchy + specifications
+- menu hierarchy + specifications
     - wizard (root)
         - no creation on forms/list
     - all parts (secondary)

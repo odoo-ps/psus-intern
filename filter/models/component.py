@@ -9,35 +9,17 @@ class Component(models.Model):
     _description = "A generic component and its information."
 
     name = fields.Char(string="Component")
-    product_name = fields.Char(compute="_compute_product_name")
     brand_id = fields.Many2one("component.brand")
     model_id = fields.Many2one("component.model")
     version_id = fields.Many2one("component.version")
     internal_id = fields.Many2one("component.internal")
     external_id = fields.Many2one("component.external")
 
-    @api.depends('brand_id', 'model_id', 'version_id',
-                 'internal_id', 'external_id')
-    def _compute_product_name(self):
-        for component in self:
-            new_name = "%s %s %s %s %s" % \
-                        (component.version_id.name,
-                         component.brand_id.name,
-                         component.model_id.name,
-                         component.internal_id.name,
-                         component.external_id.name)
-            component.product_name = new_name
-
     def action_search_show_wizard(self):
-        component_ids = self.env['component'].browse(
-            self._context.get('active_ids', False))
-        lines = []
+        component_ids = self.env['component'].browse(self.env.context.get('active_id'))
 
-        for line in component_ids:
-            vals = (0, 0, {
-                'component_id': line.id
-            })
-            lines.append(vals)
+        # doesnt exist
+        print("main: ", component_ids)
 
         return {
             'name': _('Compatible Parts Available'),
@@ -47,7 +29,7 @@ class Component(models.Model):
             'view_id':
                 self.env.ref('filter.component_search_wizard_view_form').id,
             'view_mode': 'form',
-            'context': {'default_search_line_ids': lines}
+            'context': {'default_component_ids': component_ids}
         }
 
 

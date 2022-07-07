@@ -9,4 +9,9 @@ class ComponentSearchWizardLine(models.TransientModel):
     _description = "Searched Components"
 
     search_id = fields.Many2one("component.search.wizard")
-    component_id = fields.Many2one("component")
+
+    brand_id = fields.Many2one("component.brand")
+    model_id = fields.Many2one("component.model")
+    version_id = fields.Many2one("component.version")
+    internal_id = fields.Many2one("component.internal")
+    external_id = fields.Many2one("component.external")

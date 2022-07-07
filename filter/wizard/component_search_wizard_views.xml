@@ -8,7 +8,11 @@
             <form string="Search Components For">
                 <field name="search_line_ids" widget="one2many_list">
                     <tree string="Components" editable="bottom">
-                        <field name="component_id" />
+                        <field name="brand_id" />
+                        <field name="model_id" />
+                        <field name="version_id" />
+                        <field name="internal_id" />
+                        <field name="external_id" />
                     </tree>
                 </field>
                 <footer>

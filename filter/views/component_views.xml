@@ -8,7 +8,6 @@
                 <button name="action_search_show_wizard" string="Search"
                     type="object" class="oe_highlight" />
                 <field name="name" />
-                <field name="product_name" string="Component for"/>
             </tree>
         </field>
     </record>
@@ -34,7 +33,6 @@
                         <group name="Details">
                             <field name="internal_id" string="Engine" />
                             <field name="external_id" string="Trim Level" />
-                            <field name="product_name" string="Component For" />
                         </group>
                     </group>
                 </sheet>
@@ -85,7 +83,7 @@
         <field name="binding_view_types">form</field>
         <field name="state">code</field>
         <field name="code">
-            action = model.action_quotation_sent()
+            action = model.action_search_show_wizard()
         </field>
     </record>
 </odoo>

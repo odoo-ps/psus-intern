@@ -4,17 +4,6 @@
         <menuitem id="component_root_menu" name="Compatibility Filter">
             <menuitem id="component_main_menu_action" name="Find a Part"
                 action="component_main_action" />
-            <menuitem id="component_sub_menu" name="Information">
-                <menuitem id="component_brand_menu_action"
-                    action="component_brand_action" />
-                <menuitem id="component_model_menu_action"
-                    action="component_model_action" />
-                <menuitem id="component_version_menu_action"
-                    action="component_version_action" />
-                <menuitem id="component_internal_menu_action"
-                    action="component_internal_action" />
-                <menuitem id="component_external_menu_action"
-                    action="component_external_action" />
             </menuitem>
         </menuitem>
     </data>
