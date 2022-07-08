@@ -26,24 +26,24 @@ class CustomMapping(models.Model):
     #one mapping can only use one model, but one model may be in many mappings :)
     model = fields.Many2one(comodel_name="ir.model",string="Model",help="Select the model whose records you wish to export to the xml document.")
 
-    #fields = {}
+
+
 
     # IF THE MODEL CHANGES, REFETCH THE MODEL'S FIELDS
     @api.onchange("model")
     def get_fields(self):
         _logger.error("Model name: " + str(self.model.name))
-        try:
-            _logger.error("Model model: " + str(self.model.model)) #model model is a str describing the technical name of the model!
-        except Exception as e:
-            _logger.error(":-( Model model threw error " + str(e))
+        _logger.error("Model model: " + str(self.model.model)) #model model is a str describing the technical name of the model!
 
-        dic = self.model.fields_get(allfields=[],attributes=["string","help","type"])
-        #_logger.debug(str(self.fields))
+        #dic = self.model.fields_get(allfields=[],attributes=["string","help","type"]) #Gets fields for the BASE model (not very useful :P )
 
-        fields = "Fields on top model: "
-        for key in dic:
-            fields = fields + str(key) +", "
-        
-        _logger.error(fields)
+        field_ids = self.model.field_id #gets fields for the model we actually want, as a set of ir.model.fields objects
+        #_logger.error(str(field_ids))
 
+        m = "Fields for " + str(self.model.model) + ": "
+        for id in field_ids:
+            m = m + str(id.name) + ", "
 
+        _logger.error(m)
+
+        # question: how can we save these fields so that we can show them in the views (maybe we dont have to at all & we can access them as model.field_id?)
