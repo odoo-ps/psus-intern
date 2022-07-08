@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="component_brand_1" model="component.brand">
+            <field name="name">Honda</field>
+        </record>
+
+        <record id="component_brand_2" model="component.brand">
+            <field name="name">Toyota</field>
+        </record>
+
+        <record id="component_model_1" model="component.model">
+            <field name="name">Civic</field>
+        </record>
+
+        <record id="component_model_2" model="component.model">
+            <field name="name">RAV4</field>
+        </record>
+
+        <record id="component_version_1" model="component.version">
+            <field name="name">2009</field>
+        </record>
+
+        <record id="component_version_2" model="component.version">
+            <field name="name">2020</field>
+        </record>
+
+        <record id="component_internal_1" model="component.internal">
+            <field name="name">V4</field>
+        </record>
+
+        <record id="component_internal_2" model="component.internal">
+            <field name="name">V6</field>
+        </record>
+
+        <record id="component_external_1" model="component.external">
+            <field name="name">LE</field>
+        </record>
+
+        <record id="component_external_2" model="component.external">
+            <field name="name">XLE</field>
+        </record>
+
+        <record id="component_1" model="component">
+            <field name="name">Muffler</field>
+            <field name="brand_id" ref="component_brand_1" />
+            <field name="model_id" ref="component_model_1" />
+            <field name="version_id" ref="component_version_1" />
+            <field name="internal_id" ref="component_internal_1" />
+            <field name="external_id" ref="component_external_1" />
+            <field name="is_stocked">True</field>
+        </record>
+
+        <record id="component_2" model="component">
+            <field name="name">Muffler</field>
+            <field name="brand_id" ref="component_brand_2" />
+            <field name="model_id" ref="component_model_2" />
+            <field name="version_id" ref="component_version_2" />
+            <field name="internal_id" ref="component_internal_2" />
+            <field name="external_id" ref="component_external_2" />
+            <field name="is_stocked">False</field>
+        </record>
+
+        <record id="component_3" model="component">
+            <field name="name">Drive Belt</field>
+            <field name="brand_id" ref="component_brand_2" />
+            <field name="model_id" ref="component_model_2" />
+            <field name="version_id" ref="component_version_2" />
+            <field name="internal_id" ref="component_internal_2" />
+            <field name="external_id" ref="component_external_2" />
+            <field name="is_stocked">True</field>
+        </record>
+
+        <record id="component_4" model="component">
+            <field name="name">Rotor Arm</field>
+            <field name="brand_id" ref="component_brand_2" />
+            <field name="model_id" ref="component_model_2" />
+            <field name="version_id" ref="component_version_1" />
+            <field name="internal_id" ref="component_internal_1" />
+            <field name="external_id" ref="component_external_2" />
+            <field name="is_stocked">True</field>
+        </record>
+
+        <record id="component_5" model="component">
+            <field name="name">Gear Shaft</field>
+            <field name="brand_id" ref="component_brand_1" />
+            <field name="model_id" ref="component_model_1" />
+            <field name="version_id" ref="component_version_2" />
+            <field name="internal_id" ref="component_internal_2" />
+            <field name="external_id" ref="component_external_2" />
+            <field name="is_stocked">True</field>
+        </record>
+    </data>
+</odoo>

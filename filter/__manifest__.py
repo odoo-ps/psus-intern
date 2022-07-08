@@ -24,6 +24,7 @@
         'views/component_views.xml',
         'views/component_menu.xml'
     ],
+    'demo': ['demo/component_demo.xml'],
     'application': True,
     'installable': True,
     'auto_install': False

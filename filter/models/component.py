@@ -6,7 +6,7 @@ from odoo import fields, models, _
 
 class Component(models.Model):
     _name = "component"
-    _description = "A generic component and its information."
+    _description = "Components"
     _order = "is_stocked desc"
 
     name = fields.Char(string="Component")
@@ -21,7 +21,7 @@ class Component(models.Model):
 
 class ComponentBrand(models.Model):
     _name = "component.brand"
-    _description = "Brand name of a Component"
+    _description = "Brands"
     _order = "name"
 
     name = fields.Char()
@@ -31,7 +31,7 @@ class ComponentBrand(models.Model):
 
 class ComponentModel(models.Model):
     _name = "component.model"
-    _description = "Model name of a Component"
+    _description = "Models"
     _order = "name"
 
     name = fields.Char()
@@ -41,7 +41,7 @@ class ComponentModel(models.Model):
 
 class ComponentVersion(models.Model):
     _name = "component.version"
-    _description = "Version number of a Component"
+    _description = "Versions"
     _order = "name"
 
     name = fields.Char()
@@ -51,7 +51,7 @@ class ComponentVersion(models.Model):
 
 class ComponentInternal(models.Model):
     _name = "component.internal"
-    _description = "Internal specifications of a Component"
+    _description = "Internal Specifications"
     _order = "name"
 
     name = fields.Char()
@@ -61,7 +61,7 @@ class ComponentInternal(models.Model):
 
 class ComponentExternal(models.Model):
     _name = "component.external"
-    _description = "External specifications of a Component"
+    _description = "External Specifications"
     _order = "name"
 
     name = fields.Char()
