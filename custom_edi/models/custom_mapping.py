@@ -29,7 +29,7 @@ class CustomMapping(models.Model):
     #fields = fields.Many2one(comodel_name="ir.model.fields",string="Fields",help="Select which fields for this model you want to put in your document.")
     # ^^ gets ALL fields of ALL models (over 7000 fields)
 
-    fields = fields.Many2one(comodel_name="ir.model.fields",
+    fields = fields.Many2many(comodel_name="ir.model.fields",
                              string="Fields",
                              help="Select which fields for this model you want to put in your document :)",
                              domain="[('model_id','=',model)]")
