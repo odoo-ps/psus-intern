@@ -27,7 +27,7 @@
                         </group>
 
                         <group>
-                            <field name="fields" widget="many2many" string="Fields to Export">
+                            <field name="field_ids" widget="many2many" string="Fields to Export">
                                 <tree>
                                     <field name="field_description"/> <!-- human readable name -->
                                     <field name="name"/> <!-- technical name -->
@@ -36,6 +36,8 @@
                             </field>
                         </group>
                     </sheet>
+
+                    <button name="log_field_data" type="object" string="Log Data"/>
                 </form>
             </field>
         </record>
