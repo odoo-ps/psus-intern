@@ -32,6 +32,7 @@
                                     <field name="field_description"/> <!-- human readable name -->
                                     <field name="name"/> <!-- technical name -->
                                     <field name="ttype"/> <!-- data type -->
+                                    <field name="xml_tag"/>
                                 </tree>
                             </field>
                         </group>
