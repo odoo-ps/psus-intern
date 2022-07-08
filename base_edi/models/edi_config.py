@@ -98,16 +98,35 @@ class EDIConfig(models.Model):
         return getattr(connector, "%sConnection" % self.ftp_protocol.upper())(config=config)
 
     def test_provider_connection(self):
-        files = []
+        # files = []
         for server in self:
+            decon = True
             ftp_connection = server._get_provider_connection()
             try:
                 ftp_connection._connect()
-            # TODO : sftp? add generic Exception to catch em all.
             except ftplib.all_errors as ftpe:
+                decon = False
                 raise ValidationError("Connection Test Failed! Here is what we got instead:\n %s" % (ftpe))
+            except socket.error as err:
+                decon = False
+                raise ValidationError("Connection Test Failed! Here is what we got instead:\n %s" % (err))
+            except paramiko.BadHostKeyException as err:
+                decon = False
+                raise ValidationError("Connection Test Failed! Here is what we got instead:\n %s" % (err))
+            except paramiko.AuthenticationException as err:
+                decon = False
+                raise ValidationError("Connection Test Failed! Here is what we got instead:\n %s" % (err))
+            except paramiko.SSHException as err:
+                decon = False
+                raise ValidationError("Connection Test Failed! Here is what we got instead:\n %s" % (err))
+            except Exception as err:
+                decon = False
+                raise ValidationError(_("Connection Test Failed! Here is what we got instead:\n %s" % (err)))
             finally:
-                ftp_connection._disconnect()
+                if not ftp_connection._conn:
+                    raise ValidationError("Connection Test Failed!")
+                if decon and ftp_connection._conn:
+                    ftp_connection._disconnect()
         raise UserError(_("Connection Test Succeeded! Everything seems properly set up!"))
 
     def do_document_sync(self):
