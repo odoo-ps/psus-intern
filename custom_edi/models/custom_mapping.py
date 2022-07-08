@@ -26,6 +26,14 @@ class CustomMapping(models.Model):
     #one mapping can only use one model, but one model may be in many mappings :)
     model = fields.Many2one(comodel_name="ir.model",string="Model",help="Select the model whose records you wish to export to the xml document.")
 
+    #fields = fields.Many2one(comodel_name="ir.model.fields",string="Fields",help="Select which fields for this model you want to put in your document.")
+    # ^^ gets ALL fields of ALL models (over 7000 fields)
+
+    fields = fields.Many2one(comodel_name="ir.model.fields",
+                             string="Fields",
+                             help="Select which fields for this model you want to put in your document :)",
+                             domain="[('model_id','=',model)]")
+    # ^^ only shows fields of the model that is currently selected :)
 
 
 
@@ -45,5 +53,3 @@ class CustomMapping(models.Model):
             m = m + str(id.name) + ", "
 
         _logger.error(m)
-
-        # question: how can we save these fields so that we can show them in the views (maybe we dont have to at all & we can access them as model.field_id?)
