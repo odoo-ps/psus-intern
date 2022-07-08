@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_model_field_form_inherit">
+            <field name="name">ir.model.fields.form.inherit</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='copied']" position="after">
+                    <field name="xml_tag"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
