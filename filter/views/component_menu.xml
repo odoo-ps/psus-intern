@@ -2,10 +2,10 @@
 <odoo>
     <data noupdate="1">
         <menuitem id="component_root_menu" name="Compatibility Filter">
-            <menuitem id="component_main_menu_action" name="All Parts"
-                action="component_main_action" />
             <menuitem id="component_wizard_menu_action" name="Find a Part"
                 action="launch_component_search_wizard" />
+            <menuitem id="component_main_menu_action" name="All Parts"
+                action="component_main_action" />
         </menuitem>
     </data>
 </odoo>

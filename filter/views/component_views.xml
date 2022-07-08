@@ -4,13 +4,15 @@
         <field name="name">component.view.tree</field>
         <field name="model">component</field>
         <field name="arch" type="xml">
-            <tree string="All Components">
+            <tree string="All Components" decoration-success="is_stocked == True"
+                    decoration-muted="is_stocked == False">
                 <field name="name" />
-                <field name="brand_id" />
+                <field name="brand_id" string="Make" />
                 <field name="model_id" />
-                <field name="version_id" />
-                <field name="internal_id" />
-                <field name="external_id" />
+                <field name="version_id" string="Year" />
+                <field name="internal_id" string="Engine" />
+                <field name="external_id" string="Trim Level" />
+                <field name="is_stocked" string="In Stock" invisible="1" />
             </tree>
         </field>
     </record>
@@ -29,13 +31,14 @@
                     </div>
                     <group>
                         <group>
-                            <field name="brand_id" />
+                            <field name="brand_id" string="Make" />
                             <field name="model_id" />
-                            <field name="version_id" />
+                            <field name="version_id" string="Year" />
                         </group>
                         <group>
-                            <field name="internal_id" />
-                            <field name="external_id" />
+                            <field name="internal_id" string="Engine" />
+                            <field name="external_id" string="Trim Level" />
+                            <field name="is_stocked" string="In Stock" />
                         </group>
                     </group>
                 </sheet>

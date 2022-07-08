@@ -9,16 +9,16 @@ class ComponentSearchWizard(models.TransientModel):
     _description = "Component Search Wizard"
 
     # wizard related information
-    name = fields.Char(default=lambda self: _('Please specify your item'), readonly=True)
+    name = fields.Char(readonly=True)
     component_ids = fields.Many2many("component", readonly=True)
     is_completed = fields.Boolean(default=False, readonly=True)
 
     # the selected options
-    brand_id = fields.Many2one("component.brand", required=True)
-    model_id = fields.Many2one("component.model", required=True)
-    version_id = fields.Many2one("component.version", required=True)
-    internal_id = fields.Many2one("component.internal", required=True)
-    external_id = fields.Many2one("component.external", required=True)
+    brand_id = fields.Many2one("component.brand")
+    model_id = fields.Many2one("component.model")
+    version_id = fields.Many2one("component.version")
+    internal_id = fields.Many2one("component.internal")
+    external_id = fields.Many2one("component.external")
 
     def action_search_wizard(self):
         # search for matching components
@@ -30,14 +30,29 @@ class ComponentSearchWizard(models.TransientModel):
             ('external_id', '=', self.external_id.id)
         ])
 
-        # search successful (components found)
-        self.name = "Available Components for %s %s %s %s %s" % \
-            (self.version_id.name, self.brand_id.name,
-             self.model_id.name, self.internal_id.name,
+        # edit name for title
+        self.name = "%s %s %s %s %s" % \
+            (self.version_id.name,
+             self.brand_id.name,
+             self.model_id.name,
+             self.internal_id.name,
              self.external_id.name)
 
         # flag for warning
         if self.component_ids:
             self.is_completed = True
+
+        return True
+
+    def action_reset_wizard(self):
+        # reset
+        self.name = "Find a Part"
+        self.component_ids = False
+        self.is_completed = False
+        self.brand_id = False
+        self.model_id = False
+        self.version_id = False
+        self.internal_id = False
+        self.external_id = False
 
         return True

@@ -1,8 +1,9 @@
-id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-filter.access_component,access_component,filter.model_component,base.group_user,1,1,1,1
-filter.access_component_brand,access_component_brand,filter.model_component_brand,base.group_user,1,1,1,1
-filter.access_component_model,access_component_model,filter.model_component_model,base.group_user,1,1,1,1
-filter.access_component_version,access_component_version,filter.model_component_version,base.group_user,1,1,1,1
-filter.access_component_internal,access_component_internal,filter.model_component_internal,base.group_user,1,1,1,1
-filter.access_component_external,access_component_external,filter.model_component_external,base.group_user,1,1,1,1
-filter.access_component_search_wizard,access_component_search_wizard,filter.model_component_search_wizard,base.group_user,1,1,1,1
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_component_search_wizard,component.search.wizard,model_component_search_wizard,base.group_user,1,1,1,1
+
+access_component,component,model_component,base.group_user,1,1,1,1
+access_component_brand,component_brand,model_component_brand,base.group_user,1,1,1,1
+access_component_model,component_model,model_component_model,base.group_user,1,1,1,1
+access_component_version,component_version,model_component_version,base.group_user,1,1,1,1
+access_component_internal,component_internal,model_component_internal,base.group_user,1,1,1,1
+access_component_external,component_external,model_component_external,base.group_user,1,1,1,1
