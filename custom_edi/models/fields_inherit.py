@@ -9,8 +9,14 @@ class ModelField(models.Model):
 
     xml_tag = fields.Char(name="XML Tag", description="XML Tag to use in EDI", stored=True)
 
-    #button to print subfields of this field
+    #button to print subfields of this field (only on o2m, m2m, m2o)
     def get_subfields(self):
-        submodel = self.relation
-        _logger.error(submodel)
+        submodel = self.relation #get the related model (STRING of the technical model name)
+
+        subfields = self.env["ir.model.fields"].search([("model_id.model","=",submodel)]) #get all fields where the field belongs to the submodel
+
+        m = "ALL Fields in sub-model " + submodel + ": "
+        for field in subfields:
+            m = m + field.name + ", "
         
+        _logger.error(m)

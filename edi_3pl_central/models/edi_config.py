@@ -36,6 +36,8 @@ class SyncDocumentType(models.Model):
 
     # ===============================
     # Shared XML Export for 940/943 |
+
+    #MOVABLE
     # ===============================
 
     def _export_edi(self, conn, sync_action_id, values, model_name, search_domain, get_xml_func):
@@ -76,6 +78,8 @@ class SyncDocumentType(models.Model):
 
     # ===================================
     # Shared XML Import for 944/945/846 |
+
+    # MOVABLE
     # ===================================
 
     def _import_xml(self, conn, sync_action_id, values, _root_processor): #downloading XMLs from the server and processing them
