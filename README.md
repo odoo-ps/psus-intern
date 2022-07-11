@@ -8,4 +8,4 @@ customer is buying parts for.
 Task ID: 2869113
 
 ### TODO:
-- security rules need work
+- make filter compatible with product app
