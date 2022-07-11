@@ -53,9 +53,6 @@ class CustomMapping(models.Model):
         for record in all_records:
             m = m + str(record.name) + "; "
         _logger.error(m)
-
-        self.env["edi2.custom.mapping"].clear_caches()
-        self.env['ir.model.fields'].clear_caches()
         return
 
     # If the model is changed while there are fields selected, the field_ids many2many empties since those fields do not belong to the new model.

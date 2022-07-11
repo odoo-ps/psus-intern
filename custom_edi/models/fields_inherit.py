@@ -32,6 +32,6 @@ class ModelField(models.Model):
             'res_model': 'ir.model.fields',
             'domain': [('model_id', '=', self.relation)],
             'view_mode': 'tree',
-            'target': 'new',
+            'target': 'current',
             'res_id' : self.id
         }
