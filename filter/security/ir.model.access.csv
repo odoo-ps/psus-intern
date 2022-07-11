@@ -1,9 +1,15 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_component_search_wizard,component.search.wizard,model_component_search_wizard,base.group_user,1,1,1,1
+access_component,component,model_component,group_user,1,0,0,0
+access_component_brand,component_brand,model_component_brand,group_user,1,0,0,0
+access_component_model,component_model,model_component_model,group_user,1,0,0,0
+access_component_version,component_version,model_component_version,group_user,1,0,0,0
+access_component_internal,component_internal,model_component_internal,group_user,1,0,0,0
+access_component_external,component_external,model_component_external,group_user,1,0,0,0
+access_component_search_wizard,component_search_wizard,model_component_search_wizard,group_user,1,1,1,1
 
-access_component,component,model_component,base.group_user,1,1,1,1
-access_component_brand,component_brand,model_component_brand,base.group_user,1,1,1,1
-access_component_model,component_model,model_component_model,base.group_user,1,1,1,1
-access_component_version,component_version,model_component_version,base.group_user,1,1,1,1
-access_component_internal,component_internal,model_component_internal,base.group_user,1,1,1,1
-access_component_external,component_external,model_component_external,base.group_user,1,1,1,1
+access_component_manager,component manager,model_component,group_manager,1,1,1,1
+access_component_brand_manager,component_brand manager,model_component_brand,group_manager,1,1,1,1
+access_component_model_manager,component_model manager,model_component_model,group_manager,1,1,1,1
+access_component_version_manager,component_version manager,model_component_version,group_manager,1,1,1,1
+access_component_internal_manager,component_internal manager,model_component_internal,group_manager,1,1,1,1
+access_component_external_manager,component_external manager,model_component_external,group_manager,1,1,1,1

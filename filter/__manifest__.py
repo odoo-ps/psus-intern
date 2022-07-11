@@ -19,6 +19,7 @@
     'depends': ['base'],
     # always loaded
     'data': [
+        'security/filter_security.xml',
         'security/ir.model.access.csv',
         'wizard/component_search_wizard_views.xml',
         'views/component_views.xml',
