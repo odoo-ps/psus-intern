@@ -2,6 +2,16 @@
 
 <odoo>
     <data>
+
+        <record id="action_subfield_view" model="ir.actions.act_window">
+            <field name="name">View sub-fields :)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.fields</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[("model_id.model","=","relation")]</field>
+            <field name="target">new</field>
+        </record>
+        
         <record model="ir.ui.view" id="view_model_field_form_inherit">
             <field name="name">ir.model.fields.form.inherit</field>
             <field name="model">ir.model.fields</field>
@@ -12,5 +22,54 @@
                 </xpath>
             </field>
         </record>
+        
+        <!-- When you click "add line" on the main custom mapping page in the fields field
+        http://localhost:8069/web#id=45&menu_id=4&cids=1&action=30&model=ir.ui.view&view_type=form -->
+
+        <record model="ir.ui.view" id="view_model_fields_tree_inherit">
+            <field name="name">ir.model.fields.tree.inherit</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_tree"/>
+            <field name="arch" type="xml">
+
+                <!--<xpath expr="//tree[@string='Fields']" position="attributes">
+                </xpath>-->
+
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <!--<button name="%(action_subfield_view)d"
+                            type="action"
+                            string="View Subfields"
+                            attrs="{'invisible': [('ttype','not in',['many2one','one2many','many2many'])]}"
+                            />-->
+
+                    <button name="open_form"
+                            type="object"
+                            string="View subfields..."
+                            attrs="{'invisible': [('ttype','not in',['many2one','one2many','many2many'])]}"
+                            />
+                </xpath>
+
+                <!-- take out some of the fields the user doesn't really need here -->
+                <!-- <field name="model_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>-->
+                <field name="state" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="index" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="store" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="readonly" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
+
+
+
     </data>
 </odoo>

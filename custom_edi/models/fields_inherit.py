@@ -20,3 +20,18 @@ class ModelField(models.Model):
             m = m + field.name + ", "
         
         _logger.error(m)
+
+
+    # is called to open the "view fields" form on sub-fields
+    def open_form(self):
+        return {
+            #'name': 'Fields',
+            'name': self.field_description,
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'res_model': 'ir.model.fields',
+            'domain': [('model_id', '=', self.relation)],
+            'view_mode': 'tree',
+            'target': 'new',
+            'res_id' : self.id
+        }
