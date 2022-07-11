@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="api_form">
+        <field name="name">api.form</field>
+        <field name="model">api</field>
+        <field name="arch" type="xml">
+            <form string="API">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1>
+                            <field name="name" required="1" placeholder="API name" />
+                        </h1>
+                    </div>
+                    <notebook position="inside">
+                        <page string="API Info" name="api_headers" autofocus="autofocus">
+                            <group>
+                                <group>
+                                    <field name="url" />
+                                </group>
+                                <group>
+                                    <field name="method" />
+                                </group>
+                            </group>
+                            <form>
+                                <group>
+                                    <field name="header_ids">
+                                        <tree string="Headers" editable="bottom">
+                                            <field name="key" />
+                                            <field name="value" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
