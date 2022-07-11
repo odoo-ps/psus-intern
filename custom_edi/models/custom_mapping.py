@@ -33,6 +33,10 @@ class CustomMapping(models.Model):
     # ^^ only shows fields of the model that is currently selected :)
 
 
+    # TODO - The user must have the ability to select SUB-fields of fields. For example a "createdby" field might be a res.user,
+    # but the XML document might need the res.user's NAME field.
+    # Perhaps a button next to each field that has fields of its own that says "view subfields", then it brings you to a new list of fields
+    # that belong to THAT field.
 
 
     # method I wrote to test the ability to access field data of all records of a model
@@ -50,7 +54,6 @@ class CustomMapping(models.Model):
             m = m + str(record.name) + "; "
         _logger.error(m)
         return
-
 
     # If the model is changed while there are fields selected, the field_ids many2many empties since those fields do not belong to the new model.
     @api.onchange("model")

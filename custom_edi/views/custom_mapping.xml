@@ -32,6 +32,9 @@
                                     <field name="field_description"/> <!-- human readable name -->
                                     <field name="name"/> <!-- technical name -->
                                     <field name="ttype"/> <!-- data type -->
+                                    <field name="relation"/>
+                                    <!-- http://localhost:8069/web#id=427&menu_id=4&cids=1&model=ir.model&view_type=form -->
+                                    <button name="get_subfields" type="object" string="Subfields" attrs="{'invisible': [('ttype','not in',['many2one','one2many','many2many'])]}"/>
                                     <field name="xml_tag"/>
                                 </tree>
                             </field>
