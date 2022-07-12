@@ -8,29 +8,38 @@ class EDITag(models.Model):
     _description = 'Wrapper class for a field and the corresponding XML tag'
 
     xml_tag = fields.Char(string="XML Tag")
+
+    model = fields.Integer(string="Model", related="custom_mapping.model.id", store=True)
+
     field_id = fields.Many2one(comodel_name="ir.model.fields",
                                string="Fields",
-                               help="Select which fields for this model you want to put in your document :)")
-    sub = fields.Many2one(comodel_name="ir.model.fields",
-                               string="Subfields",
-                               help="Select which fields for this model you want to put in your document :)")
+                               help="Select which fields for this model you want to put in your document :)",
+                               domain="[('model_id','=',model)]")
+
+
+    # sub = fields.Many2one(comodel_name="ir.model.fields",
+    #                            string="Subfields",
+    #                            help="Select which fields for this model you want to put in your document :)")
+
     custom_mapping = fields.Many2one(comodel_name='edi2.custom.mapping')
-    model = fields.Integer(string="Model", related="custom_mapping.model.id", store=True)
     ttype = fields.Selection(string="ttype", related="field_id.ttype")
     relation = fields.Char(string="Related Model", related="field_id.relation")
     field_description = fields.Char(string="Description", related="field_id.field_description")
 
-    def get_subfields(self):
-        submodel = self.relation  # get the related model (STRING of the technical model name)
+    field_tree = fields.Char(string="Field tree", readonly=True)
 
-        subfields = self.env["ir.model.fields"].search(
-            [("model_id.model", "=", submodel)])  # get all fields where the field belongs to the submodel
 
-        m = "ALL Fields in sub-model " + submodel + ": "
-        for field in subfields:
-            m = m + field.name + ", "
+    # def get_subfields(self):
+    #     submodel = self.relation  # get the related model (STRING of the technical model name)
 
-        _logger.error(m)
+    #     subfields = self.env["ir.model.fields"].search(
+    #         [("model_id.model", "=", submodel)])  # get all fields where the field belongs to the submodel
+
+    #     m = "ALL Fields in sub-model " + submodel + ": "
+    #     for field in subfields:
+    #         m = m + field.name + ", "
+
+    #     _logger.error(m)
 
     # def open_form(self):
     #

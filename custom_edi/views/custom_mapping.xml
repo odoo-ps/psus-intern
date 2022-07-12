@@ -29,12 +29,13 @@
                             <field name="edi_tag" widget="one2many" string="Fields to Export">
                                 <tree>
                                     <field name="field_id"/>
-                                    <field name="sub"/>
+                                    <!--<field name="sub"/>-->
                                     <field name="xml_tag"/>
-                                    <field name="model" invisible="1"/>
+                                    <field name="model"/>
                                     <field name="ttype"/>
                                     <field name="relation"/>
                                 </tree>
+                                <!--
                                 <form string="Add fields">
                                         <sheet>
                                             <group>
@@ -48,6 +49,7 @@
                                             </group>
                                         </sheet>
                                 </form>
+                                -->
                             </field>
                         </group>
                     </sheet>

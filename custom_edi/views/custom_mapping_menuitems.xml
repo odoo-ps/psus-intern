@@ -7,7 +7,7 @@
             <field name="name">Custom mappings</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">edi2.custom.mapping</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,search</field>
         </record>
 
         <menuitem id="menu_edi_custom_mapping" name="Custom Mappings" parent="base_edi.menu_edi" action="action_custom_mapping_views" sequence="3"/>

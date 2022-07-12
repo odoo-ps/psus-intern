@@ -67,6 +67,8 @@ class ModelField(models.Model):
                 m = m + self.env["ir.model.fields"].browse(model_id)[0].field_description + "/"
             _logger.error(m)
 
+            
+
             #self.field_tree = "/".join(str(self.env.context["field_tree"]))
 
         #return {'type': 'ir.actions.act_window_close'}
