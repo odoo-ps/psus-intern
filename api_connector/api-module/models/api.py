@@ -1,5 +1,4 @@
 from odoo import fields, models
-from odoo.exceptions import UserError
 
 
 class Api(models.Model):
