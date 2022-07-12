@@ -12,17 +12,7 @@
             <notebook>
                 <page string="Payload" name="api_payload" autofocus="autofocus" attrs="{'invisible':[('state','!=','api_call')]}">
                     <group>
-                        <group>
-                            <field name="payload_ids">
-                                <tree string="Payloads" editable="bottom">
-                                    <field name="key" />
-                                    <field name="value" />
-                                </tree>
-                            </field>
-                        </group>
-                        <group>
-                            <field name="json_payload"/>
-                        </group>
+                        <field name="payload" widget="ace" class="oe-bordered-editor" options="{'style-inline': true, 'codeview': true }" />
                     </group>
                     <group>
                         <group>
@@ -34,12 +24,9 @@
                             </field>
                         </group>
                         <group>
-                            <field name="json_params"/>
+                            <field name="json_params" />
                         </group>
                     </group>
-                </page>
-                <page string="Response" name="api_response" attrs="{'invisible':[('state','!=','api_call')]}" >
-                    <field name="response" widget="ace" options="{'mode': 'code'}" />
                 </page>
             </notebook>
         </field>

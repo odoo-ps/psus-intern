@@ -41,7 +41,7 @@ class BaseAutomation(models.Model):
                 response = requests.get(url, headers=headers, params=params)
             else:
                 response = requests.post(url, headers=headers, data=payload)
-            
+
             if response.status_code >= 200 and response.status_code < 400:
                 action.response = response.text
             elif response.status_code in errors:
@@ -51,7 +51,7 @@ class BaseAutomation(models.Model):
             else:
                 action.response = response.text
                 raise Exception("Unknow Error ->" + response.text)
-                
+
         except Exception as e:
             action.response = response.text
             raise UserError(
