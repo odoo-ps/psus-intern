@@ -9,6 +9,7 @@
             <field name="inherit_id" ref="base.view_model_fields_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='copied']" position="after">
+                    <field name="field_tree"/>
                     <field name="xml_tag"/>
                 </xpath>
             </field>
@@ -23,8 +24,15 @@
             <field name="inherit_id" ref="base.view_model_fields_tree"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='name']" position="after">
+                <xpath expr="//field[@name='name']" position="before">
+                    <button name="add"
+                            type="object"
+                            string="Add this field"
+                            attrs="{'invisible': [('ttype','in',['many2one','one2many','many2many'])]}"
+                            />
+                </xpath>
 
+                <xpath expr="//field[@name='name']" position="after">
                     <button name="open_form"
                             type="object"
                             string="View subfields..."
