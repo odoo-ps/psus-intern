@@ -1,3 +1,3 @@
 
 from . import custom_mapping
-from . import fields_inherit
+from . import edi_tag

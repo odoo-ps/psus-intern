@@ -1,8 +1,8 @@
-
 from odoo import models, fields, api
 import logging
 
 _logger = logging.getLogger(__name__)
+
 
 class CustomMapping(models.Model):
     _name = "edi2.custom.mapping"
@@ -19,35 +19,24 @@ class CustomMapping(models.Model):
     # maybe they can even rearrange the order of how each field goes into the xml document with drag n drop (or just giving
     # the order with a number) ???
 
-
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
 
-    #one mapping can only use one model, but one model may be in many mappings :)
-    model = fields.Many2one(comodel_name="ir.model",string="Model",help="Select the model whose records you wish to export to the xml document.")
+    # one mapping can only use one model, but one model may be in many mappings :)
+    model = fields.Many2one(comodel_name="ir.model", string="Model",
+                            help="Select the model whose records you wish to export to the xml document.")
 
-    field_ids = fields.Many2many(comodel_name="ir.model.fields",
-                             string="Fields",
-                             help="Select which fields for this model you want to put in your document :)",
-                             domain="[('model_id','=',model)]")
-    # ^^ only shows fields of the model that is currently selected :)
-
-
-    # TODO - The user must have the ability to select SUB-fields of fields. For example a "createdby" field might be a res.user,
-    # but the XML document might need the res.user's NAME field.
-    # Perhaps a button next to each field that has fields of its own that says "view subfields", then it brings you to a new list of fields
-    # that belong to THAT field.
-
+    edi_tag = fields.One2many(comodel_name='edi.tag', inverse_name='custom_mapping')
 
     # method I wrote to test the ability to access field data of all records of a model
     # (it is output to the log when you press the "Log Data" button at the bottom of the custom mapping form)
     # NOTE - to get the set of ir.model.field objects for a given model we can use: field_ids = self.model.field_id
     def log_field_data(self):
-        tech_name = self.model.model #model model is a str describing the technical name of the model!
+        tech_name = self.model.model  # model model is a str describing the technical name of the model!
 
-        #field_ids = self.model.field_id #gets fields for the model we actually want, as a set of ir.model.fields objects
-        
-        all_records = self.env[tech_name].search([]) # all the records of the model the user picked
+        # field_ids = self.model.field_id #gets fields for the model we actually want, as a set of ir.model.fields objects
+
+        all_records = self.env[tech_name].search([])  # all the records of the model the user picked
         m = "ALL Record Names in model " + str(self.model.name) + ": "
 
         for record in all_records:
@@ -55,8 +44,6 @@ class CustomMapping(models.Model):
         _logger.error(m)
         return
 
-    # If the model is changed while there are fields selected, the field_ids many2many empties since those fields do not belong to the new model.
     @api.onchange("model")
-    def clear_fields(self):
-        self.field_ids = [(5,0,0)] #Clear command (unlink all records)
-        return
+    def filt(self):
+        self.edi_tag = [(5, 0, 0)]

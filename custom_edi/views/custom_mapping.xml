@@ -25,25 +25,84 @@
                         <group>
                             <field name="model"/>
                         </group>
-
                         <group>
-                            <field name="field_ids" widget="many2many" string="Fields to Export">
+                            <field name="edi_tag" widget="one2many" string="Fields to Export">
                                 <tree>
-                                    <field name="field_description"/> <!-- human readable name -->
-                                    <field name="name"/> <!-- technical name -->
-                                    <field name="ttype"/> <!-- data type -->
-                                    <field name="relation"/>
-                                    <!-- http://localhost:8069/web#id=427&menu_id=4&cids=1&model=ir.model&view_type=form -->
-                                    <button name="get_subfields" type="object" string="Subfields" attrs="{'invisible': [('ttype','not in',['many2one','one2many','many2many'])]}"/>
+                                    <field name="field_id"/>
+                                    <field name="sub"/>
                                     <field name="xml_tag"/>
+                                    <field name="model" invisible="1"/>
+                                    <field name="ttype"/>
+                                    <field name="relation"/>
                                 </tree>
+                                <form string="Add fields">
+                                        <sheet>
+                                            <group>
+                                                <field name="field_id" domain="[('model_id','=',model)]"/>
+                                                <field name="sub" domain="[('model_id','=',relation)]"/>
+                                                <field name="xml_tag"/>
+                                                <field name="model" invisible="1"/>
+                                                <field name="ttype"/>
+                                                <field name="relation"/>
+                                                <button name="get_subfields" type="object" string="Subfields" attrs="{'invisible': [('ttype','not in',['many2one','one2many','many2many'])]}"/>
+                                            </group>
+                                        </sheet>
+                                </form>
                             </field>
                         </group>
                     </sheet>
-
                     <button name="log_field_data" type="object" string="Log Data"/>
                 </form>
             </field>
         </record>
     </data>
 </odoo>
+        <!--<?xml version="1.0" encoding="utf-8"?>-->
+
+<!--<odoo>-->
+<!--    <data>-->
+<!--        &lt;!&ndash; tree view &ndash;&gt;-->
+<!--        <record model="ir.ui.view" id="custom_mapping_view_tree">-->
+<!--            <field name="name">edi2.custom.mapping.tree</field>-->
+<!--            <field name="model">edi2.custom.mapping</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Custom Mappings">-->
+<!--                    <field name="name"/>-->
+<!--                    <field name="model"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; form view &ndash;&gt;-->
+<!--        <record model="ir.ui.view" id="custom_mapping_view_form">-->
+<!--            <field name="name">edi2.custom.mapping.form</field>-->
+<!--            <field name="model">edi2.custom.mapping</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Custom Mappings">-->
+<!--                    <sheet>-->
+<!--                        <h1><field name="name"/></h1>-->
+<!--                        <group>-->
+<!--                            <field name="model"/>-->
+<!--                        </group>-->
+
+<!--                        <group>-->
+<!--                            <field name="field_ids" widget="many2many" string="Fields to Export">-->
+<!--                                <tree>-->
+<!--                                    <field name="field_description"/> &lt;!&ndash; human readable name &ndash;&gt;-->
+<!--                                    <field name="name"/> &lt;!&ndash; technical name &ndash;&gt;-->
+<!--                                    <field name="ttype"/> &lt;!&ndash; data type &ndash;&gt;-->
+<!--                                    <field name="relation"/>-->
+<!--                                    &lt;!&ndash; http://localhost:8069/web#id=427&menu_id=4&cids=1&model=ir.model&view_type=form &ndash;&gt;-->
+<!--                                    <button name="get_subfields" type="object" string="Subfields" attrs="{'invisible': [('ttype','not in',['many2one','one2many','many2many'])]}"/>-->
+<!--                                    <field name="xml_tag"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+<!--                    </sheet>-->
+
+<!--                    <button name="log_field_data" type="object" string="Log Data"/>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--    </data>-->
+<!--</odoo>-->

@@ -24,7 +24,7 @@
     "data" : [
             "views/custom_mapping_menuitems.xml",
             "views/custom_mapping.xml",
-            "views/fields_inherit.xml",
+            # "views/fields_inherit.xml",
             "security/ir.model.access.csv",
             ],
 
