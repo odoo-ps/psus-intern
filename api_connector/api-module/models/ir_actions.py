@@ -21,12 +21,16 @@ class IrActionsServer(models.Model):
     response = fields.Text(string='Response', readonly=True)
     payload = fields.Text(string='Payload')
     log_ids = fields.One2many('log.lines', 'server_id', readonly=True)
+    chatter = fields.Boolean(string='log to Chat?')
 
     def _run_action_api_call(self, eval_context=None):
         self.ensure_one()
         params = json.loads(self.json_params) or None
-        print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {ET.XML(str(self._render_template_qweb()))}")
-        lpayload = self.xml2json(ET.XML(self._render_template_qweb())) or None
+        if not self.payload:
+            lpayload = None
+        else:
+            lpayload = json.dumps(self.xml2json(
+                ET.XML(self._render_template_qweb())))
 
         url = self.api_id.url
         method = self.api_id.method
@@ -50,25 +54,29 @@ class IrActionsServer(models.Model):
             raise UserError('API must have a url and method')
 
         try:
+
             if method == 'get':
-                api_response = requests.get(url, headers=headers, params=params)
+                api_response = requests.get(
+                    url, headers=headers, params=params)
                 self.env['log.lines'].create({
                     'call': f"{method} {url}",
                     'response': api_response,
                     'server_id': self.id,
                     'status':  api_response.status_code,
-
                 })
+
             if method == 'post':
-                print(lpayload)
-                print(type(lpayload))
-                api_response = requests.post(url, headers=headers, data=json.dumps(lpayload))
+                api_response = requests.post(
+                    url, headers=headers, data=lpayload)
 
             if api_response.status_code >= 200 and api_response.status_code < 400:
-                # self.response = response.text
-                print(api_response.json())
+                self.response = api_response.text
+                if self.chatter:
+                    self._send_message(api_response.status_code)
             elif api_response.status_code in errors:
                 self.response = api_response.text
+                if self.chatter:
+                    self._send_message(api_response.status_code)
                 raise UserError(
                     errors[api_response.status_code] + " -> " + api_response.text)
             else:
@@ -78,7 +86,7 @@ class IrActionsServer(models.Model):
         except Exception as e:
             self.response = api_response.text
             raise UserError(
-                "Something went wrong please retry or check the logs")
+                e)
 
     @api.depends('params_ids')
     def _compute_json_params(self):
@@ -91,6 +99,7 @@ class IrActionsServer(models.Model):
 
     def _render_template_qweb(self):
         try:
+
             model = self.model_id.model
             values = {
                 'object': self.env[model].search([('id', "=", self._context.get('active_id', False))]),
@@ -123,6 +132,23 @@ class IrActionsServer(models.Model):
                 d[t.tag] = text
         return d
 
+    def _send_message(self, message=400):
+        try:
+
+            odoo_bot = self.env.ref('base.partner_root')
+            model = self.model_id.model
+            if message < 200:
+                message_name = "Info"
+            elif message >= 200 and message < 400:
+                message_name = "Ok"
+            else:
+                message_name = "Error"
+
+            self.env[model].search([('id', "=", self._context.get('active_id', False))]).with_user(odoo_bot).message_post(subject="API call made :)", body=(
+                "%s: status:%s <a href=# data-oe-model=ir.actions.server data-oe-id=%s>%s</a>") % (message_name, message, self.id, self.name))
+        except Exception:
+            pass
+
 
 class IrActionsServerParamsLines(models.Model):
     _name = 'ir.actions.server.params.lines'
@@ -131,8 +157,8 @@ class IrActionsServerParamsLines(models.Model):
     key = fields.Char(string='Key')
     value = fields.Char(string='Value')
     server_id = fields.Many2one('ir.actions.server', string='API')
-    
-    
+
+
 class LogLines(models.Model):
     _name = 'log.lines'
     _description = 'API logs'
@@ -142,5 +168,3 @@ class LogLines(models.Model):
     call = fields.Char(string='Call')
     response = fields.Text(string='Response')
     status = fields.Char(string='Status')
-    
-    

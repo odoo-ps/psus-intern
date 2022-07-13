@@ -8,6 +8,8 @@
             <xpath expr="//field[@name='link_field_id']" position="after">
                 <field name="api_id" attrs="{'invisible': [('state', '!=', 'api_call')],
                             'required': [('state', '=', 'api_call')]}" />
+                <field name="chatter" />
+
             </xpath>
             <notebook>
                 <page string="Payload" name="api_payload" autofocus="autofocus" attrs="{'invisible':[('state','!=','api_call')]}">
@@ -30,15 +32,15 @@
                 </page>
                 <page string="Logs" name="api_logs" autofocus="autofocus" attrs="{'invisible':[('state','!=','api_call')]}">
                     <group>
-                            <field name="log_ids">
-                                <tree string="logs" editable="bottom" colors="green:status==200;red:status!=200">
-                                    <field name="create_date"/>
-                                    <field name="call"/>
-                                    <field name="status"/>
+                        <field name="log_ids">
+                            <tree string="logs" editable="bottom" colors="green:status==200;red:status!=200">
+                                <field name="create_date" />
+                                <field name="call" />
+                                <field name="status" />
 
-                                </tree>
-                            </field>
-                        </group>
+                            </tree>
+                        </field>
+                    </group>
                 </page>
             </notebook>
         </field>

@@ -15,7 +15,7 @@
     'category': 'Tools',
     'version': '15.0.1.0.0',
     'depends': [
-        'base_automation',
+        'base_automation', 
     ],
     'data': [
         #Views
