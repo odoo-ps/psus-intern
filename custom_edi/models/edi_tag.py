@@ -7,7 +7,7 @@ class EDITag(models.Model):
     _name = 'edi.tag'
     _description = 'Wrapper class for a field and the corresponding XML tag'
 
-    xml_tag = fields.Char(string="XML Tag")
+    xml_tag = fields.Char(string="XML Tag", required=True)
 
     model = fields.Integer(string="Model", related="custom_mapping.model.id", store=True)
 

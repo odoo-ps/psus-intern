@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 import logging
+from lxml import etree as ET
 
 _logger = logging.getLogger(__name__)
 
@@ -7,6 +8,9 @@ _logger = logging.getLogger(__name__)
 class CustomMapping(models.Model):
     _name = "edi2.custom.mapping"
     _description = "Custom Mapping"
+
+    root_tag = fields.Char(string="Root Tag", required=True, help="The XML tag of the root element")
+    record_tag = fields.Char(string="Record Tag", required=True, help="The wrapping XML tag to go around each individual record")
 
     # for exporting odoo records to xml documents
     #
@@ -53,9 +57,13 @@ class CustomMapping(models.Model):
     
     def export(self): #runs through all fields given and prints them to the log. (subfields are given using paths in the "field tree" field)
 
+        root = ET.Element(self.root_tag)
+
         tech_name = self.model.model
         all_records = self.env[tech_name].search([]) #all records of the model (i.e. all products)
         for record in all_records:
+
+            record_element = ET.SubElement(root, self.record_tag)
 
             _logger.error("******************** RECORD *********************")
 
@@ -96,5 +104,24 @@ class CustomMapping(models.Model):
                 _logger.error("~~~~~ Field: " + name_path + " ~~~~~")
                 _logger.error("Value: " + str(this_value))
                 _logger.error("Tag: " + str(tag.xml_tag))
+
+                field_element = ET.SubElement(record_element,tag.xml_tag)
+                field_element.text = str(this_value)
+
+                
                 #logger.error("Type: " + str(this_field.ttype))
+
+        #_logger.error(ET.tostring(root, pretty_print=True))
+
+        with open("testfile.xml","w") as file:
+            file.write(ET.tostring(root, pretty_print=True, encoding="unicode"))
+
+        """
+        formatted_xml = ET.tostring(tree, pretty_print=True)
+        tmp_dir = tempfile.mkdtemp()
+        filename = filename.strip()
+        export_file_path = tmp_dir.rstrip("/") + "/" + filename
+        with open(export_file_path, "wb") as file:
+            file.write(formatted_xml)
+        """
         return
