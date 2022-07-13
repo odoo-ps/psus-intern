@@ -24,6 +24,7 @@
                         <h1><field name="name"/></h1>
                         <group>
                             <field name="model"/>
+                            <!--<span class="o_many2one_field"/>-->
                         </group>
                         <group>
                             <field name="edi_tag" widget="one2many" string="Fields to Export">
@@ -34,6 +35,7 @@
                                     <field name="model"/>
                                     <field name="ttype"/>
                                     <field name="relation"/>
+                                    <field name="field_tree"/>
                                 </tree>
                                 <!--
                                 <form string="Add fields">
@@ -53,6 +55,7 @@
                             </field>
                         </group>
                     </sheet>
+                    <button name="export" type="object" string="Export"/>
                     <button name="log_field_data" type="object" string="Log Data"/>
                 </form>
             </field>

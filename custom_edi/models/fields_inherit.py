@@ -7,7 +7,8 @@ _logger = logging.getLogger(__name__)
 class ModelField(models.Model):
     _inherit = "ir.model.fields"
 
-    xml_tag = fields.Char(name="XML Tag", description="XML Tag to use in EDI", stored=True)
+    #xml_tag = fields.Char(name="XML Tag", description="XML Tag to use in EDI", stored=True)
+    field_tree = fields.Char(string="Field tree")
 
     #button to print subfields of this field (only on o2m, m2m, m2o)
     def get_subfields(self):
@@ -38,6 +39,7 @@ class ModelField(models.Model):
 
         #Adds a new variable to the context to keep track of the hierarchy of subfields so we can add it
         # is like this: [ top_model_id, second_model_id, third_model_id, etc ]
+
         ctx = self.env.context.copy()
         if "field_tree" in ctx:
             ctx["field_tree"].append(self.id)
@@ -45,7 +47,7 @@ class ModelField(models.Model):
             ctx["field_tree"] = [self.id]
             
         return {
-            #'name': 'Fields',
+            'name': 'Fields',
             'name': self.field_description,
             'type': 'ir.actions.act_window',
             'view_type': 'form',
@@ -56,6 +58,15 @@ class ModelField(models.Model):
             'res_id' : self.id,
             'context' : ctx
         }
+
+
+        # ctx = self.env.context.copy()
+        # ctx["domain"]=[('model_id', '=', self.relation)]
+        # self.env.context = ctx
+
+    def context(self):
+        _logger.error(self.env.context)
+        
     def add(self):
         _logger.error("Add button pressed on " + self.field_description)
         #_logger.error(self.env.context)
@@ -66,6 +77,8 @@ class ModelField(models.Model):
             for model_id in self.env.context["field_tree"]:
                 m = m + self.env["ir.model.fields"].browse(model_id)[0].field_description + "/"
             _logger.error(m)
+        
+        #_logger.error("Field tree variable: " + field_tree)
 
             
 

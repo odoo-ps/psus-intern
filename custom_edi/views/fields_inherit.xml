@@ -35,6 +35,7 @@
                             string="Add this field"
                             attrs="{'invisible': [('ttype','in',['many2one','one2many','many2many'])]}"
                             />
+                    <button name="context" type="object" string="Context"/>
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
