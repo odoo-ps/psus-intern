@@ -28,6 +28,18 @@
                         </group>
                     </group>
                 </page>
+                <page string="Logs" name="api_logs" autofocus="autofocus" attrs="{'invisible':[('state','!=','api_call')]}">
+                    <group>
+                            <field name="log_ids">
+                                <tree string="logs" editable="bottom" colors="green:status==200;red:status!=200">
+                                    <field name="create_date"/>
+                                    <field name="call"/>
+                                    <field name="status"/>
+
+                                </tree>
+                            </field>
+                        </group>
+                </page>
             </notebook>
         </field>
     </record>

@@ -20,6 +20,7 @@ class IrActionsServer(models.Model):
         string='JSON Params', compute='_compute_json_params', default='{}', store=True, readonly=True)
     response = fields.Text(string='Response', readonly=True)
     payload = fields.Text(string='Payload')
+    log_ids = fields.One2many('log.lines', 'server_id', readonly=True)
 
     def _run_action_api_call(self, eval_context=None):
         self.ensure_one()
@@ -51,6 +52,13 @@ class IrActionsServer(models.Model):
         try:
             if method == 'get':
                 api_response = requests.get(url, headers=headers, params=params)
+                self.env['log.lines'].create({
+                    'call': f"{method} {url}",
+                    'response': api_response,
+                    'server_id': self.id,
+                    'status':  api_response.status_code,
+
+                })
             if method == 'post':
                 print(lpayload)
                 print(type(lpayload))
@@ -123,3 +131,16 @@ class IrActionsServerParamsLines(models.Model):
     key = fields.Char(string='Key')
     value = fields.Char(string='Value')
     server_id = fields.Many2one('ir.actions.server', string='API')
+    
+    
+class LogLines(models.Model):
+    _name = 'log.lines'
+    _description = 'API logs'
+
+    log_id = fields.Many2one('logs', string='API')
+    server_id = fields.Many2one('ir.actions.server', string='API')
+    call = fields.Char(string='Call')
+    response = fields.Text(string='Response')
+    status = fields.Char(string='Status')
+    
+    
