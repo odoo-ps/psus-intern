@@ -63,7 +63,8 @@ class CustomMapping(models.Model):
 #       (refer to the exported 940 documents and jot's 940 document template where he does that)
 # TODO: Add option to export each record into their own document instead of putting all records in the same 1 document
 # TODO: If a field in a record has a value of "false" when its ttype is not boolean, it means it's not set so do not put the "false" in the xml
-# TODO: Format dates when exporting
+# X Format dates when exporting
+# TODO: ability to add "static tags" (tags that contain text that are the same for all records and don't depend on any field)
 
     def export(self):
         # Runs through all fields/tags given in this mapping and exports them into a XML called testfile.xml in the odoo dir
@@ -128,8 +129,15 @@ class CustomMapping(models.Model):
         print("Value: " + str(this_value))
         print("Tag: " + str(tag.xml_tag))
 
+        print("Ttype:", this_field.ttype)
+        print("Py type:", type(this_value))
+
+        #date formatting to YYYY-MM-DD
+        if this_value and (this_field.ttype=="date" or this_field.ttype=="datetime"): #field has a value, and is a date type
+            this_value = this_value.strftime('%Y-%m-%d')
 
         root.text = str(this_value)
+
         return
 
     def add_children_tags(self, root, parent_tag, record):
