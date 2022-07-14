@@ -7,10 +7,7 @@ _logger = logging.getLogger(__name__)
 class ModelField(models.Model):
     _inherit = "ir.model.fields"
 
-    #xml_tag = fields.Char(name="XML Tag", description="XML Tag to use in EDI", stored=True)
-    #field_tree = fields.Char(string="Field tree")
-
-    #button to print subfields of this field (only on o2m, m2m, m2o)
+    #button to print subfields of this field for debugging (only on o2m, m2m, m2o)
     def get_subfields(self):
         submodel = self.relation #get the related model (STRING of the technical model name)
 
@@ -19,8 +16,7 @@ class ModelField(models.Model):
         m = "ALL Fields in sub-model " + submodel + ": "
         for field in subfields:
             m = m + field.name + ", "
-        
-        _logger.error(m)
+        print(m)
 
 
     # is called to open the "view fields" form on sub-fields
@@ -48,15 +44,15 @@ class ModelField(models.Model):
         }
 
     def context(self):
-        _logger.error(self.env.context)
+        print(self.env.context)
         
     def add(self):
-        _logger.error("Add button pressed on " + self.field_description)
+        print("Add button pressed on " + self.field_description)
         if "field_tree" in self.env.context:
             m="FIELD TREE: "
             for model_id in self.env.context["field_tree"]:
                 m = m + self.env["ir.model.fields"].browse(model_id)[0].field_description + "/"
-            _logger.error(m)
-        _logger.error(self.env)
+            print(m)
+        print(self.env)
 
         

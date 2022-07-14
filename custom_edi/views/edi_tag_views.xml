@@ -20,7 +20,7 @@
                                     <field name="xml_tag"/>
                                 </tree>
                             </field>
-                            <field name="parent_tag_id"/>
+                            <field name="parent_tag_id" readonly="1"/>
                         </group>
                     </sheet>
                 </form>
