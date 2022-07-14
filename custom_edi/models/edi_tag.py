@@ -15,6 +15,18 @@ class EDITag(models.Model):
                                string="Fields",
                                help="Select which fields for this model you want to put in your document :)",
                                domain="[('model_id','=',model)]")
+    
+    #field_id2 = fields.Many2one(comodel_name="ir.model.fields",
+    #                            string="Fields2")
+    #                            #domain="[('model_id','=',field_id.related)]")
+
+    child_tag_ids = fields.One2many(comodel_name="edi.tag",
+                                   string="Child Tags",
+                                   inverse_name="parent_tag_id")
+
+    parent_tag_id = fields.Many2one(comodel_name="edi.tag",
+                                    string="Parent Tag")
+                                    
 
 
     custom_mapping = fields.Many2one(comodel_name='edi2.custom.mapping')
@@ -24,3 +36,11 @@ class EDITag(models.Model):
 
     field_tree = fields.Char(string="Field tree")
 
+    """deprecated & doesnt work
+    @api.onchange("field_id")
+    def _onchange_field_id(self):
+        _logger.error("onchange")
+        _logger.error(self.field_id.name)
+        _logger.error(self.field_id.related)
+        if self.field_id.related:
+            return {'domain' : {'field_id2' : [('model_id', '=', self.field_id.related)]}}"""

@@ -26,6 +26,7 @@
             "views/custom_mapping.xml",
             "views/fields_inherit.xml",
             "security/ir.model.access.csv",
+            "views/edi_tag_views.xml"
             ],
 
     "demo" : []

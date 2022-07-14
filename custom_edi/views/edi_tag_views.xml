@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    <!--form view-->
+        <record model="ir.ui.view" id="edi_tag_view_form">
+            <field name="name">edi.tag.view.form</field>
+            <field name="model">edi.tag</field>
+            <field name="arch" type="xml">
+                <form string="EDI tags :)">
+                    <sheet>
+                        <group>
+                            <field name="model" invisible="1"/>
+                            <field name="xml_tag"/>
+                            <field name="field_id"/>
+                            <!--<field name="field_id2"/>-->
+                            <field name="field_tree"/>
+                            <field name="child_tag_ids">
+                                <tree>
+                                    <field name="xml_tag"/>
+                                </tree>
+                            </field>
+                            <field name="parent_tag_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

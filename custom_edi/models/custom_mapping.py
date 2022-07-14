@@ -54,8 +54,68 @@ class CustomMapping(models.Model):
     def filt(self):
         self.edi_tag = [(5, 0, 0)]
 
-    
-    def export(self): #runs through all fields given and prints them to the log. (subfields are given using paths in the "field tree" field)
+
+    def add_field(self, root, tag, record):
+        # Fetches the field data specified by the tag for record and adds it to root
+        #
+        # root - root ET tag object to add field to
+        # tag - EDI tag object whose selected field we're getting
+        # record = current record whose data we're exporting (this is meant to be called from the main loop as it only processes 1 record)
+
+
+        if tag.field_tree: #if a field tree is set
+
+            path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
+            name_path = tag.field_tree
+
+            this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
+            this_value = record[path[0]]
+
+            for path_index in range(1,len(path)): # go 1 subfield deeper each iteration
+                this_value = this_value[path[path_index]]
+                #this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])[0]
+                this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])
+                #_logger.error("this_field len: " + str(len(this_field)))
+                #_logger.error("this_field: " + str(this_field))
+
+            #at end of loop we should be at the final field of the path.
+            #this_value holds the actual data of the final field (ie the string, or the int, or whatever it is; shouldn't be relational)
+            #this_field holds the field object of the final field (ir.model.fields instance)
+
+        elif tag.field_id: #there is no tree but there is a field
+            this_field = tag.field_id #the actual 'field' obj of the tag model set by the user (only gets used if there is no tree, so this should be non relational)
+            this_value = record[this_field.name]
+            name_path = this_field.name
+                
+        _logger.error("~~~~~ Field: " + name_path + " ~~~~~")
+        _logger.error("Value: " + str(this_value))
+        _logger.error("Tag: " + str(tag.xml_tag))
+
+
+        root.text = str(this_value)
+        return
+
+    def add_children_tags(self, root, parent_tag, record):
+        # Recursively adds the children tags of parent_tag to the document, inside element root
+        #
+        # root = ET Element object; the element that we want to add the children to
+        # parent_tag = EDI tag object whose children we want to add
+        # record = current record whose data we're exporting (this is meant to be called from the main loop as it only processes 1 record)
+
+        for child_tag_id in parent_tag.child_tag_ids:
+            new_child_tag = ET.SubElement(root, child_tag_id.xml_tag)
+
+            if child_tag_id.field_id: #if this child has a field set
+                self.add_field(new_child_tag, child_tag_id, record)
+
+            if len(child_tag_id.child_tag_ids) > 0: #if this child tag has children of its own, add all those children recursively :)
+                self.add_children_tags(new_child_tag, child_tag_id, record)
+        return
+
+
+    def export(self):
+        #runs through all fields/tags given in this mapping, prints them to the log, and exports them into a test XML called testfile.xml in the odoo dir
+        #(subfields are specified using paths in the "field tree" field)
 
         root = ET.Element(self.root_tag)
 
@@ -69,7 +129,6 @@ class CustomMapping(models.Model):
 
             for tag in self.edi_tag:
 
-
                 # For testing purposes, the field path is a string in the format of "topfield/subfield/subfield"
                 # (dont include the name of the model since that is already given in the model field).
                 # For example, "categ_id/name" ran with the selected model as "product.product" gets each product's category's name.
@@ -77,51 +136,48 @@ class CustomMapping(models.Model):
 
                 # In this version, if there is a tree set then it is used to find the field and the field_id field is ignored completely
 
-                if tag.field_tree: #if a field tree is set
+                tag_element = ET.SubElement(record_element, tag.xml_tag)
+                if tag.field_id or tag.field_tree:
 
-                    path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
-                    name_path = tag.field_tree
-
-                    this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
-                    this_value = record[path[0]]
-
-                    for path_index in range(1,len(path)): # go 1 subfield deeper each iteration
-                        this_value = this_value[path[path_index]]
-                        #this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])[0]
-                        this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])
-                        #_logger.error("this_field len: " + str(len(this_field)))
-                        #_logger.error("this_field: " + str(this_field))
-
-                    #at end of loop we should be at the final field of the path.
-                    #this_value holds the actual data of the final field (ie the string, or the int, or whatever it is; shouldn't be relational)
-                    #this_field holds the field object of the final field (ir.model.fields instance)
-
-                else: #there is no tree
-                    this_field = tag.field_id #the actual 'field' obj of the tag model set by the user (only gets used if there is no tree, so this should be non relational)
-                    this_value = record[this_field.name]
-                    name_path = this_field.name
+                    self.add_field(tag_element, tag, record)
                 
-                _logger.error("~~~~~ Field: " + name_path + " ~~~~~")
-                _logger.error("Value: " + str(this_value))
-                _logger.error("Tag: " + str(tag.xml_tag))
+                # if tag.field_tree: #if a field tree is set
 
-                field_element = ET.SubElement(record_element,tag.xml_tag)
-                field_element.text = str(this_value)
+                #     path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
+                #     name_path = tag.field_tree
+
+                #     this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
+                #     this_value = record[path[0]]
+
+                #     for path_index in range(1,len(path)): # go 1 subfield deeper each iteration
+                #         this_value = this_value[path[path_index]]
+                #         #this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])[0]
+                #         this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])
+                #         #_logger.error("this_field len: " + str(len(this_field)))
+                #         #_logger.error("this_field: " + str(this_field))
+
+                #     #at end of loop we should be at the final field of the path.
+                #     #this_value holds the actual data of the final field (ie the string, or the int, or whatever it is; shouldn't be relational)
+                #     #this_field holds the field object of the final field (ir.model.fields instance)
+
+                # elif tag.field: #there is no tree but there is a field
+                #     this_field = tag.field_id #the actual 'field' obj of the tag model set by the user (only gets used if there is no tree, so this should be non relational)
+                #     this_value = record[this_field.name]
+                #     name_path = this_field.name
+                
+                # _logger.error("~~~~~ Field: " + name_path + " ~~~~~")
+                # _logger.error("Value: " + str(this_value))
+                # _logger.error("Tag: " + str(tag.xml_tag))
+
+                if len(tag.child_tag_ids) > 0:
+                    self.add_children_tags(tag_element, tag, record)
 
                 
                 #logger.error("Type: " + str(this_field.ttype))
 
         #_logger.error(ET.tostring(root, pretty_print=True))
 
-        with open("testfile.xml","w") as file:
+        with open("testfile.xml","w") as file: #ends up in the base odoo directory
             file.write(ET.tostring(root, pretty_print=True, encoding="unicode"))
 
-        """
-        formatted_xml = ET.tostring(tree, pretty_print=True)
-        tmp_dir = tempfile.mkdtemp()
-        filename = filename.strip()
-        export_file_path = tmp_dir.rstrip("/") + "/" + filename
-        with open(export_file_path, "wb") as file:
-            file.write(formatted_xml)
-        """
         return
