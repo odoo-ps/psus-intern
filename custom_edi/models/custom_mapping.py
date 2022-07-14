@@ -56,15 +56,14 @@ class CustomMapping(models.Model):
         self.edi_tag = [(5, 0, 0)]
 
 
-
 ######################### XML exporting
 
 # TODO: Add support for exporting fields that are one2many, wherein we have to iterate over each record belonging to that one2many
 #       (refer to the exported 940 documents and jot's 940 document template where he does that)
 # TODO: Add option to export each record into their own document instead of putting all records in the same 1 document
-# TODO: If a field in a record has a value of "false" when its ttype is not boolean, it means it's not set so do not put the "false" in the xml
+# X If a field in a record has a value of "false" when its ttype is not boolean, it means it's not set so do not put the "false" in the xml
 # X Format dates when exporting
-# TODO: ability to add "static tags" (tags that contain text that are the same for all records and don't depend on any field)
+# X ability to add "static tags" (tags that contain text that are the same for all records and don't depend on any field)
 
     def export(self):
         # Runs through all fields/tags given in this mapping and exports them into a XML called testfile.xml in the odoo dir
@@ -83,9 +82,12 @@ class CustomMapping(models.Model):
             for tag in self.edi_tag:
 
                 tag_element = ET.SubElement(record_element, tag.xml_tag)
-
-                if tag.field_id or tag.field_tree: #this tag contains a field
-                    self.add_field(tag_element, tag, record)
+                
+                if tag.is_static:
+                    tag_element.text = tag.static_content
+                else: #only non-static fields get their set fields evaluated
+                    if tag.field_id or tag.field_tree: #this tag contains a field
+                        self.add_field(tag_element, tag, record)
                 
                 if len(tag.child_tag_ids) > 0: #this tag contains children tags that we must process
                     self.add_children_tags(tag_element, tag, record)
@@ -136,7 +138,9 @@ class CustomMapping(models.Model):
         if this_value and (this_field.ttype=="date" or this_field.ttype=="datetime"): #field has a value, and is a date type
             this_value = this_value.strftime('%Y-%m-%d')
 
-        root.text = str(this_value)
+        #if this field is set to "False" but it's NOT supposed to be a Boolean field, it's probably just not set, so don't export it
+        if not (this_value==False and this_field.ttype!="boolean"):
+            root.text = str(this_value)
 
         return
 
