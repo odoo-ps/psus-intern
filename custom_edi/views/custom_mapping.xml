@@ -26,6 +26,7 @@
                             <field name="model"/>
                             <field name="root_tag"/>
                             <field name="record_tag"/>
+                            <field name="record_document_mode"/>
                             <!--<span class="o_many2one_field"/>-->
                         </group>
                         <group>

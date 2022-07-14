@@ -6,12 +6,6 @@ _logger = logging.getLogger(__name__)
 
 
 class CustomMapping(models.Model):
-    _name = "edi2.custom.mapping"
-    _description = "Custom Mapping"
-
-    root_tag = fields.Char(string="Root Tag", required=True, help="The XML tag of the root element")
-    record_tag = fields.Char(string="Record Tag", required=True, help="The wrapping XML tag to go around each individual record")
-
     # for exporting odoo records to xml documents
     #
     # user should be able to pick the record type, then there is a one2many field allowing them to add fields they want in the xml.
@@ -22,6 +16,18 @@ class CustomMapping(models.Model):
     #
     # maybe they can even rearrange the order of how each field goes into the xml document with drag n drop (or just giving
     # the order with a number) ???
+
+    _name = "edi2.custom.mapping"
+    _description = "Custom Mapping"
+
+    root_tag = fields.Char(string="Root Tag", required=True, help="The XML tag of the root element")
+    record_tag = fields.Char(string="Record Tag", required=True, help="The wrapping XML tag to go around each individual record")
+
+    record_document_mode = fields.Selection(string="Record exporting mode",
+                                            selection=[("all_records", "All records go in one big XML document"),
+                                                       ("one_record", "Each record gets its own XML document")],
+                                            default="all_records",
+                                            required=True)
 
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
@@ -60,7 +66,7 @@ class CustomMapping(models.Model):
 
 # TODO: Add support for exporting fields that are one2many, wherein we have to iterate over each record belonging to that one2many
 #       (refer to the exported 940 documents and jot's 940 document template where he does that)
-# TODO: Add option to export each record into their own document instead of putting all records in the same 1 document
+# X Add option to export each record into their own document instead of putting all records in the same 1 document
 # X If a field in a record has a value of "false" when its ttype is not boolean, it means it's not set so do not put the "false" in the xml
 # X Format dates when exporting
 # X ability to add "static tags" (tags that contain text that are the same for all records and don't depend on any field)
@@ -73,6 +79,8 @@ class CustomMapping(models.Model):
 
         tech_name = self.model.model
         all_records = self.env[tech_name].search([]) #all records of the model (e.g. all products)
+
+        file_num = 0
         for record in all_records:
 
             record_element = ET.SubElement(root, self.record_tag)
@@ -92,8 +100,22 @@ class CustomMapping(models.Model):
                 if len(tag.child_tag_ids) > 0: #this tag contains children tags that we must process
                     self.add_children_tags(tag_element, tag, record)
 
-        with open("testfile.xml","w") as file: #ends up in the base odoo directory
-            file.write(ET.tostring(root, pretty_print=True, encoding="unicode"))
+                #end `for tag`
+
+            # user wants only one record per document
+            if self.record_document_mode=="one_record":
+                record_root = ET.Element(self.root_tag)
+                record_root.append(record_element)
+                with open("myxmls/testfile" + str(file_num) + ".xml", "wb") as file:
+                    file.write(ET.tostring(record_root, pretty_print=True))
+                    file_num+=1
+            
+            #end `for record`
+
+        # user wants all records in one document
+        if self.record_document_mode=="all_records":
+            with open("myxmls/testfile.xml","wb") as file: #ends up in the base odoo directory
+                file.write(ET.tostring(root, pretty_print=True))
 
         return
     
