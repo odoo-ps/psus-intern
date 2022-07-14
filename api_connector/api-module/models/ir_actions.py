@@ -16,19 +16,6 @@ class IrActionsServer(models.Model):
         return [(model.model, model.name)
                 for model in self.env['ir.model'].search([])]
 
-    @api.model
-    def default_get(self, fields):
-        result = super(IrActionsServer, self).default_get(fields)
-        if not result.get('id') or 'resource_ref' not in fields:
-            return result
-        ir_actions_server = self.env['ir.actions.server'].browse(
-            result['id'])
-        res = self.env[ir_actions_server.model_id.model].search([], limit=1)
-        if res:
-            result['resource_ref'] = '%s,%s' % (
-                ir_actions_server.model_id.model, res.id)
-        return result
-
     state = fields.Selection(selection_add=[(
         'api_call', 'Call External API')], ondelete={'api_call': 'cascade'})
     api_id = fields.Many2one('api', string='API')
@@ -58,9 +45,8 @@ class IrActionsServer(models.Model):
                 server.rendered_JSON_payload = server.xml2json(
                     ET.XML(server._render_template_qweb(server.resource_ref)))
             else:
-                server.rendered_JSON_payload= "{}"
-                server.rendered_XML_payload= "<>"
-                
+                server.rendered_JSON_payload = "{}"
+                server.rendered_XML_payload = "<>"
 
     def _run_action_api_call(self, eval_context=None):
         self.ensure_one()
@@ -96,14 +82,13 @@ class IrActionsServer(models.Model):
             'server_id': self.id,
             'status':  api_response.status_code,
         })
-        
+
         if self.chatter:
             self._send_message(api_response.status_code)
 
         if api_response.status_code >= 400:
             raise UserError("Error: -> %s" % api_response.text)
 
-        
     @api.depends('params_ids')
     def _compute_json_params(self):
         for server in self:
