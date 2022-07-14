@@ -11,83 +11,99 @@ from odoo.exceptions import UserError
 class IrActionsServer(models.Model):
     _inherit = 'ir.actions.server'
 
+    @api.model
+    def _selection_target_model(self):
+        return [(model.model, model.name)
+                for model in self.env['ir.model'].search([])]
+
+    @api.model
+    def default_get(self, fields):
+        result = super(IrActionsServer, self).default_get(fields)
+        if not result.get('id') or 'resource_ref' not in fields:
+            return result
+        ir_actions_server = self.env['ir.actions.server'].browse(
+            result['id'])
+        res = self.env[ir_actions_server.model_id.model].search([], limit=1)
+        if res:
+            result['resource_ref'] = '%s,%s' % (
+                ir_actions_server.model_id.model, res.id)
+        return result
+
     state = fields.Selection(selection_add=[(
         'api_call', 'Call External API')], ondelete={'api_call': 'cascade'})
     api_id = fields.Many2one('api', string='API')
+    resource_ref = fields.Reference(
+        string='Record for testing', selection='_selection_target_model')
+
     params_ids = fields.One2many(
         'ir.actions.server.params.lines', 'server_id', string='Params')
     json_params = fields.Text(
         string='JSON Params', compute='_compute_json_params', default='{}', store=True, readonly=True)
     response = fields.Text(string='Response', readonly=True)
     payload = fields.Text(string='Payload')
+    rendered_XML_payload = fields.Text(
+        string='Rendered XML Payload', compute="_compute_rendered_payload", readonly=True, store=True)
+    rendered_JSON_payload = fields.Text(
+        string='Rendered JSON Payload', compute="_compute_rendered_payload", readonly=True, store=True)
+
     log_ids = fields.One2many('log.lines', 'server_id', readonly=True)
-    chatter = fields.Boolean(string='log to Chat?')
+    chatter = fields.Boolean(string='Send log to chat')
+
+    @api.depends('payload')
+    def _compute_rendered_payload(self):
+        for server in self:
+            if server.payload and server.resource_ref:
+                server.rendered_XML_payload = server._render_template_qweb(
+                    server.resource_ref)
+                server.rendered_JSON_payload = server.xml2json(
+                    ET.XML(server._render_template_qweb(server.resource_ref)))
+            else:
+                server.rendered_JSON_payload= "{}"
+                server.rendered_XML_payload= "<>"
+                
 
     def _run_action_api_call(self, eval_context=None):
         self.ensure_one()
         params = json.loads(self.json_params) or None
-        if not self.payload:
-            lpayload = None
-        else:
-            lpayload = json.dumps(self.xml2json(
-                ET.XML(self._render_template_qweb())))
+        rendered_JSON_payload = self.xml2json(
+            ET.XML(self._render_template_qweb()))
+        local_payload = None if not self.payload else json.dumps(
+            rendered_JSON_payload)
 
         url = self.api_id.url
         method = self.api_id.method
         headers = json.loads(self.translate_o2m(
             self.api_id.header_ids)) or None
-        errors = {
 
-            400: "Bad Request",
-            401: "Unauthorized",
-            403: "Forbidden",
-            404: "Not Found",
-            405: "Method Not Allowed",
-            408: "Request Timeout",
-            500: "Internal Server Error",
-            502: "Bad Gateway",
-            503: "Service Unavailable",
-            511: "Network Authentication Required",
-        }
-
-        if not url or not method:
-            raise UserError('API must have a url and method')
+        api_response = None
 
         try:
-
             if method == 'get':
                 api_response = requests.get(
                     url, headers=headers, params=params)
-                self.env['log.lines'].create({
-                    'call': f"{method} {url}",
-                    'response': api_response,
-                    'server_id': self.id,
-                    'status':  api_response.status_code,
-                })
-
             if method == 'post':
                 api_response = requests.post(
-                    url, headers=headers, data=lpayload)
-
-            if api_response.status_code >= 200 and api_response.status_code < 400:
-                self.response = api_response.text
-                if self.chatter:
-                    self._send_message(api_response.status_code)
-            elif api_response.status_code in errors:
-                self.response = api_response.text
-                if self.chatter:
-                    self._send_message(api_response.status_code)
-                raise UserError(
-                    errors[api_response.status_code] + " -> " + api_response.text)
-            else:
-                self.response = api_response.text
-                raise Exception("Unknow Error ->" + api_response.text)
-
-        except Exception as e:
-            self.response = api_response.text
+                    url, headers=headers, data=local_payload)
+        except Exception:
+            if self.chatter:
+                self._send_message(api_response.status_code)
             raise UserError(
-                e)
+                "Error: something went wrong please retry or check the logs")
 
+        self.env['log.lines'].create({
+            'call': "%s %s" % (method, url),
+            'response': api_response.text,
+            'server_id': self.id,
+            'status':  api_response.status_code,
+        })
+        
+        if self.chatter:
+            self._send_message(api_response.status_code)
+
+        if api_response.status_code >= 400:
+            raise UserError("Error: -> %s" % api_response.text)
+
+        
     @api.depends('params_ids')
     def _compute_json_params(self):
         for server in self:
@@ -97,18 +113,18 @@ class IrActionsServer(models.Model):
         json_field = {line.key: line.value for line in one2many_field}
         return json.dumps(json_field)
 
-    def _render_template_qweb(self):
+    def _render_template_qweb(self, record=None):
         try:
 
             model = self.model_id.model
             values = {
-                'object': self.env[model].search([('id', "=", self._context.get('active_id', False))]),
+                'object': record or self.env[model].search([('id', "=", self._context.get('active_id', False))]),
             }
             render_result = self.env['ir.qweb']._render(
                 html.fragment_fromstring(self.payload), values)
-        except Exception as e:
-            raise UserError(("Failed to render QWeb template : %s)", e))
-        return render_result
+        except Exception:
+            return None
+        return str(render_result).replace("<br>", "")
 
     def xml2json(self, t):
         d = {t.tag: {} if t.attrib else None}
@@ -134,7 +150,6 @@ class IrActionsServer(models.Model):
 
     def _send_message(self, message=400):
         try:
-
             odoo_bot = self.env.ref('base.partner_root')
             model = self.model_id.model
             if message < 200:
@@ -167,4 +182,4 @@ class LogLines(models.Model):
     server_id = fields.Many2one('ir.actions.server', string='API')
     call = fields.Char(string='Call')
     response = fields.Text(string='Response')
-    status = fields.Char(string='Status')
+    status = fields.Integer(string='Status')

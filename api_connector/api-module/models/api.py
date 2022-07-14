@@ -18,8 +18,6 @@ class Api(models.Model):
         'api.header.lines', 'api_id', string='Headers')
     server_ids = fields.One2many(
         'ir.actions.server', 'api_id', string='Server Actions')
-    
-
 
 
 class ApiHeaderLines(models.Model):
