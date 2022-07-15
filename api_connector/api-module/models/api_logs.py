@@ -1,8 +1,8 @@
 from odoo import fields, models
 
 
-class Logs(models.Model):
-    _name = 'logs'
+class ApiLogs(models.Model):
+    _name = 'api.logs'
     _description = 'API logs'
 
     log_lines_ids = fields.One2many('log.lines', 'log_id', string='Logs')

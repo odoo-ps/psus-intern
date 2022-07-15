@@ -2,7 +2,7 @@
 <odoo>
     <record model="ir.ui.view" id="api_form">
         <field name="name">api.form</field>
-        <field name="model">api</field>
+        <field name="model">api.connection</field>
         <field name="arch" type="xml">
             <form string="API">
                 <sheet>

@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_server_action_form" />
         <field name='arch' type='xml'>
             <xpath expr="//field[@name='link_field_id']" position="after">
-                <field name="api_id" attrs="{'invisible': [('state', '!=', 'api_call')],
+                <field name="api_connection_id" attrs="{'invisible': [('state', '!=', 'api_call')],
                             'required': [('state', '=', 'api_call')]}" />
                 <field name="resource_ref" attrs="{'invisible': [('state', '!=', 'api_call')]}" />
                 <field name="chatter" attrs="{'invisible': [('state', '!=', 'api_call')],
@@ -42,7 +42,7 @@
                 <page string="Logs" name="api_logs" autofocus="autofocus" attrs="{'invisible':[('state','!=','api_call')]}">
                     <group>
                         <field name="log_ids">
-                            <tree string="logs" editable="bottom" decoration-success="status in [200,400]" decoration-danger="status >= 400">
+                            <tree string="logs" editable="bottom" decoration-success="status in [200,201]" decoration-danger="status >= 400" decoration-warning="200 > status">
                                 <field name="create_date" />
                                 <field name="call" />
                                 <field name="status" />

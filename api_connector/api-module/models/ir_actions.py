@@ -1,4 +1,5 @@
 from collections import defaultdict
+from curses import has_key
 from lxml import html
 import json
 import requests
@@ -18,7 +19,7 @@ class IrActionsServer(models.Model):
 
     state = fields.Selection(selection_add=[(
         'api_call', 'Call External API')], ondelete={'api_call': 'cascade'})
-    api_id = fields.Many2one('api', string='API')
+    api_connection_id = fields.Many2one('api.connection', string='API')
     resource_ref = fields.Reference(
         string='Record for testing', selection='_selection_target_model')
 
@@ -39,30 +40,28 @@ class IrActionsServer(models.Model):
     @api.depends('payload')
     def _compute_rendered_payload(self):
         for server in self:
-            if server.payload and server.resource_ref:
-                server.rendered_XML_payload = server._render_template_qweb(
-                    server.resource_ref)
+            if server.is_xml(server.payload) and server.resource_ref:
+                xml_payload = server._render_template_qweb(server.resource_ref)
+                server.rendered_XML_payload = xml_payload
                 server.rendered_JSON_payload = server.xml2json(
-                    ET.XML(server._render_template_qweb(server.resource_ref)))
+                    ET.XML(xml_payload))
             else:
                 server.rendered_JSON_payload = "{}"
                 server.rendered_XML_payload = "<>"
 
     def _run_action_api_call(self, eval_context=None):
-        self.ensure_one()
         params = json.loads(self.json_params) or None
         rendered_JSON_payload = self.xml2json(
-            ET.XML(self._render_template_qweb()))
+            ET.XML(self._render_template_qweb())) if self.is_xml(self.payload) else None
         local_payload = None if not self.payload else json.dumps(
             rendered_JSON_payload)
 
-        url = self.api_id.url
-        method = self.api_id.method
+        url = self.api_connection_id.url
+        method = self.api_connection_id.method
         headers = json.loads(self.translate_o2m(
-            self.api_id.header_ids)) or None
-
+            self.api_connection_id.header_ids)) or None
         api_response = None
-
+        response = None
         try:
             if method == 'get':
                 api_response = requests.get(
@@ -70,30 +69,32 @@ class IrActionsServer(models.Model):
             if method == 'post':
                 api_response = requests.post(
                     url, headers=headers, data=local_payload)
-        except Exception:
+           
+        except Exception as e:
+
             if self.chatter:
                 self._send_message(api_response.status_code)
             raise UserError(
-                "Error: something went wrong please retry or check the logs")
+                "Error: something went wrong :( please try again later </3")
 
         self.env['log.lines'].create({
-            'call': "%s %s" % (method, url),
-            'response': api_response.text,
-            'server_id': self.id,
-            'status':  api_response.status_code,
+        'call': "%s %s" % (method, url),
+        'response': api_response.text or "UPS",
+        'server_id': self.id,
+        'status':api_response.status_code,
         })
 
         if self.chatter:
             self._send_message(api_response.status_code)
 
         if api_response.status_code >= 400:
-            raise UserError("Error: -> %s" % api_response.text)
+            print("Error: -> %s" % api_response.text)
 
     @api.depends('params_ids')
     def _compute_json_params(self):
         for server in self:
             server.json_params = server.translate_o2m(server.params_ids)
-
+    @api.model
     def translate_o2m(self, one2many_field):
         json_field = {line.key: line.value for line in one2many_field}
         return json.dumps(json_field)
@@ -148,23 +149,11 @@ class IrActionsServer(models.Model):
                 "%s: status:%s <a href=# data-oe-model=ir.actions.server data-oe-id=%s>%s</a>") % (message_name, message, self.id, self.name))
         except Exception:
             pass
-
-
-class IrActionsServerParamsLines(models.Model):
-    _name = 'ir.actions.server.params.lines'
-    _description = "Actions Server Params O2M Lines"
-
-    key = fields.Char(string='Key')
-    value = fields.Char(string='Value')
-    server_id = fields.Many2one('ir.actions.server', string='API')
-
-
-class LogLines(models.Model):
-    _name = 'log.lines'
-    _description = 'API logs'
-
-    log_id = fields.Many2one('logs', string='API')
-    server_id = fields.Many2one('ir.actions.server', string='API')
-    call = fields.Char(string='Call')
-    response = fields.Text(string='Response')
-    status = fields.Integer(string='Status')
+        
+    @api.model
+    def is_xml(self, xml):
+        try:
+            ET.fromstring(xml)
+            return True
+        except Exception:
+            return False
