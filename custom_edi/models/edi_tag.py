@@ -7,14 +7,14 @@ class EDITag(models.Model):
     _name = 'edi.tag'
     _description = 'Wrapper class for a field and the corresponding XML tag'
 
-    is_static = fields.Boolean(string="Static Element",
+    is_static = fields.Boolean(string="Static",
                                help="Check this box if this element's text should be constant across all records and not be read from any field")
     static_content = fields.Char(string="Static Element Content",
                                  help="The text content that you want to appear in this element across all records")
 
     xml_tag = fields.Char(string="XML Tag",
                           required=True,
-                          help="Enter the XML tag that will wrap around this element (e.g. 'product' would export like '<product></product>' in the XML)")
+                          help="Enter the XML tag that will wrap around this element (e.g. 'product' would export it like '<product></product>' in the XML)")
 
     model = fields.Integer(string="Model",related="custom_mapping.model.id", store=True)
 
@@ -28,6 +28,9 @@ class EDITag(models.Model):
                                    string="Child Elements",
                                    inverse_name="parent_tag_id",
                                    help="Add child elements to this tag")
+
+    number_of_children = fields.Integer(string="Number of Children",
+                                        compute="_compute_number_of_children")
 
     parent_tag_id = fields.Many2one(comodel_name="edi.tag",
                                     string="Parent Element",
@@ -46,9 +49,16 @@ class EDITag(models.Model):
                              If this field has content, then this path will be used and any contents of field_id will be ignored
                              """)
 
-    # #If the user checks is_static, make sure we clear the field and field tree
-    # @api.onchange("is_static")
-    # def change_static(self):
-    #     if self.is_static:
-    #         self.field_id = False
-    #         self.field_tree = False
+    #If the user checks is_static, make sure we clear the field and field tree
+    @api.onchange("is_static")
+    def change_static(self):
+        if self.is_static:
+            self.field_id = False
+            self.field_tree = False
+        else:
+            self.static_content = False
+
+    @api.depends("child_tag_ids")
+    def _compute_number_of_children(self):
+        for record in self:
+            record.number_of_children = len(record.child_tag_ids)

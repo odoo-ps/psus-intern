@@ -19,6 +19,12 @@
                             <field name="child_tag_ids">
                                 <tree>
                                     <field name="xml_tag"/>
+                                    <field name="is_static"/>
+                                    <field name="field_id"/>
+                                    <!--<field name="ttype"/>
+                                    <field name="relation"/>-->
+                                    <field name="field_tree"/>
+                                    <field name="number_of_children"/>
                                 </tree>
                             </field>
                             <field name="parent_tag_id" readonly="1"/>
