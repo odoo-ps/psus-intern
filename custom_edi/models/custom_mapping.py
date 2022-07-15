@@ -131,7 +131,7 @@ class CustomMapping(models.Model):
         if tag.field_tree: #if a field tree is set
 
             path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
-            name_path = tag.field_tree
+            name_path = tag.field_tree #for printing
 
             this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
             this_value = record[path[0]]

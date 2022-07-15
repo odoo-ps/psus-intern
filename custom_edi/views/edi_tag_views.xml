@@ -14,8 +14,9 @@
                             <field name="xml_tag"/>
                             <field name="is_static"/>
                             <field name="static_content" attrs="{'invisible':[('is_static', '=', False)]}"/>
-                            <field name="field_id" attrs="{'invisible':[('is_static', '=', True)]}"/>
+                            <field name="field_id" attrs="{'invisible':[('is_static', '=', True)], 'readonly':[('field_tree','!=',False)]}"/>
                             <field name="field_tree" attrs="{'invisible':[('is_static', '=', True)]}"/>
+                            <field name="custom_mapping"/>
                             <field name="child_tag_ids">
                                 <tree>
                                     <field name="xml_tag"/>
