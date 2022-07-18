@@ -17,6 +17,9 @@ class CustomMapping(models.Model):
     # maybe they can even rearrange the order of how each field goes into the xml document with drag n drop (or just giving
     # the order with a number) ???
 
+
+    # TODO - the forms and views for adding fields is kinda buggy and not user friendly
+
     _name = "edi2.custom.mapping"
     _description = "Custom Mapping"
 
@@ -64,12 +67,19 @@ class CustomMapping(models.Model):
 
 ######################### XML exporting
 
-# TODO: Add support for exporting fields that are one2many, wherein we have to iterate over each record belonging to that one2many
-#       (refer to the exported 940 documents and jot's 940 document template where he does that)
+# X Add support for exporting fields that are one2many, wherein we have to iterate over each record belonging to that one2many
+#     (refer to the exported 940 documents and jot's 940 document template where he does that)
+# BUG: seems that the data of fields nested in another field inside a x2many do not get added, not even static fields
+# X sub-records in x2m fields get exported using the wrong tag.
+
+# TODO: custom conditionals to whether things export (see the 940 template, namely: `<OrderItem t-if="move_line.reserved_availability > 0">`)
+#   Python eval() would be useful in this task. Might want to add a char field to edi_tag to hold a user-entered condition.
+
 # X Add option to export each record into their own document instead of putting all records in the same 1 document
 # X If a field in a record has a value of "false" when its ttype is not boolean, it means it's not set so do not put the "false" in the xml
 # X Format dates when exporting
 # X ability to add "static tags" (tags that contain text that are the same for all records and don't depend on any field)
+
 
     def export(self):
         # Runs through all fields/tags given in this mapping and exports them into a XML called testfile.xml in the odoo dir
@@ -85,7 +95,7 @@ class CustomMapping(models.Model):
 
             record_element = ET.SubElement(root, self.record_tag)
 
-            print("******************** RECORD *********************")
+            print("################################### RECORD ######################################")
 
             for tag in self.edi_tag:
 
@@ -93,6 +103,7 @@ class CustomMapping(models.Model):
                 
                 if tag.is_static:
                     tag_element.text = tag.static_content
+
                 else: #only non-static fields get their set fields evaluated
                     if tag.field_id or tag.field_tree: #this tag contains a field
                         self.add_field(tag_element, tag, record)
@@ -120,6 +131,9 @@ class CustomMapping(models.Model):
         return
     
 
+
+
+
     def add_field(self, root, tag, record):
         # Fetches the field data specified by the `tag` for `record` and adds it to `root`
         #
@@ -127,44 +141,91 @@ class CustomMapping(models.Model):
         # tag - EDI tag object whose selected field we're getting
         # record - current record whose data we're exporting (this method is meant to be called from the main loop as it only processes 1 record)
 
-
+        #print("Record:",record.name,record)
         if tag.field_tree: #if a field tree is set
+
 
             path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
             name_path = tag.field_tree #for printing
 
             this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
+
             this_value = record[path[0]]
+            
 
             for path_index in range(1,len(path)): # go 1 subfield deeper each iteration
                 this_value = this_value[path[path_index]]
                 this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])
 
             #at end of loop we should be at the final field of the path.
-            #this_value holds the actual data of the final field (ie the string, or the int, or whatever it is; shouldn't be relational)
-            #this_field holds the field object of the final field (ir.model.fields instance)
+            #this_value holds the actual data of the final field (ie string, int, x2many, etc)
+            #this_field holds the field object of the final field (ir.model.fields instance) where we can access things like ttype and other data about the field itself
 
         elif tag.field_id: #there is no tree but there is a field
+
             this_field = tag.field_id #the actual 'field' obj of the tag model set by the user (only gets used if there is no tree, so this should be non relational)
             this_value = record[this_field.name]
             name_path = this_field.name
-                
+        
+        
         print("~~~~~ Field: " + name_path + " ~~~~~")
         print("Value: " + str(this_value))
         print("Tag: " + str(tag.xml_tag))
 
         print("Ttype:", this_field.ttype)
         print("Py type:", type(this_value))
+        print("Path:",name_path)
+
+
+        ########### x2m handling
+        if str(this_field.ttype) in ("one2many","many2many"):
+        # When a user sets a tag to export a x2many field (i.e. either one2many or many2many), we now have to iterate through
+        #   every record in the x2m, INSIDE the main iteration through every record of the main model.
+        # If a edi_tag is a x2many, the x2many_subtag_ids of the edi_tag will hold the list of sub-edi_tags that describe what pieces
+        #   of data of each record of the x2m the user wants exported and how they want them.
+        # For example, The 940 is one of the documents that requires this for exporting all products within all transfer records
+
+            #tech_name = tag.relation
+            
+            for record in this_value:
+            # This_value is the x2m, and this is iterating through each actual data record associated with the x2m.
+
+                record_element = ET.SubElement(root, tag.x2many_record_tag)
+
+                print("''''''''''''''''' SUBRECORD '''''''''''''''''")
+
+                for subtag in tag.x2many_subtag_ids:
+                #This is iterating through each edi_tag that the user wants exported for every record in the x2m.
+
+                    tag_element = ET.SubElement(record_element, subtag.xml_tag)
+                    print("****** Subtag:",subtag)
+                    print("****** Subtag.xml_tag:",subtag.xml_tag)
+                    
+                    if subtag.is_static:
+                        tag_element.text = subtag.static_content
+
+                    else: #only non-static fields get their set fields evaluated.
+                        if subtag.field_id or subtag.field_tree: #this tag contains a field
+                            self.add_field(tag_element, subtag, record)
+                    
+                    if len(subtag.child_tag_ids) > 0: #this tag contains children tags that we must process
+                        self.add_children_tags(tag_element, subtag, record)
+        ###########
+        
 
         #date formatting to YYYY-MM-DD
-        if this_value and (this_field.ttype=="date" or this_field.ttype=="datetime"): #field has a value, and is a date type
+        if this_value and this_field.ttype in ("date", "datetime"): #field has a value, and is a date type
             this_value = this_value.strftime('%Y-%m-%d')
 
         #if this field is set to "False" but it's NOT supposed to be a Boolean field, it's probably just not set, so don't export it
-        if not (this_value==False and this_field.ttype!="boolean"):
+        if (not (this_value==False and this_field.ttype!="boolean")) and not (str(this_field.ttype) in ("one2many","many2many")):
             root.text = str(this_value)
 
         return
+
+
+
+
 
     def add_children_tags(self, root, parent_tag, record):
         # Recursively adds the children tags of `parent_tag` to the document, inside element `root`
