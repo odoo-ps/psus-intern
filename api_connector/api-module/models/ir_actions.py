@@ -4,7 +4,7 @@ from curses import has_key
 from lxml import html
 import json
 import xml.etree.ElementTree as ET
-import requests
+
 from odoo import api, fields, models, _
 # from odoo.exceptions import UserError
 
