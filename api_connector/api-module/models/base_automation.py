@@ -1,7 +1,7 @@
 import json
 import requests
 import xml.etree.ElementTree as ET
-
+from operator import attrgetter, itemgetter
 
 from odoo import models
 from odoo.exceptions import UserError
