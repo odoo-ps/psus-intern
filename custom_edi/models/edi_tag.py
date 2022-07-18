@@ -130,7 +130,7 @@ class EDITag(models.Model):
                     parent_path = [self.x2many_field_parent_id.field_id.name]
                 path = parent_path + path
                 print(path)
-                self.field_tree = path
+                #self.field_tree = path
             
 
             ################### now traverse the full path and find the field object.

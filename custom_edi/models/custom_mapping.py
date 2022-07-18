@@ -69,7 +69,7 @@ class CustomMapping(models.Model):
 
 # X Add support for exporting fields that are one2many, wherein we have to iterate over each record belonging to that one2many
 #     (refer to the exported 940 documents and jot's 940 document template where he does that)
-# BUG: seems that the data of fields nested in another field inside a x2many do not get added, not even static fields
+# X seems that the data of fields nested in another field inside a x2many do not get added, not even static fields
 # X sub-records in x2m fields get exported using the wrong tag.
 
 # TODO: custom conditionals to whether things export (see the 940 template, namely: `<OrderItem t-if="move_line.reserved_availability > 0">`)
@@ -87,37 +87,23 @@ class CustomMapping(models.Model):
 
         root = ET.Element(self.root_tag)
 
-        tech_name = self.model.model
+        tech_name = self.model.model #the model that the user wants to export
         all_records = self.env[tech_name].search([]) #all records of the model (e.g. all products)
 
         file_num = 0
-        for record in all_records:
 
-            record_element = ET.SubElement(root, self.record_tag)
+        for record in all_records:
+            record_element = ET.SubElement(root, self.record_tag) #each record gets its own dedicated element
 
             print("################################### RECORD ######################################")
 
-            for tag in self.edi_tag:
+            for tag in self.edi_tag: # for each tag that the user wants added to the root...
+                tag_element = ET.SubElement(record_element, tag.xml_tag) # make a new element for that tag
+                self.add_tag(tag_element, tag, record) # populate it with the data from this record (recursively adds all child tags)
 
-                tag_element = ET.SubElement(record_element, tag.xml_tag)
-                
-                #if tag.is_static:
-                #    tag_element.text = tag.static_content
-
-                #else: #only non-static fields get their set fields evaluated
-
-                #if tag.field_id or tag.field_tree: #this tag contains a field
-                self.add_field(tag_element, tag, record)
-                
-                #this is now done from add_field
-                #if len(tag.child_tag_ids) > 0: #this tag contains children tags that we must process
-                #    self.add_children_tags(tag_element, tag, record)
-
-                #end `for tag`
-
-            # user wants only one record per document
+            # If user wants only one record per document, then export this record in its own file
             if self.record_document_mode=="one_record":
-                record_root = ET.Element(self.root_tag)
+                record_root = ET.Element(self.root_tag) #temporary root (`root` has all records in it which we don't want)
                 record_root.append(record_element)
                 with open("myxmls/testfile" + str(file_num) + ".xml", "wb") as file:
                     file.write(ET.tostring(record_root, pretty_print=True))
@@ -125,7 +111,7 @@ class CustomMapping(models.Model):
             
             #end `for record`
 
-        # user wants all records in one document
+        # If user wants all records in one document, export the whole xml tree to one file
         if self.record_document_mode=="all_records":
             with open("myxmls/testfile.xml","wb") as file: #ends up in the base odoo directory
                 file.write(ET.tostring(root, pretty_print=True))
@@ -136,27 +122,27 @@ class CustomMapping(models.Model):
 
 
 
-    def add_field(self, root, tag, record):
-        # Fetches the field data specified by the `tag` for `record` and adds it to `root`
+    def add_tag(self, root, tag, record):
+        # Populates the ET Element `root` with whatever data is supposed to go in it as specified by the `tag`, using field data from `record`
+        # (this method is meant to be called from the main loop as it only processes 1 single record)
         #
-        # root - root ET element object to add field to
-        # tag - EDI tag object whose selected field we're getting
-        # record - current record whose data we're exporting (this method is meant to be called from the main loop as it only processes 1 record)
-
-        #print("Record:",record.name,record)
+        # root - ET Element object to add data to
+        # tag - EDI Tag object specifying what we're adding
+        # record - current record that we're getting the data from
 
         this_field = False
         this_value = False
         name_path = ""
 
-        if tag.field_tree: #if a field tree is set
+        if tag.field_tree: # If a field tree is set
             path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
             name_path = tag.field_tree #for printing
 
+            #get the field object
             this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
 
+            #traverse the field tree
             this_value = record[path[0]]
-
             for path_index in range(1,len(path)): # go 1 subfield deeper each iteration
                 this_value = this_value[path[path_index]]
                 this_field = self.env["ir.model.fields"].search([("model_id.model","=",this_field.model),("name","=",path[path_index])])
@@ -165,15 +151,13 @@ class CustomMapping(models.Model):
             #this_value holds the actual data of the final field (ie string, int, x2many, etc)
             #this_field holds the field object of the final field (ir.model.fields instance) where we can access things like ttype and other data about the field itself
 
-        elif tag.field_id: #there is no tree but there is a field
-
-            this_field = tag.field_id #the actual 'field' obj of the tag model set by the user (only gets used if there is no tree, so this should be non relational)
+        elif tag.field_id: # If there is no tree, but there is a field
+            this_field = tag.field_id # the actual 'field' obj of the tag model set by the user (only gets used if there is no tree)
             this_value = record[this_field.name]
             name_path = this_field.name
-
-        elif tag.is_static:
-            this_value = tag.static_content
         
+
+        ##### debug prints #####
         print("~~~~~ Tag:", tag.xml_tag,"~~~~~")
         if this_value: print("Value:", this_value)
         else: print("Value: None")
@@ -183,24 +167,27 @@ class CustomMapping(models.Model):
         if this_field:
             print("Ttype:", this_field.ttype)
             print("Py type:", type(this_value))
+
         if tag.is_static:
             print("This field is static!")
 
         print("Children:", len(tag.child_tag_ids))
         print("XML subtags:", len(tag.x2many_subtag_ids))
+        ##########
 
-        ########### x2m handling
+
+
+        ########### x2m handling ###################
         if this_field and str(this_field.ttype) in ("one2many","many2many"):
-        # When a user sets a tag to export a x2many field (i.e. either one2many or many2many), we now have to iterate through
-        #   every record in the x2m, INSIDE the main iteration through every record of the main model.
-        # If a edi_tag is a x2many, the x2many_subtag_ids of the edi_tag will hold the list of sub-edi_tags that describe what pieces
-        #   of data of each record of the x2m the user wants exported and how they want them.
-        # For example, The 940 is one of the documents that requires this for exporting all products within all transfer records
 
-            #tech_name = tag.relation
+        # When a user sets a tag to export a x2many field (either one2many or many2many), we now have to iterate through
+        # every record in the x2m, INSIDE the main iteration through every record of the main model.
+        # If a edi_tag is a x2many, the x2many_subtag_ids of the edi_tag will hold the list of sub-edi_tags that describe what pieces
+        # of data of each record of the x2m the user wants exported and how they want them.
+        # For an example, The 940 is one of the documents that requires this for exporting all products within all transfer records
             
-            for record in this_value:
-            # This_value is the x2m, and this is iterating through each actual data record associated with the x2m.
+            for subrecord in this_value:
+            # `this_value`` is the x2m, and this loop is iterating through each actual data record associated with the x2m.
 
                 record_element = ET.SubElement(root, tag.x2many_record_tag)
 
@@ -208,44 +195,40 @@ class CustomMapping(models.Model):
 
                 for subtag in tag.x2many_subtag_ids:
                 #This is iterating through each edi_tag that the user wants exported for every record in the x2m.
-
                     tag_element = ET.SubElement(record_element, subtag.xml_tag)
-                    #print("****** Subtag:",subtag)
-                    #print("****** Subtag.xml_tag:",subtag.xml_tag)
-                    
-                    print("Is static: ", subtag.is_static)
-                    if subtag.is_static:
-                        tag_element.text = subtag.static_content
-                        print("static tag text set to", subtag.static_content)
+                    self.add_tag(tag_element, subtag, subrecord)
+        ############################################
 
-                    else: #only non-static fields get their set fields evaluated.
-                        #if subtag.field_id or subtag.field_tree: #this tag contains a field
-                        self.add_field(tag_element, subtag, record)
-        ###########
+
         
+        # check for children and add them
         if len(tag.child_tag_ids) > 0:
             self.add_children_tags(root, tag, record)
 
-        #date formatting to YYYY-MM-DD
 
-        if tag.is_static:
-            root.text=str(this_value)
-            return
-
-        if this_value and this_field.ttype in ("date", "datetime"): #field has a value, and is a date type
+        # Date formatting to YYYY-MM-DD
+        if this_value and this_field.ttype in ("date", "datetime"): #field has a value, and is a Date type
             this_value = this_value.strftime('%Y-%m-%d')
 
 
-        #if this field is set to "False" but it's NOT supposed to be a Boolean field, it's probably just not set, so don't export it
-        if (this_value==False and not this_field) or\
-            (this_value==False and this_field and this_field.ttype!="boolean"):
+        ####### Conditions where we don't want to set the element text to this_value: (written like this for easier readability)
+
+        # If this element is static, just set it to the static contents and return
+        if tag.is_static:
+            root.text=str(tag.static_content)
             return
 
-        #If this field is a x2m field, this_value is a odoo recordset which we don't want exported into the xml.
+        # If this field is set to "False" but it's NOT supposed to be a Boolean field, it's probably just not set, so don't export it and just return
+        if (this_value==False and not this_field) or (this_value==False and this_field and this_field.ttype!="boolean"):
+            return
+
+        #If this field is a x2m field, this_value would be a odoo recordset object, which we don't want exported into the xml, so just return
         if (this_field and this_field.ttype in ("one2many","many2many")):
             return
 
+        ########
         
+        # otherwise, we are good to set the element text to this_value! :)
         root.text=str(this_value)
 
         return
@@ -255,7 +238,7 @@ class CustomMapping(models.Model):
 
 
     def add_children_tags(self, root, parent_tag, record):
-        # Recursively adds the children tags of `parent_tag` to the document, inside element `root`
+        # Adds the children tags of `parent_tag` to the document, inside element `root`, and calls add_tag for each one
         #
         # root - ET Element object; the XML element that we want to add the children to
         # parent_tag - EDI tag object whose children we want to add to the XML
@@ -263,21 +246,5 @@ class CustomMapping(models.Model):
 
         for child_tag_id in parent_tag.child_tag_ids:
             new_child_tag = ET.SubElement(root, child_tag_id.xml_tag)
-
-            #if child_tag_id.field_id or child_tag_id.field_tree: #if this child has a field OR a field tree set
-            self.add_field(new_child_tag, child_tag_id, record)
-
-            #if len(child_tag_id.child_tag_ids) > 0: #if this child tag has children of its own, add all those children, and their children, and their children etc etc
-            #    self.add_children_tags(new_child_tag, child_tag_id, record)
-
-        """
-        for subtag in parent_tag.x2many_subtag_ids:
-            tag_element = ET.SubElement(root, subtag.xml_tag)
-
-            if subtag.field_id or subtag.field_tree:
-                self.add_field(tag_element, subtag, record)
-            
-            if len(subtag.child_tag_ids) > 0:
-                self.add_children_tags(tag_element, subtag, record)
-        """
+            self.add_tag(new_child_tag, child_tag_id, record)
         return
