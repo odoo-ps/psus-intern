@@ -15,13 +15,13 @@
     'category': 'Tools',
     'version': '15.0.1.0.0',
     'depends': [
-        'base_automation',
+        'base_automation', 
     ],
     'data': [
         #Views
         'views/view_base_automation_inherit.xml',
         'views/api_views.xml',
-        'views/base_automation_view_inherit.xml',
+        'views/view_server_action_inherit.xml',
         
         #Security
         'security/ir.model.access.csv',
