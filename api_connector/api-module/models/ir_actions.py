@@ -1,12 +1,12 @@
+from ast import operator
 from collections import defaultdict
 from curses import has_key
 from lxml import html
 import json
-import requests
 import xml.etree.ElementTree as ET
-
+import requests
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+# from odoo.exceptions import UserError
 
 
 class IrActionsServer(models.Model):
@@ -50,45 +50,44 @@ class IrActionsServer(models.Model):
                 server.rendered_XML_payload = "<>"
 
     def _run_action_api_call(self, eval_context=None):
-        params = json.loads(self.json_params) or None
-        rendered_JSON_payload = self.xml2json(
-            ET.XML(self._render_template_qweb())) if self.is_xml(self.payload) else None
-        local_payload = None if not self.payload else json.dumps(
-            rendered_JSON_payload)
-
-        url = self.api_connection_id.url
-        method = self.api_connection_id.method
-        headers = json.loads(self.translate_o2m(
-            self.api_connection_id.header_ids)) or None
+        api_request = self.env['api.request']
+        api_config = self._get_api_configuration()
+        api_config['local_payload'] = None if not self.payload else json.dumps(api_config['rendered_JSON_payload']),
+        method = api_config['method']
         api_response = None
-        response = None
+        # response = None <- maybe this will be needed later
         try:
             if method == 'get':
-                api_response = requests.get(
-                    url, headers=headers, params=params)
+                api_response = api_request.get(api_config)
             if method == 'post':
-                api_response = requests.post(
-                    url, headers=headers, data=local_payload)
-           
+                api_response = api_request.post(api_config)
         except Exception as e:
+            api_response = e
 
-            if self.chatter:
-                self._send_message(api_response.status_code)
-            raise UserError(
-                "Error: something went wrong :( please try again later </3")
+        api_response.status_code = api_response.status_code if hasattr(api_response, 'status_code') else 500
 
         self.env['log.lines'].create({
-        'call': "%s %s" % (method, url),
-        'response': api_response.text or "UPS",
-        'server_id': self.id,
-        'status':api_response.status_code,
+            'call': "%s %s" % (method, api_config['url']),
+            'response': api_response.text if hasattr(api_response, 'text') else api_response,
+            'server_id': self.id,
+            'status': api_response.status_code,
         })
 
         if self.chatter:
             self._send_message(api_response.status_code)
 
-        if api_response.status_code >= 400:
-            print("Error: -> %s" % api_response.text)
+
+    def _get_api_configuration(self):
+        api_confg_fields = {
+            'url': self.api_connection_id.url,
+            'params': json.loads(self.json_params) or None,
+            'rendered_JSON_payload': self.xml2json(ET.XML(self._render_template_qweb())) if self.is_xml(self.payload) else None,
+            'method': self.api_connection_id.method,
+            'headers': json.loads(self.translate_o2m(self.api_connection_id.header_ids)) or None,
+        }
+        return api_confg_fields
+
+    
 
     @api.depends('params_ids')
     def _compute_json_params(self):
@@ -146,7 +145,7 @@ class IrActionsServer(models.Model):
                 message_name = "Error"
 
             self.env[model].search([('id', "=", self._context.get('active_id', False))]).with_user(odoo_bot).message_post(subject="API call made :)", body=(
-                "%s: status:%s <a href=# data-oe-model=ir.actions.server data-oe-id=%s>%s</a>") % (message_name, message, self.id, self.name))
+                "%s: status(%s) <a href=# data-oe-model=ir.actions.server data-oe-id=%s>%s</a>") % (message_name, message, self.id, self.name))
         except Exception:
             pass
         
