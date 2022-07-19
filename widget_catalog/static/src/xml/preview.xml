@@ -1,0 +1,16 @@
+<templates>
+    <div t-name="Preview" owl="1">
+        <t t-if="component">
+            <ComponentAdapter
+                Component="component"
+                widgetArgs="widgetArgs" />
+        </t>
+        <t t-else="">
+            <span>
+                No widget
+                <t t-esc="record.data.name" />
+                found
+            </span>
+        </t>
+    </div>
+</templates>

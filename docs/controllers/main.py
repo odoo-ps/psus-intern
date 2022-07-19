@@ -4,6 +4,7 @@ from functools import lru_cache
 from pdoc import render, extract, web
 import traceback
 import logging
+from markupsafe import Markup
 
 
 _logger = logging.getLogger(__name__)
@@ -48,14 +49,14 @@ class MainController(http.Controller):
         self._should_revalidate_spec()
         try:
             path = page.replace('.html', '').replace('/', '.')
-            return render.html_module(self.all_modules[path], self.all_modules)
+            return Markup.unescape(render.html_module(self.all_modules[path], self.all_modules))
         except KeyError:
             return http.request.not_found(_('Module %s not found.', path))
         except Exception as err:
             _logger.error(err)
             return render.html_error(str(err), traceback.format_exc())
 
-    @http.route('/docs/index.html', auth='user', website=True)
+    @http.route(['/docs/index.html', '/docs/index'], auth='user', website=True)
     def index(self):
         self._should_revalidate_spec()
         return render.html_index(self.all_modules)

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_catalog_widget" model="ir.actions.act_window">
+        <field name="name">Widgets</field>
+        <field name="res_model">catalog.widget</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="widget_catalog_menu"
+        name="Widget Catalog"
+        sequence="10" />
+
+    <menuitem
+        id="widget_catalog_widgets_menu"
+        name="Widgets"
+        action="action_catalog_widget"
+        parent="widget_catalog_menu"
+        sequence="10" />
+
+
+    <record id="catalog_widget_view_tree" model="ir.ui.view">
+        <field name="name">catalog.widget.view.tree</field>
+        <field name="model">catalog.widget</field>
+        <field name="arch" type="xml">
+            <tree string="Widgets">
+                <field name="name" />
+                <field name="module" />
+                <field name="type" />
+                <field name="summary" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="catalog_widget_view_form" model="ir.ui.view">
+        <field name="name">catalog.widget.view.form</field>
+        <field name="model">catalog.widget</field>
+        <field name="arch" type="xml">
+            <form string="Widget">
+                <sheet>
+                    <h1>
+                        <field name="name" />
+                    </h1>
+                    <group name="info" string="Info">
+                        <field name="type" />
+                        <field string="Value" name="sample_many2one" attrs="{'invisible':[('type','!=','many2one')]}" />
+                        <field string="Value" name="sample_many2many" attrs="{'invisible':[('type','!=','many2many')]}" />
+                        <field string="Value" name="sample_one2many" attrs="{'invisible':[('type','!=','one2many')]}" />
+                        <field string="Value" name="sample_char" attrs="{'invisible':[('type','!=','char')]}" />
+                        <field string="Value" name="sample_text" attrs="{'invisible':[('type','!=','text')]}" />
+                        <field string="Value" name="sample_datetime" attrs="{'invisible':[('type','!=','datetime')]}" />
+                        <field string="Value" name="sample_date" attrs="{'invisible':[('type','!=','date')]}" />
+                        <field string="Value" name="sample_selection" attrs="{'invisible':[('type','!=','selection')]}" />
+                        <field string="Value" name="sample_integer" attrs="{'invisible':[('type','!=','integer')]}" />
+                        <field string="Value" name="sample_float" attrs="{'invisible':[('type','!=','float')]}" />
+                        <field string="Value" name="sample_boolean" attrs="{'invisible':[('type','!=','boolean')]}" />
+                        <field string="Value" name="sample_binary" attrs="{'invisible':[('type','!=','binary')]}" />
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" />
+                        </page>
+                        <page name="Example" string="Example">
+                            <field name="example_field" widget="preview" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="catalog_widget_view_search" model="ir.ui.view">
+        <field name="name">catalog.widget.view.search</field>
+        <field name="model">catalog.widget</field>
+        <field name="arch" type="xml">
+            <search string="Widgets">
+                <filter name="Type" string="Type" context="{'group_by': 'type'}" />
+                <filter name="Module" string="Module" context="{'group_by': 'module'}" />
+            </search>
+        </field>
+    </record>
+
+</odoo>
