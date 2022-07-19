@@ -14,7 +14,7 @@
                             <field name="xml_tag"/>
                             <field name="is_static"/>
 
-                            <field name="field_id" attrs="{'invisible':[('is_static', '=', True)], 'readonly':[('field_tree','!=',False)]}"/>
+                            <field name="field_id" attrs="{'invisible':[('is_static', '=', True)], 'readonly':[('field_tree','!=',False)]}" force_save="1"/>
                             <field name="field_tree" attrs="{'invisible':[('is_static', '=', True)]}"/>
                             <field name="ttype" readonly="1" attrs="{'invisible':[('is_static','=','True')]}"/>
 
