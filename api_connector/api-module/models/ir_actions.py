@@ -1,12 +1,10 @@
-from ast import operator
 from collections import defaultdict
-from curses import has_key
 from lxml import html
 import json
+import requests
 import xml.etree.ElementTree as ET
 
-from odoo import api, fields, models, _
-# from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class IrActionsServer(models.Model):
@@ -52,38 +50,46 @@ class IrActionsServer(models.Model):
     def _run_action_api_call(self, eval_context=None):
         api_request = self.env['api.request']
         api_config = self._get_api_configuration()
-        api_config['local_payload'] = None if not self.payload else json.dumps(api_config['rendered_JSON_payload']),
+        api_config['local_payload'] = None if not self.payload else json.dumps(api_config['rendered_JSON_payload'])
         method = api_config['method']
-        api_response = None
+        api_response = requests.Response()
         # response = None <- maybe this will be needed later
         try:
             if method == 'get':
                 api_response = api_request.get(api_config)
             if method == 'post':
                 api_response = api_request.post(api_config)
+
         except Exception as e:
-            api_response = e
-
-        api_response.status_code = api_response.status_code if hasattr(api_response, 'status_code') else 500
-
-        self.env['log.lines'].create({
-            'call': "%s %s" % (method, api_config['url']),
-            'response': api_response.text if hasattr(api_response, 'text') else api_response,
-            'server_id': self.id,
-            'status': api_response.status_code,
-        })
+            if isinstance(e, requests.exceptions.ConnectionError) or isinstance(e, requests.exceptions.Timeout):
+                api_response.raw = e
+                api_response.status_code = 500
+            if isinstance(e, requests.exceptions.MissingSchema):
+                api_response.raw = e
+                api_response.status_code = 400
+                
+        self._generate_log(method, api_config['url'], api_response)
 
         if self.chatter:
             self._send_message(api_response.status_code)
 
 
+    def _generate_log(self, method, url, response):
+        self.env['log.lines'].create({
+            'call': "%s %s" % (method, url),
+            'response': response.text if hasattr(response, 'text') else response.raw,
+            'server_id': self.id,
+            'status': response.status_code,
+        })
+        return True
+
     def _get_api_configuration(self):
         api_confg_fields = {
             'url': self.api_connection_id.url,
             'params': json.loads(self.json_params) or None,
-            'rendered_JSON_payload': self.xml2json(ET.XML(self._render_template_qweb())) if self.is_xml(self.payload) else None,
             'method': self.api_connection_id.method,
             'headers': json.loads(self.translate_o2m(self.api_connection_id.header_ids)) or None,
+            'rendered_JSON_payload': self.xml2json(ET.XML(self._render_template_qweb())) if self.is_xml(self.payload) else None
         }
         return api_confg_fields
 
@@ -156,3 +162,7 @@ class IrActionsServer(models.Model):
             return True
         except Exception:
             return False
+
+    def _clear_logs(self):
+        self.env['log.lines'].search([]).unlink()
+        return True
