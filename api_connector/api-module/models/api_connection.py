@@ -1,4 +1,6 @@
-from odoo import fields, models
+import json
+
+from odoo import api,fields, models
 
 
 class ApiConnection(models.Model):
@@ -19,5 +21,10 @@ class ApiConnection(models.Model):
     server_ids = fields.One2many(
         'ir.actions.server', 'api_connection_id', string='Server Actions')
 
+    json_headers = fields.Text(string='JSON Headers', compute='_compute_json_headers', readonly=True, store=True)
 
-
+    @api.depends('header_ids')
+    def _compute_json_headers(self):
+        for api_connection in self:
+            api_connection.json_headers = self.env['ir.actions.server'].translate_o2m(self.header_ids)
+            

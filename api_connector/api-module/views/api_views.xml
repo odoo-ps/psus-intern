@@ -30,6 +30,7 @@
                                             <field name="value" />
                                         </tree>
                                     </field>
+                                    <field name="json_headers" />
                                 </group>
                             </form>
                         </page>
