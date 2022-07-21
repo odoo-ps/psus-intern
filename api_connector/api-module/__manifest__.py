@@ -18,6 +18,9 @@
         'base_automation', 
     ],
     'data': [
+        #Cron
+        'data/clear_logs_cron.xml',
+        
         #Views
         'views/view_base_automation_inherit.xml',
         'views/api_views.xml',
