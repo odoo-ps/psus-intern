@@ -22,6 +22,8 @@
         'views/view_base_automation_inherit.xml',
         'views/api_views.xml',
         'views/view_server_action_inherit.xml',
+        'views/logs_menu_item.xml',
+        #'views/log_views.xml',
         
         #Security
         'security/ir.model.access.csv',

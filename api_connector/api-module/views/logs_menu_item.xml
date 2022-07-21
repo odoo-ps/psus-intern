@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="api_logs_view_form" model="ir.ui.view">
+        <field name="name">api.logs.view.form</field>
+        <field name="model">log.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="row d-flex d-flex align-items-center">
+                        <div class="col-6">
+                            <h1>
+                                <field name="server_id" />
+                            </h1>
+                        </div>
+                        <div class="col-6">
+                            <p class="h2">
+                                Status:
+                                <field name="status" stringdecoration-success="status in [200,201]"
+                                    decoration-danger="status >= 400" decoration-warning="200 > status" />
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+                    </hr>
+                    <group>
+                        <group>
+                            <field name="create_date" />
+                            <field name="call" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Response">
+                            <group>
+                                <group>
+                                    <field name="method" />
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="response" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="api_logs_view_search" model="ir.ui.view">
+        <field name="name">api.logs.view.search</field>
+        <field name="model">log.lines</field>
+        <field name="arch" type="xml">
+            <search string="Api filter">
+                <field name="server_id" string="Action Name"
+                    filter_domain="['|', ('name', 'ilike', self),('ref', 'ilike', self)]"></field>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_Api" string="Api" domain="[]" context="{'group_by': 'server_id'}"/>
+                    </group>
+            </search>
+        </field>
+    </record>
+    <record id="api_logs_view_tree" model="ir.ui.view">
+        <field name="name">api.logs.view.tree</field>
+        <field name="model">log.lines</field>
+        <field name="arch" type="xml">
+            <tree string="logs" decoration-success="status in [200,201]" decoration-danger="status >= 400"
+                decoration-warning="200 > status">
+                <field name="create_date" decoration-bf="1" />
+                <field name="call" />
+                <field name="status" decoration-success="status in [200,201]" decoration-danger="status >= 400"
+                    decoration-warning="200 > status" widget="badge" />
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="api_log_lines_action" model="ir.actions.act_window">
+        <field name="name">API Logs</field>
+        <field name="res_model">log.lines</field>
+        <field name="view_mode">form</field>
+        <field name="search_view_id" ref="api_logs_view_search"/>
+        <field name="context">{'search_default_group_by_Api': 1, 'display_complete': True}</field>
+
+    </record>
+
+
+
+
+
+    <menuitem id="api_log_lines_menu_item" action="api_log_lines_action" parent="base.menu_automation" sequence="4" />
+
+</odoo>

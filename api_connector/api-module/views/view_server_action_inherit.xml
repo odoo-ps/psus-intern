@@ -50,6 +50,80 @@
                         </field>
                     </group>
                 </page>
+                <page name="Response" string="Response" attrs="{'invisible':[('state','!=','api_call')]}" autofocus="autofocus">
+                    <group name="Response Manage">
+                        <h4>Manage response in here</h4>
+                    </group>
+                    <field name="code" widget="ace" options="{'mode': 'python'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document." />
+                </page>
+                <page name="Help" string="Help" attrs="{'invisible':[('state','!=','api_call')]}" autofocus="autofocus">
+                    <group name="Response Manage">
+                        <h4>How to use the Response tab</h4>
+                    </group>
+                    <group>
+                        <div style="margin-top: 4px;">
+                            <h3>Help with Python expressions</h3>
+                            <p>Various fields may use Python code or Python expressions. The following variables can be used:</p>
+                            <ul>
+                                <li>
+                                    <code>env</code>
+                                    : Odoo Environment on which the action is triggered
+                                </li>
+                                <li>
+                                    <code>model</code>
+                                    : Odoo Model of the record on which the action is triggered; is a void recordset
+                                </li>
+                                <li>
+                                    <code>record</code>
+                                    : record on which the action is triggered; may be be void
+                                </li>
+                                <li>
+                                    <code>records</code>
+                                    : recordset of all records on which the action is triggered in multi mode; may be void
+                                </li>
+                                <li>
+                                    <code>time</code>
+                                    ,
+                                    <code>datetime</code>
+                                    ,
+                                    <code>dateutil</code>
+                                    ,
+                                    <code>timezone</code>
+                                    : useful Python libraries
+                                </li>
+                                <li>
+                                    <code>log(message, level='info')</code>
+                                    :logging function to record debug information in
+                                    <code>ir.logging</code>
+                                    table
+                                </li>
+                                <li>
+                                    <code>UserError</code>
+                                    : Warning Exception to use with
+                                    <code>raise</code>
+                                </li>
+                                <li>
+                                    <code>response</code>
+                                    Dictionary response,can be manage to create new recods
+                                </li>
+                                <li>
+                                    To return an action, assign:
+                                    <code>action = {...}</code>
+                                </li>
+                                <li>
+                                   Avoid using the same model in trigger create/update, and on create method to avoid recursion.
+                                </li>
+                            </ul>
+                            <div attrs="{'invisible': [('state', '!=', 'code')]}">
+                                <p>Example of Python code</p>
+                                <code style="white-space: pre-wrap">
+                                partner_name = record.name + '_code'
+                                env['res.partner'].create({'name': partner_name})
+                                </code>
+                            </div>
+                        </div>
+                    </group>
+                </page>
             </notebook>
         </field>
     </record>

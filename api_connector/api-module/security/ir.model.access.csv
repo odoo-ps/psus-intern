@@ -1,6 +1,6 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 api,api,model_api_connection,,1,1,1,1
-api_logs,api logs,model_api_logs,,1,1,1,1
-api_log_lines,api log lines,model_log_lines,,1,1,1,1
+api_logs,api logs,api-module.model_api_logs,,1,1,1,1
+api_log_lines,api log lines,api-module.model_log_lines,,1,1,1,1
 api_header_lines,api header lines,model_api_header_lines,,1,1,1,1
 ir_actions_server_params_lines,ir_actions_server params lines,model_ir_actions_server_params_lines,,1,1,1,1

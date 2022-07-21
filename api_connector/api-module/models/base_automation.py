@@ -34,9 +34,17 @@ class BaseAutomation(models.Model):
 
         self.env['log.lines'].create({
             'call': "%s %s" % (method, action.api_connection_id.url),
+            'method': method,
             'response': api_response.text,
             'server_id': action.id,
             'status':  api_response.status_code,
         })
         if api_response.status_code >= 400:
             print("Error: -> %s" % api_response.text)
+            
+    def toggle_active_action(self):
+        if self.active:
+            self.write({'active': False}) 
+        else:
+            self.write({'active': True})
+        return True

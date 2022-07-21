@@ -4,13 +4,31 @@ from lxml import html
 import json
 import requests
 import xml.etree.ElementTree as ET
-
+from odoo.tools.safe_eval import safe_eval, test_python_expr
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class IrActionsServer(models.Model):
     _inherit = 'ir.actions.server'
+
+    DEFAULT_PYTHON_CODE = """# Available variables:
+#  - env: Odoo Environment on which the action is triggered
+#  - model: Odoo Model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: Odoo function to compare floats based on specific precisions
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - UserError: Warning Exception to use with raise
+#  - Command: x2Many commands namespace
+#  - response: in case of api-call this is the response
+# To return an action, assign: action = {...}\n\n\n\n"""
+
+    code = fields.Text(string='Python Code response management', groups='base.group_system',
+                       default=DEFAULT_PYTHON_CODE,
+                       help="Write Python code that the action will execute. Some variables are "
+                            "available for use; help about python expression is given in the help tab.")
 
     @api.model
     def _selection_target_model(self):
@@ -53,8 +71,11 @@ class IrActionsServer(models.Model):
         params = json.loads(self.json_params) or None
         rendered_JSON_payload = self.xml2json(
             ET.XML(self._render_template_qweb())) if self.is_xml(self.payload) else None
+        print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+        print(type(rendered_JSON_payload))
         local_payload = None if not self.payload else json.dumps(
             rendered_JSON_payload)
+        print(type(local_payload))
 
         url = self.api_connection_id.url
         method = self.api_connection_id.method
@@ -69,7 +90,7 @@ class IrActionsServer(models.Model):
             if method == 'post':
                 api_response = requests.post(
                     url, headers=headers, data=local_payload)
-           
+
         except Exception as e:
 
             if self.chatter:
@@ -78,10 +99,11 @@ class IrActionsServer(models.Model):
                 "Error: something went wrong :( please try again later </3")
 
         self.env['log.lines'].create({
-        'call': "%s %s" % (method, url),
-        'response': api_response.text or "UPS",
-        'server_id': self.id,
-        'status':api_response.status_code,
+            'call':  url,
+            'method': method,
+            'response': api_response.text or "UPS",
+            'server_id': self.id,
+            'status': api_response.status_code,
         })
 
         if self.chatter:
@@ -89,11 +111,24 @@ class IrActionsServer(models.Model):
 
         if api_response.status_code >= 400:
             print("Error: -> %s" % api_response.text)
+        try:
+            for action in self:
+                eval_context = super(
+                    IrActionsServer, self)._get_eval_context(action=action)
+            eval_context.update({
+                'response': json.loads(api_response.text),
+            })
+            self._check_python_code()
+            self._run_action_code_multi(eval_context)
+        except Exception as e:
+            raise UserError(
+                "Ups! Something went wrong", e)
 
     @api.depends('params_ids')
     def _compute_json_params(self):
         for server in self:
             server.json_params = server.translate_o2m(server.params_ids)
+
     @api.model
     def translate_o2m(self, one2many_field):
         json_field = {line.key: line.value for line in one2many_field}
@@ -149,7 +184,7 @@ class IrActionsServer(models.Model):
                 "%s: status:%s <a href=# data-oe-model=ir.actions.server data-oe-id=%s>%s</a>") % (message_name, message, self.id, self.name))
         except Exception:
             pass
-        
+
     @api.model
     def is_xml(self, xml):
         try:
