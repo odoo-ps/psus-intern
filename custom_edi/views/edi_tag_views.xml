@@ -2,20 +2,36 @@
 
 <odoo>
     <data>
-    <!--form view-->
+        <!--tree view-->
+        <record model="ir.ui.view" id="edi_tag_view_tree">
+            <field name="name">edi.tag.tree</field>
+            <field name="model">edi.tag</field>
+            <field name="arch" type="xml">
+                <tree string="EDI Tags" edit="true" create="false">
+                    <field name="field_id"/>
+                    <field name="ttype"/>
+                    <field name="field_path"/>
+                    <field name="xml_tag"/>
+                </tree>
+            </field>
+        </record>
+        <!--form view-->
         <record model="ir.ui.view" id="edi_tag_view_form">
             <field name="name">edi.tag.view.form</field>
             <field name="model">edi.tag</field>
             <field name="arch" type="xml">
-                <form string="EDI tags :)">
+                <form string="EDI tags :)" create="false">
                     <sheet>
                         <group>
                             <field name="model" invisible="1"/>
                             <field name="xml_tag"/>
                             <field name="is_static"/>
 
-                            <field name="field_id" attrs="{'invisible':[('is_static', '=', True)], 'readonly':[('field_tree','!=',False)]}" force_save="1"/>
-                            <field name="field_tree" attrs="{'invisible':[('is_static', '=', True)]}"/>
+                            <field name="model_name" invisible="1"/>
+                            <field name="parent_model"/>
+                            <field name="field_id" attrs="{'invisible':[('is_static', '=', True)]}"/>
+                            <field name="field_path" attrs="{'invisible':[('is_static', '=', True)]}"/>
+
                             <field name="ttype" readonly="1" attrs="{'invisible':[('is_static','=','True')]}"/>
 
                             <field name="x2many_record_tag" attrs="{'invisible':[('ttype','!=','many2many'), ('ttype','!=','one2many')]}"/>
@@ -23,29 +39,11 @@
                             
                             <field name="static_content" attrs="{'invisible':[('is_static', '=', False)]}"/>
                             
-                            <field name="x2many_subtag_ids" attrs="{'invisible':[('ttype','!=','many2many'), ('ttype','!=','one2many')]}">
-                                <tree>
-                                    <field name="xml_tag"/>
-                                    <field name="is_static"/>
-                                    <field name="field_id"/>
-                                    <field name="ttype"/>
-                                    <field name="field_tree"/>
-                                    <field name="number_of_children"/>
-                                </tree>
-                            </field>
+                            <field name="x2many_subtag_ids" attrs="{'invisible':[('ttype','!=','many2many'), ('ttype','!=','one2many')]}"/>
 
-                            <field name="child_tag_ids">
-                                <tree>
-                                    <field name="xml_tag"/>
-                                    <field name="is_static"/>
-                                    <field name="field_id"/>
-                                    <field name="ttype"/>
-                                    <!--<field name="relation"/>-->
-                                    <field name="field_tree"/>
-                                    <field name="number_of_children"/>
-                                </tree>
-                            </field>
-                            <field name="parent_tag_id" readonly="1"/>
+                            <field name="child_tag_ids"/>
+                            <button name="add_children" type="object" string="Add Children EDI Tags"/>
+<!--                            <field name="parent_tag_id" readonly="1"/>-->
                         </group>
                     </sheet>
                 </form>

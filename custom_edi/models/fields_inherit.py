@@ -1,58 +1,66 @@
 
 from odoo import models, fields, api
-import logging
-
-_logger = logging.getLogger(__name__)
 
 class ModelField(models.Model):
-    _inherit = "ir.model.fields"
+    _inherit = 'ir.model.fields'
 
-    #button to print subfields of this field for debugging (only on o2m, m2m, m2o)
-    def get_subfields(self):
-        submodel = self.relation #get the related model (STRING of the technical model name)
-
-        subfields = self.env["ir.model.fields"].search([("model_id.model","=",submodel)]) #get all fields where the field belongs to the submodel
-
-        m = "ALL Fields in sub-model " + submodel + ": "
-        for field in subfields:
-            m = m + field.name + ", "
-        print(m)
-
-
-    # is called to open the "view fields" form on sub-fields
-    def open_form(self):
-        #Adds a new variable to the context to keep track of the hierarchy of subfields so we can add it
-        # is like this: [ top_model_id, second_model_id, third_model_id, etc ]
-
+    def view_subfields(self):
         ctx = self.env.context.copy()
-        if "field_tree" in ctx:
-            ctx["field_tree"].append(self.id)
+        # Update the field_path by adding the selected field and adding '.' as a separator
+        if 'field_path' in ctx:
+            ctx['field_path'] += '.' + self.name
         else:
-            ctx["field_tree"] = [self.id]
-            
+            ctx['field_path'] = self.name
+
         return {
-            'name': 'Fields',
             'name': self.field_description,
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'res_model': 'ir.model.fields',
-            'domain': [('model_id', '=', self.relation)],
+            'domain': [('model', '=', self.relation)],
             'view_mode': 'tree',
-            'target': 'current',
-            'res_id' : self.id,
-            'context' : ctx
+            'target': 'new',
+            'res_id': self.id,
+            'context': ctx
         }
 
-    def context(self):
-        print(self.env.context)
-        
-    def add(self):
-        print("Add button pressed on " + self.field_description)
-        if "field_tree" in self.env.context:
-            m="FIELD TREE: "
-            for model_id in self.env.context["field_tree"]:
-                m = m + self.env["ir.model.fields"].browse(model_id)[0].field_description + "/"
-            print(m)
-        print(self.env)
+    def create_edi_tag(self):
+        ctx = self.env.context.copy()
+        # Update the field_path by adding the selected field and adding '.' as a separator
+        if 'field_path' in ctx:
+            ctx['field_path'] += '.' + self.name
+        else:
+            ctx['field_path'] = self.name
 
-        
+        ctx['field_id'] = self.id
+        # Create a dictionary with relevant values to call the create() method and make a new EDI Tag record
+        vals = {
+            'field_path': ctx['field_path'],
+            'field_id': ctx['field_id'],
+        }
+        # If the EDI Tag to make is a child of another, update the parent ID, and remove the parent's field_path from
+        # the tag to make
+        if 'parent_edi_tag' in self._context:
+            vals['parent_tag_id'] = self._context['parent_edi_tag']
+            # Search for the parent EDI Tag object
+            parent_edi_tag = self.env['edi.tag'].search([('id', '=', vals['parent_tag_id'])])
+            parent_path = parent_edi_tag.field_path + '.'
+            vals['field_path'] = vals['field_path'].replace(parent_path, '')
+            ctx['field_path'] = vals['field_path']
+        else:
+            # If the EDI Tag to make has no parent, assign the custom mapping
+            vals['custom_mapping'] = self._context['parent_mapping']
+
+        self.env['edi.tag'].create(vals)
+        # Search for the EDI Tag object just created and open the form view corresponding to it
+        edi_tag = self.env['edi.tag'].search([('field_path', '=', vals['field_path'])])
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'res_model': 'edi.tag',
+            'res_id': edi_tag.id,
+            'view_mode': 'form',
+            'target': 'new',
+            'flags': {'action_buttons': False},
+            'context': ctx,
+        }

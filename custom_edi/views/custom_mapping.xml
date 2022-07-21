@@ -15,6 +15,41 @@
         </record>
 
         <!-- form view -->
+<!--        <record model="ir.ui.view" id="custom_mapping_view_form">-->
+<!--            <field name="name">edi2.custom.mapping.form</field>-->
+<!--            <field name="model">edi2.custom.mapping</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Custom Mappings">-->
+<!--                    <sheet>-->
+<!--                        <h1><field name="name"/></h1>-->
+<!--                        <group>-->
+<!--                            <field name="model"/>-->
+<!--                            <field name="root_tag"/>-->
+<!--                            <field name="record_tag"/>-->
+<!--                            <field name="record_document_mode"/>-->
+<!--                            &lt;!&ndash;<span class="o_many2one_field"/>&ndash;&gt;-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="edi_tag" widget="one2many" string="Fields to Export">-->
+<!--                                <tree>-->
+<!--                                    <field name="xml_tag"/>-->
+<!--                                    <field name="is_static"/>-->
+<!--                                    <field name="field_id"/>-->
+<!--                                    &lt;!&ndash;<field name="ttype"/>-->
+<!--                                    <field name="relation"/>&ndash;&gt;-->
+<!--                                    <field name="field_path"/>-->
+<!--                                    <field name="number_of_children"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+<!--                    </sheet>-->
+<!--                    <button name="export" type="object" string="Export"/>-->
+<!--                    <button name="log_field_data" type="object" string="Log Data"/>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- form view -->
         <record model="ir.ui.view" id="custom_mapping_view_form">
             <field name="name">edi2.custom.mapping.form</field>
             <field name="model">edi2.custom.mapping</field>
@@ -24,27 +59,16 @@
                         <h1><field name="name"/></h1>
                         <group>
                             <field name="model"/>
+                            <field name="description"/>
                             <field name="root_tag"/>
                             <field name="record_tag"/>
                             <field name="record_document_mode"/>
-                            <!--<span class="o_many2one_field"/>-->
                         </group>
                         <group>
-                            <field name="edi_tag" widget="one2many" string="Fields to Export">
-                                <tree>
-                                    <field name="xml_tag"/>
-                                    <field name="is_static"/>
-                                    <field name="field_id"/>
-                                    <!--<field name="ttype"/>
-                                    <field name="relation"/>-->
-                                    <field name="field_tree"/>
-                                    <field name="number_of_children"/>
-                                </tree>
-                            </field>
+                            <field name="edi_tag"/>
                         </group>
+                        <button name="add_edi_tag" type="object" string="Add New EDI Tag"/>
                     </sheet>
-                    <button name="export" type="object" string="Export"/>
-                    <button name="log_field_data" type="object" string="Log Data"/>
                 </form>
             </field>
         </record>

@@ -36,10 +36,10 @@ class CustomMapping(models.Model):
     description = fields.Text(string="Description")
 
     # one mapping can only use one model, but one model may be in many mappings :)
-    model = fields.Many2one(comodel_name="ir.model", string="Model",
+    model = fields.Many2one(comodel_name="ir.model", string="Base Model",
                             help="Select the model whose records you wish to export to the xml document.")
 
-    edi_tag = fields.One2many(comodel_name='edi.tag', inverse_name='custom_mapping')
+    edi_tag = fields.One2many(comodel_name='edi.tag', inverse_name='custom_mapping', string="EDI Tags")
 
 
     # method I wrote to test the ability to access field data of all records of a model
@@ -117,10 +117,6 @@ class CustomMapping(models.Model):
                 file.write(ET.tostring(root, pretty_print=True))
 
         return
-    
-
-
-
 
     def add_tag(self, root, tag, record):
         # Populates the ET Element `root` with whatever data is supposed to go in it as specified by the `tag`, using field data from `record`
@@ -134,9 +130,9 @@ class CustomMapping(models.Model):
         this_value = False
         name_path = ""
 
-        if tag.field_tree: # If a field tree is set
-            path = tag.field_tree.split("/") # path is now a list of field names in order, ie ['field1','field2']
-            name_path = tag.field_tree #for printing
+        if tag.field_path: # If a field tree is set
+            path = tag.field_path.split("/") # path is now a list of field names in order, ie ['field1','field2']
+            name_path = tag.field_path #for printing
 
             #get the field object
             this_field = self.env["ir.model.fields"].search([("model_id.model","=",self.model.model),("name","=",path[0])])
@@ -233,10 +229,6 @@ class CustomMapping(models.Model):
 
         return
 
-
-
-
-
     def add_children_tags(self, root, parent_tag, record):
         # Adds the children tags of `parent_tag` to the document, inside element `root`, and calls add_tag for each one
         #
@@ -248,3 +240,18 @@ class CustomMapping(models.Model):
             new_child_tag = ET.SubElement(root, child_tag_id.xml_tag)
             self.add_tag(new_child_tag, child_tag_id, record)
         return
+
+    def add_edi_tag(self):
+        ctx = self.env.context.copy()
+        # Pass in the custom mapping ID to associate the EDI Tag to it upon creation
+        ctx["parent_mapping"] = self.id
+        return {
+            'name': self.model.model,
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'res_model': 'ir.model.fields',
+            'domain': [('model', '=', self.model.model)],
+            'view_mode': 'tree',
+            'target': 'new',
+            'context': ctx,
+        }
