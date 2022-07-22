@@ -1,0 +1,150 @@
+
+.o_survey_form, .o_survey_print, .o_survey_session_manage, .o_survey_quick_access {
+    .o_survey_question_success {
+        height: 0px;
+        transition: height .5s ease;
+        line-height: 4rem;
+        &.slide_in {
+            height: auto;
+        }
+        white-space: pre-line;
+    }
+
+    .o_survey_question_info {
+        height: 0px;
+        transition: height .5s ease;
+        line-height: 4rem;
+        &.slide_in {
+            height: auto;
+        }
+        white-space: pre-line;
+    }
+
+    .o_survey_question_error {
+        height: 0px;
+        transition: height .5s ease;
+        line-height: auto;
+        &.slide_in {
+            height: auto;
+        }
+    }
+
+    fieldset[disabled] {
+        .o_survey_question_text_box,
+        .o_survey_question_date,
+        .o_survey_question_datetime,
+        .o_survey_question_numerical_box {
+            padding-left: 0px;
+        }
+    }
+
+    .o_survey_question_text_box,
+    .o_survey_question_date,
+    .o_survey_question_datetime,
+    .o_survey_question_numerical_box {
+        border: 0px;
+        border-bottom: 1px solid $primary;
+        &:disabled {
+            color: black !important;
+            border-color: $gray-600;
+            border-bottom: 1px solid $gray-600;
+        }
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    .o_survey_form_date .input-group-append {
+        right: 0;
+        bottom: 5px;
+        top: auto;
+    }
+
+    .o_survey_choice_btn {
+        transition: background-color 0.3s ease;
+        flex: 1 0 300px;
+        color: $primary;
+
+        span {
+            line-height: 25px;
+        }
+        i {
+            top: 0px;
+            font-size: large;
+            &.fa-check-circle,&.fa-check-square {
+                display: none;
+            }
+        }
+
+        &.o_survey_selected i {
+            display: none;
+            &.fa-check-circle,&.fa-check-square {
+                display: inline;
+            }
+        }
+    }
+
+    input::placeholder, textarea::placeholder {
+        font-weight: 300;
+    }
+
+    .o_survey_page_per_question.o_survey_simple_choice.o_survey_minimized_display,
+    .o_survey_page_per_question.o_survey_multiple_choice.o_survey_minimized_display,
+    .o_survey_page_per_question.o_survey_numerical_box,
+    .o_survey_page_per_question.o_survey_date,
+    .o_survey_page_per_question.o_survey_datetime {
+        // 'pixel perfect' layouting for choice questions having less than 5 choices in page_per_question mode
+        // we use media queries instead of bootstrap classes because they don't provide everything needed here
+        @media (min-width: 768px) {
+            width: 50%;
+            position: relative;
+            left: 25%;
+        }
+    }
+
+    .o_survey_question_matrix {
+        td {
+            min-width: 100px;
+            i {
+                font-size: 22px;
+                display: none;
+                &.o_survey_matrix_empty_checkbox {
+                    display: inline;
+                }
+            }
+            .o_survey_choice_key {
+                left: 10px;
+                right: auto;
+                top: 12px;
+                > span > span {
+                    top: 0px;
+                }
+            }
+
+            &.o_survey_selected {
+                i {
+                    display: inline;
+                    &.o_survey_matrix_empty_checkbox {
+                        display: none;
+                    }
+                }
+            }
+        }
+        thead {
+            th:first-child {
+                border-top-left-radius: .25rem;
+            }
+            th:last-child {
+                border-top-right-radius: .25rem;
+            }
+        }
+        tbody tr:last-child {
+            th {
+                border-bottom-left-radius: .25rem;
+            }
+            td:last-child {
+                border-bottom-right-radius: .25rem;
+            }
+        }
+    }
+}
