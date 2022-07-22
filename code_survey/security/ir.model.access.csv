@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_survey_question_argument_all,survey.question.arguments.all,model_survey_question_argument,base.group_user,0,0,0,0
+access_survey_question_argument_survey_user,survey.question.arguments.survey.user,model_survey_question_argument,survey.group_survey_user,1,1,1,1
+access_survey_question_argument_survey_manager,survey.question.arguments.survey.manager,model_survey_question_argument,survey.group_survey_manager,1,1,1,1
+access_survey_question_test_all,survey.question.test.all,model_survey_question_test,base.group_user,0,0,0,0
+access_survey_question_test_survey_user,survey.question.test.survey.user,model_survey_question_test,survey.group_survey_user,1,1,1,1
+access_survey_question_test_survey_manager,survey.question.test.survey.manager,model_survey_question_test,survey.group_survey_manager,1,1,1,1

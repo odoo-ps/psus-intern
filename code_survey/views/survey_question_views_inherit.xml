@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="survey_question_form_inherit" model="ir.ui.view">
+        <field name="name">survey.question.form.inherit</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form"/>
+        <field name="arch" type="xml">
+
+            <div class="col-lg-6 offset-lg-3 o_preview_questions" position="inside">
+                <div attrs="{'invisible': [('question_type', '!=', 'code_box')]}">
+                    <i class="fa fa-align-justify fa-4x" role="img" aria-label="Code Text box" title="Code Text box"/>
+                </div>
+            </div>
+
+            <xpath expr="//notebook/page/div/div[hasclass('col-6')][1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('question_type', 'not in', ['numerical_box', 'date', 'datetime', 'code_box'])]}</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page/div/div[hasclass('col-6')][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('scoring_type', '=', 'no_scoring'), ('question_type', 'not in', ['numerical_box', 'date', 'datetime', 'code_box'])]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='validation_required']" position="attributes">
+                <attribute name="attrs">{'readonly': [('question_type', '=', 'code_box')]}</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page/div/div[hasclass('col-6')][2]/group" position="inside">
+                <field name="answer_code_box" string="Correct Answer" attrs="{'invisible': [('question_type', '!=', 'code_box')]}"></field>
+                <field name="function_name" string="Function Name"></field>
+                <field name="code_exec_time_limit" string="Execution Time Limit (s)" attrs="{'invisible': [('question_type', '!=', 'code_box')]}"></field>
+            </xpath>
+
+            <xpath expr="//page[@name='answers']" position="inside">
+                <group>
+                    <field name="argument_ids" attrs="{'invisible': [('question_type', '!=', 'code_box')]}">
+                        <tree string="Arguments" editable="bottom">
+                            <field name="name"/>
+                            <field name="type"/>
+                        </tree>
+                    </field>
+                </group>
+
+                <group>
+                    <field name="test_ids" attrs="{'invisible': [('question_type', '!=', 'code_box')]}">
+                        <tree string="Tests" editable="bottom">
+                            <field name="input_"/>
+                            <field name="output"/>
+                            <field name="is_hidden"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
