@@ -10,7 +10,7 @@ class ApiConnection(models.Model):
     name = fields.Char(string='Name', required=True)
     url = fields.Char(string='URL', required=True)
     method = fields.Selection(
-        selection=[('get', 'GET'), ('post', 'POST')],
+        selection=[('get', 'GET'), ('post', 'POST'),('put','PUT')],
         string='Method',
         default='get',
         required = True

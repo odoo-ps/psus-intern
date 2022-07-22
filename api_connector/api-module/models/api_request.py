@@ -12,9 +12,14 @@ class ApiRequest(models.Model):
         url, params, headers = itemgetter('url', 'params', 'headers')(api_config)
         return requests.get(url, params=params, headers=headers, timeout=10)
         
-
     @api.model
     def post(self, api_config):
         url, params, headers, local_payload = itemgetter('url','params', 'headers', 'local_payload')(api_config)
         response = requests.post(url, params=params, headers=headers, data=local_payload)
+        return response
+
+    @api.model
+    def put(self, api_config):
+        url, params, headers, local_payload = itemgetter('url', 'params', 'headers', 'local_payload')(api_config)
+        response = requests.put(url, headers=headers, params=params, data=local_payload)
         return response
