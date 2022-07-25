@@ -79,10 +79,12 @@
     <record id="api_log_lines_action" model="ir.actions.act_window">
         <field name="name">API Logs</field>
         <field name="res_model">log.lines</field>
-        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="api_logs_view_search"/>
         <field name="context">{'search_default_group_by_Api': 1, 'display_complete': True}</field>
-
+        <field name='help' type='html'>
+            <p class="o_view_nocontent_smiling_face">No logs Yet</p>
+       </field>
     </record>
 
 

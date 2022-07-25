@@ -31,6 +31,7 @@ class BaseAutomation(models.Model):
                 api_response.status_code = 400
         
         action._generate_log(method, api_config['url'], api_response)
+        self.env['api.response']._map_model(action.model_id, api_response)
 
     def _get_api_configuration(self, action):
         api_confg_fields = {

@@ -5,9 +5,7 @@ import requests
 import xml.etree.ElementTree as ET
 from odoo.tools.safe_eval import safe_eval, test_python_expr
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-
-from odoo import api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 class IrActionsServer(models.Model):
@@ -102,11 +100,13 @@ class IrActionsServer(models.Model):
             eval_context.update({
                 'response': json.loads(api_response.text),
             })
-            self._check_python_code()
-            self._run_action_code_multi(eval_context)
+            super(IrActionsServer, self)._check_python_code()
+            super(IrActionsServer, self)._run_action_code_multi(eval_context)
         except Exception as e:
-            raise UserError(
-                "Ups! Something went wrong", e)
+            
+            raise UserError(e)
+            
+    
 
     def _generate_log(self, method, url, response):
    

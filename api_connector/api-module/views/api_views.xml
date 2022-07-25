@@ -33,6 +33,17 @@
                                     <field name="json_headers" />
                                 </group>
                             </form>
+                            <!-- <form>
+                                <group>
+                                    <field name="response_ids">
+                                        <tree string="Response Mapping" editable="bottom">
+                                            <field name="key" />
+                                            <field name="model_value" />
+                                        </tree>
+                                    </field>
+                                    <field name="response_ids" />
+                                </group>
+                            </form> -->
                         </page>
                     </notebook>
                 </sheet>

@@ -50,6 +50,12 @@
                         </field>
                     </group>
                 </page>
+                <page name="Map Response" string="Response mapping" attrs="{'invisible':[('state','!=','api_call')]}" autofocus="autofocus">
+                    <group name="Response Manage">
+                        <h4>Map response in here</h4>
+                    </group>
+                    
+                </page>
                 <page name="Response" string="Response" attrs="{'invisible':[('state','!=','api_call')]}" autofocus="autofocus">
                     <group name="Response Manage">
                         <h4>Manage response in here</h4>
