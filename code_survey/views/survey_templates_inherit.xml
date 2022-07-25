@@ -9,21 +9,9 @@
 
     <template id="question_code_box" name="Question: code box">
         <div class="o_survey_comment_container p-0">
-            <style>
-                textarea[is="highlighted-code"] { padding: 18px; width:1200px; }
-            </style>
             <textarea is="highlighted-code" language="python" t-att-name="question.id" rows='3'
             t-att-data-question-type="question.question_type"><t t-if="question.function_template != '' and not isTest and not answer_lines"><t t-esc="question.function_template"/></t><t t-if="isTest" t-out="valueTextArea"/>
                 <t t-if="answer_lines" t-esc="answer_lines[0].value_code_box or None"/></textarea>
-            <script type="module">
-            (async ({}) => {
-                
-            const {default: HighlightedCode} =
-                await import('https://unpkg.com/highlighted-code');
-            
-            HighlightedCode.useTheme('monokai-sublime'); // Themes --> https://github.com/highlightjs/highlight.js/tree/main/src/styles
-            })(self);
-            </script>
         </div>
     </template>
 

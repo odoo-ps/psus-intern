@@ -1,9 +1,13 @@
+textarea[is="highlighted-code"] { 
+    width: 100%;
+    padding: 18px;
+    height: auto !important;
+}
 
 .o_survey_form, .o_survey_print, .o_survey_session_manage, .o_survey_quick_access {
     .o_survey_question_success {
         height: 0px;
         transition: height .5s ease;
-        line-height: 4rem;
         &.slide_in {
             height: auto;
         }
