@@ -9,8 +9,8 @@
 
     <template id="question_code_box" name="Question: code box">
         <textarea is="highlighted-code" language="python" t-att-name="question.id" rows="3"
-            t-att-data-question-type="question.question_type"><t t-if="question.function_template != '' and not isTest and not answer_lines" 
-            t-esc="question.function_template"/><t t-if="isTest" t-out="valueTextArea"/><t t-if="answer_lines"
+            t-att-data-question-type="question.question_type"><t t-if="question.function_template != '' and not is_test and not answer_lines" 
+            t-esc="question.function_template"/><t t-if="is_test" t-out="valueTextArea"/><t t-if="answer_lines"
             t-esc="answer_lines[0].value_code_box or None"/></textarea>
     </template>
 
@@ -37,7 +37,7 @@
     <template id="question_container_inherit" inherit_id="survey.question_container" name="Question Container Inherit">
         <t t-if="question.question_type == 'matrix'" position="after">
             <t t-if="question.question_type == 'code_box'"><t t-call="code_survey.question_code_box"/></t>
-            <div t-att-class="'o_survey_question_success overflow-hidden border-0 py-0 px-3 alert alert-success %s' % ('slide_in' if isTest else '')" role="alert">
+            <div t-att-class="'o_survey_question_success overflow-hidden border-0 py-0 px-3 alert alert-success %s' % ('slide_in' if is_test else '')" role="alert">
                 <p t-out="question.value_test_code"></p>
             </div>
         </t>    

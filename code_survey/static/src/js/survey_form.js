@@ -27,7 +27,7 @@ odoo.define('survey.form_inherit', function (require) {
         _onTest: function (event) {
             event.preventDefault();
             var options = {};
-            options.isTest = true;
+            options.is_test = true;
             this._submitForm(options);
         },
 
@@ -47,15 +47,15 @@ odoo.define('survey.form_inherit', function (require) {
         * @param {Boolean} [options.initTime] will force the re-init of the timer after next
         *   screen transition
         * @param {Boolean} [options.isFinish] fades out breadcrumb and timer
-        * @param {Boolean} [options.isTest] used to Test the input code
+        * @param {Boolean} [options.is_test] used to Test the input code
         * @private
         */
         _submitForm: function (options) {
             var self = this;
             var params = {};
 
-            if (options.isTest){
-                params.isTest = options.isTest;
+            if (options.is_test){
+                params.is_test = options.is_test;
             }
 
             if (options.previousPageId) {
@@ -113,7 +113,7 @@ odoo.define('survey.form_inherit', function (require) {
             var self = this;
             formData.forEach(function (value, key) {
                 switch (key) {
-                    case 'isTest':
+                    case 'is_test':
                     case 'csrf_token':
                     case 'token':
                     case 'page_id':
@@ -220,7 +220,7 @@ odoo.define('survey.form_inherit', function (require) {
         }
         else if (result && result.fields && result.error === 'validation') {
             this.$('.o_survey_form_content').fadeIn(0);
-            if (options.isTest){
+            if (options.is_test){
                 this.$('.o_survey_question_success').removeClass("slide_in")
             }
             this._showErrors(result.fields);

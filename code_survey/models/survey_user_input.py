@@ -14,7 +14,7 @@ class SurveyUserInput(models.Model):
     def _signal_handler(self, signum, frame):
         raise Exception("Your proposed solution timed out.")
 
-    def _fetch_tests(self, question, isTest=False):
+    def _fetch_tests(self, question, is_test=False):
         #comes from the controller:
         if isinstance(question, str):
             question = self.env['survey.question'].search([
@@ -22,7 +22,7 @@ class SurveyUserInput(models.Model):
             ])
         test_dict = {}
         for test in question.test_ids:
-            if isTest and test.is_hidden:
+            if is_test and test.is_hidden:
                 continue
             #TODO check datatype (not always integers)
             arg_tuple = tuple([int(i) for i in test.input_.split(',')])
@@ -71,7 +71,7 @@ class SurveyUserInput(models.Model):
         return Solution()
         
     def test_code(self, question, answer):
-        test_dict = self._fetch_tests(question, isTest=True)
+        test_dict = self._fetch_tests(question, is_test=True)
         code_obj_config = safe_compile.safe_compile(answer)
         solution = self.build_solution_class(question, code_obj_config)
         test_no = 1

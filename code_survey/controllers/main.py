@@ -53,7 +53,7 @@ class SurveyInherit(Survey):
             answer, comment = self._extract_comment_from_answers(question, post.get(str(question.id)))
             errors.update(question.validate_question(answer, comment))
             if not errors.get(question.id):
-                if('isTest' in post):
+                if('is_test' in post):
                     errors.update(answer_sudo.test_code(question, answer))
                     if not errors.get(question.id):
                         return self._prepare_question_html(survey_sudo, answer_sudo, **post)
@@ -86,7 +86,7 @@ class SurveyInherit(Survey):
         survey_data = self._prepare_survey_data(survey_sudo, answer_sudo, **post)
 
         survey_data.update({
-            'isTest': post.get('isTest'),
+            'is_test': post.get('is_test'),
             'valueTextArea': post.get(post.get('question_id')),
         })
         
