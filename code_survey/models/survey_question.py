@@ -1,4 +1,3 @@
-from email.policy import default
 import traceback
 from odoo import api, fields, models, _
 from ..tools import safe_compile
@@ -15,7 +14,7 @@ class SurveyQuestion(models.Model):
 	test_ids = fields.One2many('survey.question_test', 'question_id')
 	code_exec_time_limit = fields.Integer('Execution Time limit (s)', default=4)
 	validation_error_msg = fields.Char('Validation Error message', compute='_compute_validation_error_msg',translate=True, default=lambda self: _("The answer you entered is not valid."))
-	validation_required = fields.Boolean('Validate Entry', compute='_compute_validation_required', default=lambda self: False)
+	validation_required = fields.Boolean('Validate Entry', compute='_compute_validation_required', default=False)
 	value_test_code = fields.Char('Code test')
 
 	@api.depends('question_type')
