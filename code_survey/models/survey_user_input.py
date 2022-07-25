@@ -1,6 +1,9 @@
 import traceback
 from types import FunctionType
+from ..tools import safe_compile
+import logging
 from odoo import api, fields, models, _
+
 
 class SurveyUserInput(models.Model):
     _inherit = 'survey.user_input'
@@ -36,8 +39,17 @@ class SurveyUserInput(models.Model):
             error = traceback.format_exc()
         return code_output, error
 
-    def compile_code(self, question, code, mode="exec"):
-        code_obj = compile(code, "<string>", mode)
+    def build_solution_class(self, question, code_obj_config):
+        code_obj = code_obj_config['code_obj']
+        if 'Solution' not in code_obj.co_consts:
+            raise ValueError('Class named "Solution" not provided.')
+
+        for name in code_obj.co_names:
+            try:
+                code_obj_config['globals_dict'][f'{name}'] = safe_compile._import(name, code_obj_config['globals_dict'])
+            except ImportError:
+                continue
+
         main_method_name = question.function_name
         #wrap everything in a class (Solution)
         solution_class_name_index = code_obj.co_consts.index('Solution') - 1
@@ -50,20 +62,18 @@ class SurveyUserInput(models.Model):
             class_obj_name = code_obj.co_names[-1] + '.' + name
             if class_obj_name in code_obj.co_consts[solution_class_name_index].co_consts:
                 name_ind = code_obj.co_consts[solution_class_name_index].co_consts.index(class_obj_name) - 1
-                #FIXME globals() is NOT SAFE. do tread carefully here
-                methods[name] = FunctionType(code_obj.co_consts[solution_class_name_index].co_consts[name_ind], globals(), name)
+                methods[name] = FunctionType(code_obj.co_consts[solution_class_name_index].co_consts[name_ind], code_obj_config['globals_dict'], name)
 
         Solution = type("Solution",
                     (),
                     methods)
             
-        sol = Solution()
-        return sol
-
+        return Solution()
+        
     def test_code(self, question, answer):
         test_dict = self._fetch_tests(question, isTest=True)
-        solution = self.compile_code(question, answer)
-
+        code_obj_config = safe_compile.safe_compile(answer)
+        solution = self.build_solution_class(question, code_obj_config)
         test_no = 1
         self.value_test_code = ''
 
@@ -85,8 +95,10 @@ class SurveyUserInput(models.Model):
 
         if question.question_type in ['char_box', 'text_box', 'numerical_box', 'date', 'datetime', 'code_box']:
             if question.question_type == 'code_box':
+                #careful, this is a dictionary
+                code_obj_config = safe_compile.safe_compile(answer)
                 test_dict = self._fetch_tests(question)
-                solution = self.compile_code(question, answer)
+                solution = self.build_solution_class(question, code_obj_config)
                 correct = 0
                 test_no = 1
                 self.value_test_code = ''
