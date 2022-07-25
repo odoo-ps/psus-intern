@@ -1,3 +1,4 @@
+from email.policy import default
 import traceback
 from odoo import api, fields, models, _
 from ..tools import safe_compile
@@ -14,7 +15,7 @@ class SurveyQuestion(models.Model):
 	test_ids = fields.One2many('survey.question_test', 'question_id')
 	code_exec_time_limit = fields.Integer('Execution Time limit (s)', default=4)
 	validation_error_msg = fields.Char('Validation Error message', compute='_compute_validation_error_msg',translate=True, default=lambda self: _("The answer you entered is not valid."))
-	validation_required = fields.Boolean('Validate Entry', compute='_compute_validation_required')
+	validation_required = fields.Boolean('Validate Entry', compute='_compute_validation_required', default=lambda self: False)
 	value_test_code = fields.Char('Code test')
 
 	@api.depends('question_type')
@@ -22,27 +23,20 @@ class SurveyQuestion(models.Model):
 		for question in self:
 			if question.question_type == 'code_box':
 				question.validation_required = True
-			else:
-				question.validation_required = False
 
 	@api.depends('validation_required', 'question_type', 'argument_ids', 'function_name')
 	def _compute_validation_error_msg(self):
 		for question in self:
 			if question.question_type == 'code_box':
 				question.validation_error_msg = _("The function must be named '%s' and must have %s arguments.", question.function_name, len(question.argument_ids))
-			else:
-				question.validation_error_msg = _("The answer you entered is not valid.")
 
 	@api.depends('question_type', 'scoring_type', 'answer_date', 'answer_datetime', 'answer_numerical_box', 'answer_code_box')
 	def _compute_is_scored_question(self):
 		super()._compute_is_scored_question()
 		for question in self.filtered(lambda q: (q.question_type == 'code_box')):
 			if not question.is_scored_question:
-				if question.answer_code_box:
-					question.is_scored_question = True
-				else:
-					question.is_scored_question = False
-
+				question.is_scored_question = True if question.answer_code_box else False
+				
 	@api.depends('argument_ids', 'function_name')
 	def _compute_function_template(self):
 		for question in self.filtered(lambda q: (q.question_type == 'code_box')):
@@ -52,7 +46,6 @@ class SurveyQuestion(models.Model):
 				comma = '' if arg_counter + 1 == len(question.argument_ids) else ', '
 				question.function_template += arg.name + comma
 				arg_counter += 1
-
 			question.function_template += '):\n\t\treturn None'
 
 	def validate_question(self, answer, comment=None):

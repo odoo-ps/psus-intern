@@ -28,7 +28,6 @@
     .o_survey_question_error {
         height: 0px;
         transition: height .5s ease;
-        line-height: auto;
         &.slide_in {
             height: auto;
         }
