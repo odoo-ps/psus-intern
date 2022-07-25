@@ -2,6 +2,8 @@ import json
 import requests
 import xml.etree.ElementTree as ET
 
+import pdb
+
 from odoo import models
 
 
@@ -16,22 +18,27 @@ class BaseAutomation(models.Model):
             ET.XML(action._render_template_qweb(action.resource_ref)))) if action.is_xml(action.payload) else None
         method = api_config['method']
         api_response = requests.Response()
+        type_of_requests = {
+            'get': api_request.get,
+            'post': api_request.post,
+            'put': api_request.put,
+            'patch': api_request.patch,
+            'delete': api_request.delete,
+        }
         try:
-            if method == 'get':
-                api_response = api_request.get(api_config)
-            if method == 'post':
-                api_response = api_request.post(api_config)  
-        except Exception as e:
-            print(type(e))
-            if isinstance(e, requests.exceptions.ConnectionError) or isinstance(e, requests.exceptions.Timeout):
-                api_response.raw = e
-                api_response.status_code = 500
-            if isinstance(e, requests.exceptions.MissingSchema):
-                api_response.raw = e
-                api_response.status_code = 400
+            api_response = type_of_requests[method](api_config)
+        except requests.exceptions.MissingSchema as e:
+            api_response.status_code = 400
+            api_response.raw = e
+        except requests.exceptions.Timeout as e:
+            api_response.status_code = 408
+            api_response.raw = e
+        except requests.exceptions.ConnectionError as e:
+            api_response.status_code = 500
+            api_response.raw = e
         
         action._generate_log(method, api_config['url'], api_response)
-
+    
     def _get_api_configuration(self, action):
         api_confg_fields = {
             'url': action.api_connection_id.url,

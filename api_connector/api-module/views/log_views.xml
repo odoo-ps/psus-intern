@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="api_logs_view_form" model="ir.ui.view">
+        <field name="name">api.logs.view.form</field>
+        <field name="model">log.lines</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <sheet>
+                    <h2>Logs</h2>
+                    <group>
+                        <group>
+                            <field name="create_date" />
+                            <field name="call" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="response" />
+                            <field name="status" />
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="api_logs_view_tree" model="ir.ui.view">
+        <field name="name">api.logs.view.tree</field>
+        <field name="model">log.lines</field>
+        <field name="arch" type="xml">
+            <tree string="logs">
+                <field name="create_date" />
+                <field name="call" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="api_log_lines_action" model="ir.actions.act_window">
+        <field name="name">API Logs</field>
+        <field name="res_model">log.lines</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('api-module.api_logs_view_tree')})]"/>
+        <!-- <field name="search_view_id" ref="covalentis_product_tmpl_tag_fields.product_tmpl_coo_view_search"/> -->
+    </record>
+
+    <menuitem id="api_log_lines_menu_item" action="api_log_lines_action" parent="base.menu_automation" sequence="4" />
+
+</odoo>
