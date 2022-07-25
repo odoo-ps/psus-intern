@@ -10,6 +10,19 @@ odoo.define('survey.form_inherit', function (require) {
             'click button[type="submit"]': '_onSubmit',
             'click button[type="test"]': '_onTest',
         },
+
+        //--------------------------------------------------------------------------
+        // Widget
+        //--------------------------------------------------------------------------
+        /**
+        * @override
+        */
+        start: function () {
+            var self = this;
+            return this._super.apply(this, arguments).then(function () {
+                self._highlightTextArea();
+            });
+        },
         
         _onTest: function (event) {
             event.preventDefault();
@@ -216,7 +229,17 @@ odoo.define('survey.form_inherit', function (require) {
             $errorTarget.removeClass("d-none");
             this._scrollToError($errorTarget);
         }
-    },
+        },
+
+        _highlightTextArea: function () {
+            (async ({}) => {
+                
+                const {default: HighlightedCode} =
+                    await import('https://unpkg.com/highlighted-code');
+                
+                HighlightedCode.useTheme('monokai-sublime');
+                })(self);
+        },
 
     }); 
 });

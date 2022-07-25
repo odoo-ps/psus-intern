@@ -2,11 +2,11 @@
 <odoo>
     <template id="survey_page_print_inherit" inherit_id="survey.survey_page_print" name="code_survey: print page">
         <t t-if="question.question_type == 'matrix'" position="after">
-            <t t-if="question.question_type == 'code_box'"><t t-call="code_survey.question_code_box"/></t>
-            <div class="o_survey_question_info overflow-hidden border-0 py-0 px-3 alert alert-info slide_in" role="alert">
+            <t t-if="question.question_type == 'code_box'"><t t-call="code_survey.question_code_box"/>
+             <div class="o_survey_question_info overflow-hidden border-0 py-0 px-3 alert alert-info slide_in" role="alert">
                 <p t-out="question.value_test_code"></p>
             </div>
+            </t>
         </t>
-
     </template>
 </odoo>

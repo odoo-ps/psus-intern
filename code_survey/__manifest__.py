@@ -24,7 +24,7 @@ Task: 2856501
   'assets':{
     'survey.survey_assets': [
         'code_survey/static/src/js/survey_form.js',
-        'code_survey/static/src/js/survey_templates.js',
+        'code_survey/static/src/js/survey_print.js',
         'code_survey/static/src/scss/survey_templates_form.scss',
   ],
   },
