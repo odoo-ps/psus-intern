@@ -6,7 +6,6 @@ from odoo.http import request
 from odoo.addons.survey.controllers.main import Survey  
 
 
-
 class SurveyInherit(Survey):
    
     @http.route('/survey/submit/<string:survey_token>/<string:answer_token>', type='json', auth='public', website=True)

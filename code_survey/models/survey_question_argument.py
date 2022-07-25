@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 
+
 class SurveyQuestionArgument(models.Model):
     _name = 'survey.question_argument'
 

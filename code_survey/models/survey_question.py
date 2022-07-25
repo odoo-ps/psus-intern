@@ -1,6 +1,6 @@
 import traceback
 from odoo import api, fields, models, _
-from odoo.tools import safe_eval
+from ..tools import safe_compile
 
 
 class SurveyQuestion(models.Model):
@@ -67,15 +67,17 @@ class SurveyQuestion(models.Model):
 			return res
 		
 	def _validate_code_box(self, answer):
-		code_obj = self._try_compilation(answer)
-		if isinstance(code_obj, dict):
-			return code_obj
-			#FIXME CAREFUL MY FRIEND. THIS CODE IS VERY DANGEROUS. 
-			#Expanding safe_eval functionality is 
-		# try:
-		# 	safe_eval.assert_valid_codeobj(safe_eval._SAFE_OPCODES, code_obj, answer)
-		# except ValueError:
-		# 	return {self.id: traceback.format_exc()}
+		"""
+		This code validates the user-provided code in the survey module
+		It only assures that the class is named correctly, methods are declared
+		"""
+		try:
+			code_obj_config = safe_compile.safe_compile(answer)
+		except (SyntaxError, IndentationError):
+			return {self.id: traceback.format_exc()}
+		code_obj = code_obj_config['code_obj']
+		if 'Solution' not in code_obj.co_consts:
+			return {self.id: self.validation_error_msg}
 		solution_class_name_index = code_obj.co_consts.index('Solution') - 1
 		solution_class_co_names = code_obj.co_consts[solution_class_name_index].co_names
 		if self.function_name not in solution_class_co_names:
@@ -85,10 +87,3 @@ class SurveyQuestion(models.Model):
 		if code_obj.co_consts[solution_class_name_index].co_consts[main_method_ind].co_argcount != (len(self.argument_ids) + 1):
 			return {self.id: self.validation_error_msg}
 		return {}
-
-	def _try_compilation(self, answer, mode='exec'):
-		try:
-			code_obj = compile(answer, "<string>", mode)
-		except:
-			return {self.id: traceback.format_exc()}
-		return code_obj
