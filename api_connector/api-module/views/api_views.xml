@@ -20,6 +20,14 @@
                                 </group>
                                 <group>
                                     <field name="method" />
+                                    <ul class="text-warning">
+                                        <li>
+                                            <small>Put Method is for update all data of a record in database.</small>
+                                        </li>
+                                        <li>
+                                            <small>Patch Method is for update some data of a record in database.</small>
+                                        </li>
+                                    </ul>
                                 </group>
                             </group>
                             <form>

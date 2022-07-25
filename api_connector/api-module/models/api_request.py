@@ -21,5 +21,27 @@ class ApiRequest(models.Model):
     @api.model
     def put(self, api_config):
         url, params, headers, local_payload = itemgetter('url', 'params', 'headers', 'local_payload')(api_config)
-        response = requests.put(url, headers=headers, params=params, data=local_payload)
+        url = self._format_url(url, params)
+        response = requests.put(url, headers=headers, data=local_payload)
         return response
+
+    @api.model
+    def patch(self, api_config):
+        url, params, headers, local_payload = itemgetter('url', 'params', 'headers', 'local_payload')(api_config)
+        url = self._format_url(url, params)
+        response = requests.patch(url, headers=headers, data=local_payload)
+        return response
+
+    @api.model
+    def delete(self, api_config):
+        url, params, headers = itemgetter('url', 'params', 'headers')(api_config)
+        url = self._format_url(url, params) if params else url
+        response = requests.delete(url, headers=headers)
+        return response
+
+    def _format_url(self, url, params):
+        if url.endswith('/'):
+            url = url[:-1]
+        for key in params:
+            url = url + '/%s' % params[key]
+        return url
